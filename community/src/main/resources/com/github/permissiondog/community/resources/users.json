@@ -1,0 +1,14 @@
+{
+    "idCount": 1,
+    "data": [
+        {
+            "id": 1,
+            "username": "root",
+            "password": "root123456",
+            "gender": "male",
+            "birthday": "2022-05-22",
+            "phone": "",
+            "Role": "ADMINISTRATOR"
+        }
+    ]
+}
