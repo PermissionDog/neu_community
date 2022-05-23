@@ -20,6 +20,9 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JPasswordField;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -91,26 +94,35 @@ public class LoginFrame extends JFrame {
 		button.setBounds(41, 0, 203, 35);
 		panel_2.add(button);
 		
-		LoginFrame lf = this;
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String username = userNameTextField.getText();
-				String password = new String(passwordField.getPassword());
-				try {
-					User u = UserController.getInstance().queryLogin(username, password);
-					if (u != null) {
-						AdminMainFrame frame = new AdminMainFrame(u);
-						frame.setVisible(true);
-						lf.dispose();
-					}
-				} catch (NoSuchUserException exception) {
-					JOptionPane.showMessageDialog(lf, "用户名错误", "错误", JOptionPane.ERROR_MESSAGE);
-				} catch (WrongPasswordException exception) {
-					JOptionPane.showMessageDialog(lf, "密码错误", "错误", JOptionPane.ERROR_MESSAGE);
+				login();
+			}
+		});
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					login();
 				}
 			}
 		});
-		// TODO: 监听键盘按下回车确认
+	}
+	private void login() {
+		String username = userNameTextField.getText();
+		String password = new String(passwordField.getPassword());
+		try {
+			User u = UserController.getInstance().queryLogin(username, password);
+			if (u != null) {
+				AdminMainFrame frame = new AdminMainFrame(u);
+				frame.setVisible(true);
+				this.dispose();
+			}
+		} catch (NoSuchUserException exception) {
+			JOptionPane.showMessageDialog(this, "用户名错误", "错误", JOptionPane.ERROR_MESSAGE);
+		} catch (WrongPasswordException exception) {
+			JOptionPane.showMessageDialog(this, "密码错误", "错误", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
