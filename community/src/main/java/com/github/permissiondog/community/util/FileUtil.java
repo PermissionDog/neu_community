@@ -8,16 +8,16 @@ import java.util.*;
 
 public class FileUtil {
 	/**
-	 * ¶ÁÈ¡ÎÄ¼ş
+	 * è¯»å–æ–‡ä»¶
 	 * 
-	 * @param fileName ÎÄ¼şÃû
-	 * @return ¶ÁÈëÎÄ±¾×Ö·û´®
+	 * @param fileName æ–‡ä»¶å
+	 * @return è¯»å…¥æ–‡æœ¬å­—ç¬¦ä¸²
 	 */
 	public static String readFile(String fileName) {
 		try {
 			return new String(Files.readAllBytes(Paths.get(fileName)), Charset.forName("utf-8"));
 		} catch (IOException e) {
-			System.out.println("¶ÁÈ¡ " + fileName + " Ê±³ö´í");
+			System.out.println("è¯»å– " + fileName + " æ—¶å‡ºé”™");
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -26,16 +26,16 @@ public class FileUtil {
 	
 	
 	/**
-	 * Ğ´ÈëÎÄ¼ş
+	 * å†™å…¥æ–‡ä»¶
 	 * 
-	 * @param fileName ÎÄ¼şÃû
-	 * @param fileData ÒªĞ´ÈëµÄÎÄ±¾Êı¾İ
+	 * @param fileName æ–‡ä»¶å
+	 * @param fileData è¦å†™å…¥çš„æ–‡æœ¬æ•°æ®
 	 */
 	public static void writeFile(String fileName, String fileData) {
 		try {
 			Files.writeString(Paths.get(fileName), fileData);
 		} catch (IOException e) {
-			System.out.println("Ğ´µ½ " + fileName + " Ê±³ö´í, Êı¾İ");
+			System.out.println("å†™åˆ° " + fileName + " æ—¶å‡ºé”™, æ•°æ®");
 			System.out.println(fileData);
 			e.printStackTrace();
 			System.exit(1);
@@ -47,7 +47,7 @@ public class FileUtil {
 		
 		try {
 			/*
-			 * ÕâÀïÈç¹ûÖ±½Ó×ª path »á±¨ java.nio.file.FileSystemNotFoundException
+			 * è¿™é‡Œå¦‚æœç›´æ¥è½¬ path ä¼šæŠ¥ java.nio.file.FileSystemNotFoundException
 			 * https://stackoverflow.com/a/22605905/14936035
 			 */
 			final Map<String, String> env = new HashMap<>();

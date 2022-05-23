@@ -17,25 +17,25 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	/**
-	 *	µÇÂ¼
+	 *	ç™»å½•
 	 *
-	 *	@param username ÓÃ»§Ãû
-	 *	@param password ÃÜÂë
+	 *	@param username ç”¨æˆ·å
+	 *	@param password å¯†ç 
 	 *
-	 *	@throws NoSuchUserException ÓÃ»§Ãû²»´æÔÚ
-	 *	@throws WrongPasswordException ÃÜÂë´íÎó
+	 *	@throws NoSuchUserException ç”¨æˆ·åä¸å­˜åœ¨
+	 *	@throws WrongPasswordException å¯†ç é”™è¯¯
 	 *
-	 *	@return µÇÂ¼³É¹¦·µ»ØÓÃ»§
+	 *	@return ç™»å½•æˆåŠŸè¿”å›ç”¨æˆ·
 	 */
 	@Override
 	public User login(String username, String password) throws WrongPasswordException, NoSuchUserException {
 		UserDao userDao = UserDaoImpl.getInstance();
 		User u = userDao.findUserByUserName(username);
-		//ÅĞ¶ÏÊÇ·ñÕÒµ½¸ÃÓÃ»§
+		//åˆ¤æ–­æ˜¯å¦æ‰¾åˆ°è¯¥ç”¨æˆ·
 		if (u == null) {
 			throw new NoSuchUserException();
 		}
-		//ÅĞ¶ÏÃÜÂë¹şÏ£ÖµÊÇ·ñÒ»ÖÂ
+		//åˆ¤æ–­å¯†ç å“ˆå¸Œå€¼æ˜¯å¦ä¸€è‡´
 		if (!u.getPassword().equals(Encrypt.encryptPassword(password))) {
 			throw new WrongPasswordException();
 		}

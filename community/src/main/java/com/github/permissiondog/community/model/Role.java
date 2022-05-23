@@ -1,7 +1,7 @@
 package com.github.permissiondog.community.model;
 
 public enum Role {
-	ADMINISTRATOR,		//����Ա
-	HOUSEKEEPER,		//���ݹ���Ա
-	LOGISTICS_MANAGER	//���ڹ���Ա
+	ADMINISTRATOR,		//管理员
+	HOUSEKEEPER,		//房屋管理员
+	LOGISTICS_MANAGER	//后勤管理员
 }

@@ -35,16 +35,16 @@ public class UserDaoImpl implements UserDao {
 		Table<User> userTable = new Table<>();
 		userTable.setIdCount(idCount);
 		userTable.setData(users.values());
-		//TODO: ²âÊÔÏÂÃæÒ»ĞĞ´úÂëÊÇ·ñ¿ÉÒÔÕı³£·´ĞòÁĞ»¯
+		//TODO: æµ‹è¯•ä¸‹é¢ä¸€è¡Œä»£ç æ˜¯å¦å¯ä»¥æ­£å¸¸ååºåˆ—åŒ–
 		String userJson = GsonUtil.gson.toJson(userTable);
 		FileUtil.writeFile(Constants.USER_TABLE_NAME, userJson);
 	}
 	
 	/**
-	 *	²éÕÒÓÃ»§
+	 *	æŸ¥æ‰¾ç”¨æˆ·
 	 *
-	 *	@param username ÓÃ»§Ãû
-	 *	@return ÕÒµ½µÄÓÃ»§, Èç¹ûÎ´ÕÒµ½·µ»Ø null
+	 *	@param username ç”¨æˆ·å
+	 *	@return æ‰¾åˆ°çš„ç”¨æˆ·, å¦‚æœæœªæ‰¾åˆ°è¿”å› null
 	 */
 	@Override
 	public User findUserByUserName(String username) {

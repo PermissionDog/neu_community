@@ -19,13 +19,13 @@ public class Main {
 			try {
 				Files.createDirectories(dataPath);
 			} catch (IOException e) {
-				System.out.println("´´½¨Êı¾İÎÄ¼ş¼Ğ³ö´í");
+				System.out.println("åˆ›å»ºæ•°æ®æ–‡ä»¶å¤¹å‡ºé”™");
 				e.printStackTrace();
 				System.exit(1);
 			}
 		}
 		if (!Files.isDirectory(dataPath)) {
-			System.out.println("Êı¾İÎÄ¼ş¼ĞÒÑ±»Õ¼ÓÃ");
+			System.out.println("æ•°æ®æ–‡ä»¶å¤¹å·²è¢«å ç”¨");
 			System.exit(1);
 		}
 		

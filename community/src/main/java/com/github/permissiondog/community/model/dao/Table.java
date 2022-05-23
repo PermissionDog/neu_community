@@ -3,15 +3,15 @@ package com.github.permissiondog.community.model.dao;
 import java.util.*;
 
 /**
- * JSON±í¸ñµÄÊµÌåÀà
+ * JSONè¡¨æ ¼çš„å®ä½“ç±»
  * 
  * @author PermissionDog
  *
- * @param <T> ±í¸ñÀàĞÍ
+ * @param <T> è¡¨æ ¼ç±»å‹
  */
 public class Table<T> {
-	private int idCount;	//ID×ÔÔöÖµ¼ÆÊı
-	private Collection<T> data;	//±í
+	private int idCount;	//IDè‡ªå¢å€¼è®¡æ•°
+	private Collection<T> data;	//è¡¨
 	
 	public int getIdCount() {
 		return idCount;

@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public class User {
 	private int id;					//ID
-	private String username;		//ÓÃ»§Ãû
-	private String name;			//ĞÕÃû
-	private String password;		//ÃÜÂëµÄhashÖµ
-	private Gender gender;			//ĞÔ±ğ
-	private LocalDate birthday;		//ÉúÈÕ
-	private String phone;			//µç»°
-	private Role role;				//ÓÃ»§½ÇÉ«(È¨ÏŞ)
+	private String username;		//ç”¨æˆ·å
+	private String name;			//å§“å
+	private String password;		//å¯†ç çš„hashå€¼
+	private Gender gender;			//æ€§åˆ«
+	private LocalDate birthday;		//ç”Ÿæ—¥
+	private String phone;			//ç”µè¯
+	private Role role;				//ç”¨æˆ·è§’è‰²(æƒé™)
 	
 	public int getId() {
 		return id;

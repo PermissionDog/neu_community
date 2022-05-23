@@ -57,23 +57,23 @@ public class LoginFrame extends JFrame {
 		contentPane.add(panel, gbc_panel);
 		
 		JLabel lblUsername = new JLabel("\u7528\u6237\u540D");
-		lblUsername.setFont(new Font("ËÎÌå", Font.PLAIN, 12));
+		lblUsername.setFont(new Font("å®‹ä½“", Font.PLAIN, 12));
 		lblUsername.setBounds(10, 10, 97, 42);
 		panel.add(lblUsername);
 		
 		userNameTextField = new JTextField();
-		userNameTextField.setFont(new Font("ËÎÌå", Font.PLAIN, 12));
+		userNameTextField.setFont(new Font("å®‹ä½“", Font.PLAIN, 12));
 		userNameTextField.setBounds(117, 20, 173, 22);
 		panel.add(userNameTextField);
 		userNameTextField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("\u5BC6\u7801");
-		lblPassword.setFont(new Font("ËÎÌå", Font.PLAIN, 12));
+		lblPassword.setFont(new Font("å®‹ä½“", Font.PLAIN, 12));
 		lblPassword.setBounds(10, 57, 97, 42);
 		panel.add(lblPassword);
 		
 		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("ËÎÌå", Font.PLAIN, 12));
+		passwordField.setFont(new Font("å®‹ä½“", Font.PLAIN, 12));
 		passwordField.setBounds(117, 68, 173, 22);
 		panel.add(passwordField);
 		
@@ -87,7 +87,7 @@ public class LoginFrame extends JFrame {
 		contentPane.add(panel_2, gbc_panel_2);
 		
 		JButton button = new JButton("\u767B\u5F55");
-		button.setFont(new Font("ËÎÌå", Font.PLAIN, 12));
+		button.setFont(new Font("å®‹ä½“", Font.PLAIN, 12));
 		button.setBounds(41, 0, 203, 35);
 		panel_2.add(button);
 		
@@ -105,12 +105,12 @@ public class LoginFrame extends JFrame {
 						lf.dispose();
 					}
 				} catch (NoSuchUserException exception) {
-					JOptionPane.showMessageDialog(lf, "\u7528\u6237\u540d\u9519\u8bef", "\u9519\u8bef", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(lf, "ç”¨æˆ·åé”™è¯¯", "é”™è¯¯", JOptionPane.ERROR_MESSAGE);
 				} catch (WrongPasswordException exception) {
-					JOptionPane.showMessageDialog(lf, "\u5bc6\u7801\u9519\u8bef", "\u9519\u8bef", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(lf, "å¯†ç é”™è¯¯", "é”™è¯¯", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		// TODO: ¼üÅÌ°´ÏÂ»Ø³µÈ·ÈÏ
+		// TODO: ç›‘å¬é”®ç›˜æŒ‰ä¸‹å›è½¦ç¡®è®¤
 	}
 }
