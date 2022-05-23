@@ -8,7 +8,7 @@
             "gender": "male",
             "birthday": "2022-05-22",
             "phone": "",
-            "Role": "ADMINISTRATOR"
+            "role": "administrator"
         }
     ]
 }
