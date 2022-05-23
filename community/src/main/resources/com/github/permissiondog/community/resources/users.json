@@ -4,6 +4,7 @@
         {
             "id": 1,
             "username": "root",
+            "name": "默认管理员",
             "password": "root123456",
             "gender": "male",
             "birthday": "2022-05-22",

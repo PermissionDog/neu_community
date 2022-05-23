@@ -14,4 +14,8 @@ public abstract class MainFrame extends JFrame {
 		this.user = user;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
 }

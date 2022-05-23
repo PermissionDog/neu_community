@@ -56,4 +56,14 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 	
+	/**
+	 *	获取所有用户
+	 *
+	 *	@return 所有用户
+	 */
+	@Override
+	public List<User> getAllUsers() {
+		return new ArrayList<>(users.values());
+	}
+	
 }

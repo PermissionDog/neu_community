@@ -5,13 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.github.permissiondog.community.controller.UserController;
-import com.github.permissiondog.community.exception.NoSuchUserException;
-import com.github.permissiondog.community.exception.WrongPasswordException;
-import com.github.permissiondog.community.model.User;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -102,7 +98,7 @@ public class LoginFrame extends JFrame {
 		});
 		passwordField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					login();
 				}
@@ -112,17 +108,6 @@ public class LoginFrame extends JFrame {
 	private void login() {
 		String username = userNameTextField.getText();
 		String password = new String(passwordField.getPassword());
-		try {
-			User u = UserController.getInstance().queryLogin(username, password);
-			if (u != null) {
-				AdminMainFrame frame = new AdminMainFrame(u);
-				frame.setVisible(true);
-				this.dispose();
-			}
-		} catch (NoSuchUserException exception) {
-			JOptionPane.showMessageDialog(this, "用户名错误", "错误", JOptionPane.ERROR_MESSAGE);
-		} catch (WrongPasswordException exception) {
-			JOptionPane.showMessageDialog(this, "密码错误", "错误", JOptionPane.ERROR_MESSAGE);
-		}
+		UserController.getInstance().login(username, password, this);
 	}
 }

@@ -1,6 +1,9 @@
 package com.github.permissiondog.community.service;
 
 import com.github.permissiondog.community.exception.WrongPasswordException;
+
+import java.util.List;
+
 import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.dao.*;
@@ -40,6 +43,17 @@ public class UserServiceImpl implements UserService {
 			throw new WrongPasswordException();
 		}
 		return u;
+	}
+	
+	/**
+	 *	获取用户列表
+	 * 
+	 *	@return 返回所有用户
+	 */
+	@Override
+	public List<User> getAllUsers() {
+		UserDao userDao = UserDaoImpl.getInstance();
+		return userDao.getAllUsers();
 	}
 	
 }
