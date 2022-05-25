@@ -6,3 +6,4 @@ build
 
 bin
 /community/data
+/community/config.json
