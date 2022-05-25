@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 			throw new NoSuchUserException();
 		}
 		//判断密码哈希值是否一致
-		if (!u.getPassword().equals(Encrypt.encryptPassword(password))) {
+		if (!Encrypt.check(password, u.getPassword())) {
 			throw new WrongPasswordException();
 		}
 		return u;
