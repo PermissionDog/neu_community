@@ -5,7 +5,7 @@
             "id": 1,
             "username": "root",
             "name": "默认管理员",
-            "password": "root123456",
+            "password": "SHA-512:1hqrz7jemcpn9nrd:3c012396e42e8c70ade1c92e1d9519acaac40c2d4065db78b893e59ba37ea648ec3e2f42a1deaa8e804411f7948215d7bad7650c9e9b315745e3ecde896450d8",
             "gender": "male",
             "birthday": "2022-05-22",
             "phone": "",
