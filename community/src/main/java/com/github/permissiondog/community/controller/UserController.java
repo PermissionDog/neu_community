@@ -2,6 +2,7 @@ package com.github.permissiondog.community.controller;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.exception.WrongPasswordException;
@@ -24,12 +25,6 @@ public class UserController {
 	}
 	private UserController() {}
 	
-	public User queryLogin(String username, String password) throws NoSuchUserException, WrongPasswordException {
-		UserService userService = UserServiceImpl.getInstance();
-		User user = userService.login(username, password);
-		return user;
-	}
-	
 	private MainFrame mainFrame;
 	
 	public void login(String username, String password, JFrame jf) {
@@ -46,16 +41,19 @@ public class UserController {
 		}
 		jf.dispose();
 		
-		switch (user.getRole()) {
-			case ADMINISTRATOR:
-				mainFrame = new AdminMainFrame(user, userService.getAllUsers());
-				break;
-			case HOUSEKEEPER:
-				mainFrame = new HouseKeeperMainFrame(user);
-				break;
-			default:
-				mainFrame = new LogisticsManagerMainFrame(user);
-		}
-		mainFrame.setVisible(true);
+		SwingUtilities.invokeLater(() -> {
+			switch (user.getRole()) {
+				case ADMINISTRATOR:
+					mainFrame = new AdminMainFrame(user, userService.getAllUsers());
+					break;
+				case HOUSEKEEPER:
+					mainFrame = new HouseKeeperMainFrame(user);
+					break;
+				default:
+					mainFrame = new LogisticsManagerMainFrame(user);
+			}
+			mainFrame.setVisible(true);
+		});
+		
 	}
 }
