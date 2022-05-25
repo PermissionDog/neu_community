@@ -4,16 +4,19 @@ import java.io.IOException;
 import java.nio.file.*;
 
 import com.github.permissiondog.community.util.FileUtil;
+import com.github.permissiondog.community.util.GsonUtil;
 import com.github.permissiondog.community.view.LoginFrame;
+import com.google.gson.reflect.TypeToken;
 
 public class Main {
 	public static void main(String[] args) {
 		initFile();
+		loadConfig();
 		
 		LoginFrame frame = new LoginFrame();
 		frame.setVisible(true);
 	}
-	public static void initFile() {
+	private static void initFile() {
 		Path dataPath = Paths.get(Constants.DATA_FOLDER);
 		if (!Files.exists(dataPath)) {
 			try {
@@ -33,5 +36,14 @@ public class Main {
 		if (!Files.exists(userTablePath)) {
 			FileUtil.writeResource("/com/github/permissiondog/community/resources/users.json", Constants.USER_TABLE_NAME);
 		}
+		
+		if (!Files.exists(Paths.get(Constants.CONFIG_FILE))) {
+			FileUtil.writeResource("/com/github/permissiondog/community/resources/config.json", Constants.CONFIG_FILE);
+		}
+	}
+	private static void loadConfig() {
+		Config.config = GsonUtil.gson.fromJson(
+				FileUtil.readFile(Constants.CONFIG_FILE),
+				new TypeToken<Config>(){}.getType());
 	}
 }

@@ -1,10 +1,8 @@
 package com.github.permissiondog.community.util;
 
 import java.io.*;
-import java.net.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
-import java.util.*;
 
 public class FileUtil {
 	/**
@@ -43,23 +41,14 @@ public class FileUtil {
 	}
 	
 	public static void writeResource(String resource, String fileName) {
-		URL url = FileUtil.class.getResource(resource);
-		
-		try {
-			/*
-			 * 这里如果直接转 path 会报 java.nio.file.FileSystemNotFoundException
-			 * https://stackoverflow.com/a/22605905/14936035
-			 */
-			final Map<String, String> env = new HashMap<>();
-			final String[] array = url.toURI().toString().split("!");
-			final FileSystem fs = FileSystems.newFileSystem(URI.create(array[0]), env);
-			final Path path = fs.getPath(array[1]);
-			
-			byte[] data = Files.readAllBytes(path);
-			Files.write(Paths.get(fileName), data);
-		} catch (Exception e) {
+		// 如何读取 jar 包内资源文件
+		// https://stackoverflow.com/a/29747012/14936035
+		try (InputStream in = FileUtil.class.getResourceAsStream(resource)) {
+			try (OutputStream out = Files.newOutputStream(Paths.get(fileName))) {
+				IOUtil.copy(in, out);
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
-			System.exit(1);
 		}
 	}
 }
