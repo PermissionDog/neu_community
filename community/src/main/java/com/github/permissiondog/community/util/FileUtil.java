@@ -49,6 +49,7 @@ public class FileUtil {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 }
