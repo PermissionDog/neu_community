@@ -3,6 +3,8 @@ package com.github.permissiondog.community;
 import java.io.IOException;
 import java.nio.file.*;
 
+import javax.swing.SwingUtilities;
+
 import com.github.permissiondog.community.util.FileUtil;
 import com.github.permissiondog.community.util.GsonUtil;
 import com.github.permissiondog.community.view.LoginFrame;
@@ -13,8 +15,10 @@ public class Main {
 		initFile();
 		loadConfig();
 		
-		LoginFrame frame = new LoginFrame();
-		frame.setVisible(true);
+		SwingUtilities.invokeLater(() -> {
+			LoginFrame frame = new LoginFrame();
+			frame.setVisible(true);
+		});
 	}
 	private static void initFile() {
 		Path dataPath = Paths.get(Constants.DATA_FOLDER);
