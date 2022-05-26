@@ -27,8 +27,12 @@ public abstract class UserInfoFrame extends JFrame {
 	protected JTextField textFieldName;
 	protected JRadioButton rdbtnMale;
 	protected JRadioButton rdbtnFemale;
-	private JTextField textFieldBirthday;
-	private JTextField textFieldPhone;
+	protected JTextField textFieldBirthday;
+	protected JTextField textFieldPhone;
+	protected JComboBox<Role> comboBoxRole;
+	
+	protected JButton btnConfirm;
+	protected JButton btnCancel;
 
 	protected UserInfoFrame() {
 		setBounds(100, 100, 419, 449);
@@ -52,11 +56,11 @@ public abstract class UserInfoFrame extends JFrame {
 		gbc_panel.gridy = 1;
 		contentPane.add(panel, gbc_panel);
 		
-		JButton btnConfirm = new JButton("确定");
+		btnConfirm = new JButton("确定");
 		btnConfirm.setBounds(212, 313, 93, 23);
 		panel.add(btnConfirm);
 		
-		JButton btnCancel = new JButton("取消");
+		btnCancel = new JButton("取消");
 		btnCancel.setBounds(10, 313, 93, 23);
 		panel.add(btnCancel);
 		
@@ -130,8 +134,8 @@ public abstract class UserInfoFrame extends JFrame {
 		lblNewLabel_2_2_1_1.setBounds(37, 252, 54, 15);
 		panel.add(lblNewLabel_2_2_1_1);
 		
-		JComboBox comboBoxRole = new JComboBox();
-		comboBoxRole.setModel(new DefaultComboBoxModel(Role.values()));
+		comboBoxRole = new JComboBox<Role>();
+		comboBoxRole.setModel(new DefaultComboBoxModel<Role>(Role.values()));
 		comboBoxRole.setBounds(143, 248, 139, 23);
 		panel.add(comboBoxRole);
 	}

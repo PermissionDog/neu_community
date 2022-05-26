@@ -2,9 +2,12 @@ package com.github.permissiondog.community.service.impl;
 
 import com.github.permissiondog.community.exception.WrongPasswordException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.github.permissiondog.community.exception.NoSuchUserException;
+import com.github.permissiondog.community.model.Gender;
+import com.github.permissiondog.community.model.Role;
 import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.dao.*;
 import com.github.permissiondog.community.model.dao.impl.UserDaoImpl;
@@ -56,6 +59,12 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllUsers() {
 		UserDao userDao = UserDaoImpl.getInstance();
 		return userDao.getAllUsers();
+	}
+	@Override
+	public User register(String username, String pwd, String name, Gender gender, LocalDate birthday, String phone,
+			Role role) {
+		// TODO 参数校验
+		return null;
 	}
 	
 }
