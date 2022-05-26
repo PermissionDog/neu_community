@@ -40,6 +40,12 @@ public class FileUtil {
 		}
 	}
 	
+	/**
+	 * 将 jar 包内资源文件写出
+	 * 
+	 * @param resource	资源在 jar 包中的路径, 如 /com/github/permissiondog/community/resources/config.json
+	 * @param fileName	要写出的文件名
+	 */
 	public static void writeResource(String resource, String fileName) {
 		// 如何读取 jar 包内资源文件
 		// https://stackoverflow.com/a/29747012/14936035
