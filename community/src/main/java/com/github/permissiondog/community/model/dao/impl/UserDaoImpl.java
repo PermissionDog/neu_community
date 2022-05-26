@@ -1,9 +1,11 @@
-package com.github.permissiondog.community.model.dao;
+package com.github.permissiondog.community.model.dao.impl;
 
 import java.util.*;
 
 import com.github.permissiondog.community.Constants;
+import com.github.permissiondog.community.model.Table;
 import com.github.permissiondog.community.model.User;
+import com.github.permissiondog.community.model.dao.UserDao;
 import com.github.permissiondog.community.util.*;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,7 +37,6 @@ public class UserDaoImpl implements UserDao {
 		Table<User> userTable = new Table<>();
 		userTable.setIdCount(idCount);
 		userTable.setData(users.values());
-		//TODO: 测试下面一行代码是否可以正常反序列化
 		String userJson = GsonUtil.gson.toJson(userTable);
 		FileUtil.writeFile(Constants.USER_TABLE_NAME, userJson);
 	}

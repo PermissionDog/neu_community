@@ -1,4 +1,4 @@
-package com.github.permissiondog.community.service;
+package com.github.permissiondog.community.service.impl;
 
 import com.github.permissiondog.community.exception.WrongPasswordException;
 
@@ -7,6 +7,8 @@ import java.util.List;
 import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.dao.*;
+import com.github.permissiondog.community.model.dao.impl.UserDaoImpl;
+import com.github.permissiondog.community.service.UserService;
 import com.github.permissiondog.community.util.Encrypt;
 
 public class UserServiceImpl implements UserService {

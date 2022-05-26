@@ -1,5 +1,7 @@
 package com.github.permissiondog.community.controller;
 
+import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -8,7 +10,7 @@ import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.exception.WrongPasswordException;
 import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.service.UserService;
-import com.github.permissiondog.community.service.UserServiceImpl;
+import com.github.permissiondog.community.service.impl.UserServiceImpl;
 import com.github.permissiondog.community.view.AdminMainFrame;
 import com.github.permissiondog.community.view.HouseKeeperMainFrame;
 import com.github.permissiondog.community.view.LogisticsManagerMainFrame;
@@ -27,6 +29,11 @@ public class UserController {
 	
 	private MainFrame mainFrame;
 	
+	public List<User> getAllUsers() {
+		UserService userService = UserServiceImpl.getInstance();
+		return userService.getAllUsers();
+	}
+	
 	public void login(String username, String password, JFrame jf) {
 		UserService userService = UserServiceImpl.getInstance();
 		User user;
@@ -44,7 +51,7 @@ public class UserController {
 		SwingUtilities.invokeLater(() -> {
 			switch (user.getRole()) {
 				case ADMINISTRATOR:
-					mainFrame = new AdminMainFrame(user, userService.getAllUsers());
+					mainFrame = new AdminMainFrame(user);
 					break;
 				case HOUSEKEEPER:
 					mainFrame = new HouseKeeperMainFrame(user);
@@ -54,6 +61,10 @@ public class UserController {
 			}
 			mainFrame.setVisible(true);
 		});
+		
+	}
+	public void showRegisterFrame() {
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -2,11 +2,14 @@ package com.github.permissiondog.community.view;
 
 import javax.swing.JFrame;
 
+import com.github.permissiondog.community.controller.UserController;
 import com.github.permissiondog.community.model.User;
 import javax.swing.JTable;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -24,9 +27,8 @@ public class AdminMainFrame extends MainFrame {
 	private List<User> users;
 	private JTextField textFieldSearch;
 
-	public AdminMainFrame(User user, List<User> users) {
+	public AdminMainFrame(User user) {
 		super(user);
-		this.users = users;
 
 		setTitle("管理员: " + user.getName());
 
@@ -102,10 +104,16 @@ public class AdminMainFrame extends MainFrame {
 		scrollPane.setViewportView(table);
 		flushTable();
 		
-		
+		btnNewUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				UserController.getInstance().showRegisterFrame();
+			}
+		});
 	}
 
-	private void flushTable() {
+	public void flushTable() {
+		users = UserController.getInstance().getAllUsers();
 		int size = users.size();
 		Object[][] data = new Object[size][];
 		for (int i = 0; i < size; i++) {

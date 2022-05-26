@@ -1,4 +1,4 @@
-package com.github.permissiondog.community.model.dao;
+package com.github.permissiondog.community.model;
 
 import java.util.*;
 
