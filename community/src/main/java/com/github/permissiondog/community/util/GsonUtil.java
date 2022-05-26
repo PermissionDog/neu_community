@@ -13,8 +13,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 public class GsonUtil {
-	public static final Gson gson = new GsonBuilder()
-			.registerTypeAdapter(LocalTime.class, new TypeAdapter<LocalTime>() {
+	public static final Gson gson = new GsonBuilder().setPrettyPrinting()
+			.registerTypeHierarchyAdapter(LocalTime.class, new TypeAdapter<LocalTime>() {
 				
 				private DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
 				@Override
@@ -26,7 +26,7 @@ public class GsonUtil {
 				public LocalTime read(JsonReader in) throws IOException {
 					return LocalTime.parse(in.nextString(), format);
 				}
-			}).registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
+			}).registerTypeHierarchyAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
 				
 				private DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				@Override
@@ -39,7 +39,7 @@ public class GsonUtil {
 					return LocalDate.parse(in.nextString(), format);
 				}
 
-			}).registerTypeAdapter(Gender.class, new TypeAdapter<Gender>() {
+			}).registerTypeHierarchyAdapter(Gender.class, new TypeAdapter<Gender>() {
 
 				@Override
 				public void write(JsonWriter out, Gender value) throws IOException {
@@ -58,7 +58,7 @@ public class GsonUtil {
 						return Gender.FEMALE;
 					}
 				}
-			}).registerTypeAdapter(Role.class, new TypeAdapter<Role>() {
+			}).registerTypeHierarchyAdapter(Role.class, new TypeAdapter<Role>() {
 
 				@Override
 				public void write(JsonWriter out, Role value) throws IOException {
@@ -85,10 +85,12 @@ public class GsonUtil {
 						return Role.LOGISTICS_MANAGER;
 					}
 				}
-			}).registerTypeAdapter(Cycle.class, new TypeAdapter<Cycle>() {
+			})
+			.registerTypeHierarchyAdapter(Cycle.class, new TypeAdapter<Cycle>() {
 
 				@Override
 				public void write(JsonWriter out, Cycle value) throws IOException {
+//					System.out.println("cao");
 					switch (value) {
 					case EVERY_DAY:
 						out.value("every_day");
@@ -138,7 +140,7 @@ public class GsonUtil {
 					}
 				}
 				
-			}).registerTypeAdapter(Period.class, new TypeAdapter<Period>() {
+			}).registerTypeHierarchyAdapter(Period.class, new TypeAdapter<Period>() {
 
 				@Override
 				public void write(JsonWriter out, Period value) throws IOException {
@@ -161,7 +163,7 @@ public class GsonUtil {
 					}
 				}
 				
-			}).registerTypeAdapter(RouteType.class, new TypeAdapter<RouteType>() {
+			}).registerTypeHierarchyAdapter(RouteType.class, new TypeAdapter<RouteType>() {
 
 				@Override
 				public void write(JsonWriter out, RouteType value) throws IOException {
@@ -184,7 +186,7 @@ public class GsonUtil {
 					}
 				}
 				
-			}).registerTypeAdapter(Direction.class, new TypeAdapter<Direction>() {
+			}).registerTypeHierarchyAdapter(Direction.class, new TypeAdapter<Direction>() {
 
 				@Override
 				public void write(JsonWriter out, Direction value) throws IOException {
