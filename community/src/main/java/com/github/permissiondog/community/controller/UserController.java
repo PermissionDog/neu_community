@@ -15,6 +15,7 @@ import com.github.permissiondog.community.view.AdminMainFrame;
 import com.github.permissiondog.community.view.HouseKeeperMainFrame;
 import com.github.permissiondog.community.view.LogisticsManagerMainFrame;
 import com.github.permissiondog.community.view.MainFrame;
+import com.github.permissiondog.community.view.RegisterFrame;
 
 public class UserController {
 	
@@ -64,7 +65,9 @@ public class UserController {
 		
 	}
 	public void showRegisterFrame() {
-		// TODO Auto-generated method stub
-		
+		SwingUtilities.invokeLater(() -> {
+			RegisterFrame rf = new RegisterFrame();
+			rf.setVisible(true);
+		});
 	}
 }

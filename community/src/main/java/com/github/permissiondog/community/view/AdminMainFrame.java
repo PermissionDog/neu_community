@@ -102,7 +102,6 @@ public class AdminMainFrame extends MainFrame {
 				new String[] { "ID", "\u7528\u6237", "\u59D3\u540D", "\u6027\u522B", "\u51FA\u751F\u65E5\u671F",
 						"\u7535\u8BDD", "\u6743\u9650" }));
 		scrollPane.setViewportView(table);
-		flushTable();
 		
 		btnNewUser.addMouseListener(new MouseAdapter() {
 			@Override
@@ -110,6 +109,9 @@ public class AdminMainFrame extends MainFrame {
 				UserController.getInstance().showRegisterFrame();
 			}
 		});
+		
+		//刷新表格
+		flushTable();
 	}
 
 	public void flushTable() {
@@ -122,25 +124,10 @@ public class AdminMainFrame extends MainFrame {
 			obj[0] = user.getId();
 			obj[1] = user.getUsername();
 			obj[2] = user.getName();
-			switch (user.getGender()) {
-			case MALE:
-				obj[3] = "男性";
-				break;
-			default:
-				obj[3] = "女性";
-			}
+			obj[3] = user.getGender();
 			obj[4] = user.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			obj[5] = user.getPhone();
-			switch (user.getRole()) {
-			case ADMINISTRATOR:
-				obj[6] = "管理员";
-				break;
-			case HOUSEKEEPER:
-				obj[6] = "生活管家";
-				break;
-			default:
-				obj[6] = "后勤管理";
-			}
+			obj[6] = user.getRole();
 			data[i] = obj;
 		}
 
