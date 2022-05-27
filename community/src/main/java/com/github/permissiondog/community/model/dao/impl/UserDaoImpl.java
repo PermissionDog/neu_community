@@ -9,7 +9,7 @@ import com.github.permissiondog.community.model.dao.UserDao;
 import com.github.permissiondog.community.util.*;
 import com.google.gson.reflect.TypeToken;
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	private static UserDao userDao;
 
 	public static UserDao getInstance() {
@@ -20,84 +20,58 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	private UserDaoImpl() {
-		loadUsers();
+		load();
 	}
 
 	private Map<Integer, User> users;
 	private int idCount;
+	
+	@Override
+	public int getIdCount() {
+		return idCount;
+	}
 
-	/**
-	 * 从内存中加载用户数据
-	 */
-	private void loadUsers() {
+	@Override
+	public int getAndIncreaseIdCount() {
+		return ++idCount;
+	}
+	
+	@Override
+	public Map<Integer, User> getData() {
+		return users;
+	}
+
+	@Override
+	public void load() {
 		users = new HashMap<>();
-		String userJson = FileUtil.readFile(Constants.USER_TABLE_NAME);
-		Table<User> userTable = GsonUtil.gson.fromJson(userJson, new TypeToken<Table<User>>() {
+		String json = FileUtil.readFile(Constants.USER_TABLE_NAME);
+		Table<User> table = GsonUtil.gson.fromJson(json, new TypeToken<Table<User>>() {
 		}.getType());
-		idCount = userTable.getIdCount();
-		for (User u : userTable.getData()) {
+		idCount = table.getIdCount();
+		for (User u : table.getData()) {
 			users.put(u.getId(), u);
 		}
 	}
 
-	/**
-	 * 将内存中的用户数据保存至文件
-	 */
-	private void saveUsers() {
-		Table<User> userTable = new Table<>();
-		userTable.setIdCount(idCount);
-		userTable.setData(users.values());
-		String userJson = GsonUtil.gson.toJson(userTable);
-		FileUtil.writeFile(Constants.USER_TABLE_NAME, userJson);
+	@Override
+	public void save() {
+		Table<User> table = new Table<>();
+		table.setIdCount(idCount);
+		table.setData(users.values());
+		String json = GsonUtil.gson.toJson(table);
+		FileUtil.writeFile(Constants.USER_TABLE_NAME, json);
 	}
 
 	
+	
 	@Override
-	public User findUserByUserName(String username) {
+	public User find(String username) {
 		for (User u : users.values()) {
 			if (u.getUsername().equals(username)) {
 				return u;
 			}
 		}
 		return null;
-	}
-
-	@Override
-	public User findUserByID(int id) {
-		return users.get(id);
-	}
-
-	@Override
-	public List<User> getAllUsers() {
-		return new ArrayList<>(users.values());
-	}
-
-	@Override
-	public User insertUser(User user) {
-		user.setId(++idCount);
-		users.put(user.getId(), user);
-		saveUsers();
-
-		return user;
-	}
-
-	@Override
-	public User deleteUser(int id) {
-		User u = users.remove(id);
-		if (u != null)
-			saveUsers();
-
-		return u;
-	}
-
-	@Override
-	public User updateUser(User user) {
-		if (!users.containsKey(user.getId())) {
-			return null;
-		}
-		users.put(user.getId(), user);
-		saveUsers();
-		return user;
 	}
 
 

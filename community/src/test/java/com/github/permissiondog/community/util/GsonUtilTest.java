@@ -8,12 +8,12 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.github.permissiondog.community.model.Cycle;
-import com.github.permissiondog.community.model.Direction;
-import com.github.permissiondog.community.model.Gender;
-import com.github.permissiondog.community.model.Period;
-import com.github.permissiondog.community.model.Role;
-import com.github.permissiondog.community.model.RouteType;
+import com.github.permissiondog.community.model.enumeration.Cycle;
+import com.github.permissiondog.community.model.enumeration.Direction;
+import com.github.permissiondog.community.model.enumeration.Gender;
+import com.github.permissiondog.community.model.enumeration.Period;
+import com.github.permissiondog.community.model.enumeration.Role;
+import com.github.permissiondog.community.model.enumeration.RouteType;
 import com.google.gson.Gson;
 
 public class GsonUtilTest {

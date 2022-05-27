@@ -13,6 +13,8 @@ import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.exception.UserNameAlreadyExistException;
 import com.github.permissiondog.community.exception.WrongPasswordException;
 import com.github.permissiondog.community.model.*;
+import com.github.permissiondog.community.model.enumeration.Gender;
+import com.github.permissiondog.community.model.enumeration.Role;
 import com.github.permissiondog.community.service.UserService;
 import com.github.permissiondog.community.service.impl.UserServiceImpl;
 import com.github.permissiondog.community.view.AdminMainFrame;

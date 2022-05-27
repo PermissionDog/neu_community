@@ -2,7 +2,9 @@ package com.github.permissiondog.community.model;
 
 import java.time.LocalDate;
 
-public class Member {
+import com.github.permissiondog.community.model.enumeration.Gender;
+
+public class Member implements Identifiable {
 	private int id;
 	private String name;
 	private Gender gender;

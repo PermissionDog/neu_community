@@ -3,7 +3,12 @@ package com.github.permissiondog.community.model;
 import java.time.LocalTime;
 import java.util.List;
 
-public class Bus {
+import com.github.permissiondog.community.model.enumeration.Cycle;
+import com.github.permissiondog.community.model.enumeration.Direction;
+import com.github.permissiondog.community.model.enumeration.Period;
+import com.github.permissiondog.community.model.enumeration.RouteType;
+
+public class Bus implements Identifiable {
 	private int id;
 	private String code;
 	private String name;

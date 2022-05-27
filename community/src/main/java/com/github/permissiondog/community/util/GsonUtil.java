@@ -5,7 +5,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import com.github.permissiondog.community.Constants;
-import com.github.permissiondog.community.model.*;
+import com.github.permissiondog.community.model.enumeration.Cycle;
+import com.github.permissiondog.community.model.enumeration.Direction;
+import com.github.permissiondog.community.model.enumeration.Gender;
+import com.github.permissiondog.community.model.enumeration.Period;
+import com.github.permissiondog.community.model.enumeration.Role;
+import com.github.permissiondog.community.model.enumeration.RouteType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;

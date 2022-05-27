@@ -6,10 +6,10 @@ import java.util.List;
 import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchHouseKeeperException;
 import com.github.permissiondog.community.exception.NoSuchMemberException;
-import com.github.permissiondog.community.model.Gender;
 import com.github.permissiondog.community.model.Member;
 import com.github.permissiondog.community.model.dao.MemberDao;
 import com.github.permissiondog.community.model.dao.impl.MemberDaoImpl;
+import com.github.permissiondog.community.model.enumeration.Gender;
 import com.github.permissiondog.community.service.MemberService;
 
 public class MemberServiceImpl implements MemberService {
@@ -44,7 +44,7 @@ public class MemberServiceImpl implements MemberService {
 		member.setBirthday(birthday);
 		member.setPhone(phone);
 		
-		return memberDao.insertMember(member);
+		return memberDao.insert(member);
 	}
 
 	@Override

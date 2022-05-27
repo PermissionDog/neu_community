@@ -9,11 +9,11 @@ import com.github.permissiondog.community.Config;
 import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.exception.UserNameAlreadyExistException;
-import com.github.permissiondog.community.model.Gender;
-import com.github.permissiondog.community.model.Role;
 import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.dao.*;
 import com.github.permissiondog.community.model.dao.impl.UserDaoImpl;
+import com.github.permissiondog.community.model.enumeration.Gender;
+import com.github.permissiondog.community.model.enumeration.Role;
 import com.github.permissiondog.community.service.UserService;
 import com.github.permissiondog.community.util.Encrypt;
 
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User login(String username, String password) throws WrongPasswordException, NoSuchUserException {
 		UserDao userDao = UserDaoImpl.getInstance();
-		User u = userDao.findUserByUserName(username);
+		User u = userDao.find(username);
 		// 判断是否找到该用户
 		if (u == null) {
 			throw new NoSuchUserException();
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllUsers() {
 		UserDao userDao = UserDaoImpl.getInstance();
-		return userDao.getAllUsers();
+		return userDao.getAll();
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 		ParameterChecker.ensureNotEmpty(role, "权限");
 
 		UserDao userDao = UserDaoImpl.getInstance();
-		if (userDao.findUserByUserName(username) != null) {
+		if (userDao.find(username) != null) {
 			throw new UserNameAlreadyExistException();
 		}
 
@@ -82,13 +82,13 @@ public class UserServiceImpl implements UserService {
 		user.setPhone(phone);
 		user.setRole(role);
 
-		return userDao.insertUser(user);
+		return userDao.insert(user);
 	}
 
 	@Override
 	public User modifyUser(User user) throws IllegalParameterException, NoSuchUserException {
 		UserDao userDao = UserDaoImpl.getInstance();
-		User oldUser = userDao.findUserByID(user.getId());
+		User oldUser = userDao.find(user.getId());
 		if (oldUser == null) {
 			throw new NoSuchUserException();
 		}
@@ -110,14 +110,14 @@ public class UserServiceImpl implements UserService {
 		ParameterChecker.ensure(ParameterChecker.checkName(user.getName()), "姓名由1-10位英文字母、汉字或数字组成");
 		ParameterChecker.ensure(ParameterChecker.checkPhone(user.getPhone()), "电话由5-20位数字或加号组成");
 		
-		return userDao.updateUser(user);
+		return userDao.update(user);
 	}
 
 
 	@Override
 	public User deleteUser(int id) {
 		UserDao userDao = UserDaoImpl.getInstance();
-		return userDao.deleteUser(id);
+		return userDao.delete(id);
 		//TODO 如果是生活管家, 去除老人服务信息
 		//TODO 如果是后勤管理, 去除班车信息
 	}
@@ -125,13 +125,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUser(int id) {
 		UserDao userDao = UserDaoImpl.getInstance();
-		return userDao.findUserByID(id);
+		return userDao.find(id);
 	}
 
 	@Override
 	public User getUser(String username) {
 		UserDao userDao = UserDaoImpl.getInstance();
-		return userDao.findUserByUserName(username);
+		return userDao.find(username);
 	}
 
 	@Override
