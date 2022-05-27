@@ -9,9 +9,12 @@ import javax.swing.JTable;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -109,6 +112,14 @@ public class AdminMainFrame extends MainFrame {
 						"\u7535\u8BDD", "\u6743\u9650" }));
 		scrollPane.setViewportView(table);
 		
+		//搜索框
+		textFieldSearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				flushTable(textFieldSearch.getText());
+			}
+		});
+		
 		//新增用户
 		btnNewUser.addMouseListener(new MouseAdapter() {
 			@Override
@@ -161,6 +172,43 @@ public class AdminMainFrame extends MainFrame {
 			obj[6] = user.getRole();
 			data[i] = obj;
 		}
+
+		table.setModel(new DefaultTableModel(data, new String[] { "ID", "\u7528\u6237", "\u59D3\u540D", "\u6027\u522B",
+				"\u51FA\u751F\u65E5\u671F", "\u7535\u8BDD", "\u6743\u9650" }) {
+			private static final long serialVersionUID = 1L;
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		});
+	}
+	public void flushTable(String keyword) {
+		users = UserController.getInstance().getAllUsers();
+		int size = users.size();
+		ArrayList<Object[]> list = new ArrayList<Object[]>();
+		for (int i = 0; i < size; i++) {
+			User user = users.get(i);
+			Object[] obj = new Object[7];
+			obj[0] = user.getId();
+			obj[1] = user.getUsername();
+			obj[2] = user.getName();
+			obj[3] = user.getGender();
+			obj[4] = user.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			obj[5] = user.getPhone();
+			obj[6] = user.getRole();
+			for (int j = 0; j < 7; j++) {
+				if (obj[j].toString().contains(keyword)) {
+					list.add(obj);
+					break;
+				}
+			}
+
+		}
+		Object[][] data = new Object[list.size()][];
+		Object[] temp = list.toArray();
+		for (int i = 0; i < temp.length; i++) {
+			data[i] = (Object[]) temp[i];
+		}
+		
 
 		table.setModel(new DefaultTableModel(data, new String[] { "ID", "\u7528\u6237", "\u59D3\u540D", "\u6027\u522B",
 				"\u51FA\u751F\u65E5\u671F", "\u7535\u8BDD", "\u6743\u9650" }) {
