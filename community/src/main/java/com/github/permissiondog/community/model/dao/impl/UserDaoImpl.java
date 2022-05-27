@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
 
 	private UserDaoImpl() {
 		loadUsers();
-	};
+	}
 
 	private Map<Integer, User> users;
 	private int idCount;

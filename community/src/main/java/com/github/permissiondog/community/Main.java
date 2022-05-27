@@ -36,9 +36,14 @@ public class Main {
 			System.exit(1);
 		}
 		
-		Path userTablePath = Paths.get(Constants.USER_TABLE_NAME);
-		if (!Files.exists(userTablePath)) {
+		if (!Files.exists(Paths.get(Constants.USER_TABLE_NAME))) {
 			FileUtil.writeResource("/com/github/permissiondog/community/resources/users.json", Constants.USER_TABLE_NAME);
+		}
+		if (!Files.exists(Paths.get(Constants.MEMBER_TABLE_NAME))) {
+			FileUtil.writeResource("/com/github/permissiondog/community/resources/members.json", Constants.MEMBER_TABLE_NAME);
+		}
+		if (!Files.exists(Paths.get(Constants.BUS_TABLE_NAME))) {
+			FileUtil.writeResource("/com/github/permissiondog/community/resources/buses.json", Constants.BUS_TABLE_NAME);
 		}
 		
 		if (!Files.exists(Paths.get(Constants.CONFIG_FILE))) {
