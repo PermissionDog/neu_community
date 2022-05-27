@@ -66,7 +66,7 @@ public class AdminMainFrame extends MainFrame {
 		
 		textFieldSearch = new JTextField();
 		textFieldSearch.setToolTipText("输入关键词搜索");
-		textFieldSearch.setBounds(160, 42, 201, 23);
+		textFieldSearch.setBounds(228, 42, 151, 23);
 		panel.add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 		
@@ -85,6 +85,10 @@ public class AdminMainFrame extends MainFrame {
 		JButton btnModifyMember = new JButton("修改老人");
 		btnModifyMember.setBounds(492, 10, 93, 23);
 		panel.add(btnModifyMember);
+		
+		JButton btnModifyUser = new JButton("修改用户");
+		btnModifyUser.setBounds(113, 42, 93, 23);
+		panel.add(btnModifyUser);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -124,9 +128,7 @@ public class AdminMainFrame extends MainFrame {
 		btnNewUser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				UserController.getInstance().showRegisterFrame(() -> {
-					flushTable();
-				});
+				UserController.getInstance().showRegisterFrame(AdminMainFrame.this::flushTable);
 			}
 		});
 		//删除用户
@@ -149,6 +151,22 @@ public class AdminMainFrame extends MainFrame {
 				});
 				flushTable();
 				JOptionPane.showMessageDialog(AdminMainFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		//修改用户
+		btnModifyUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (table.getSelectedRowCount() < 1) {
+					JOptionPane.showMessageDialog(AdminMainFrame.this, "请先选择要修改的用户");
+					return;
+				}
+				if (table.getSelectedRowCount() > 1) {
+					JOptionPane.showMessageDialog(AdminMainFrame.this, "最多选择一个要修改的用户");
+					return;
+				}
+				int id = users.get(table.getSelectedRow()).getId();
+				UserController.getInstance().showModifyUserFrame(id, AdminMainFrame.this::flushTable);
 			}
 		});
 		

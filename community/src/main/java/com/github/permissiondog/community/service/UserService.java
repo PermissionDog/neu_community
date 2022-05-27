@@ -3,7 +3,9 @@ package com.github.permissiondog.community.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchUserException;
+import com.github.permissiondog.community.exception.UserNameAlreadyExistException;
 import com.github.permissiondog.community.exception.WrongPasswordException;
 import com.github.permissiondog.community.model.Gender;
 import com.github.permissiondog.community.model.Role;
@@ -33,9 +35,13 @@ public interface UserService {
 	 * @param birthday	生日
 	 * @param phone		联系方式
 	 * @param role		权限
+	 * 
+	 * @throws IllegalParameterException		参数错误
+	 * @throws UserNameAlreadyExistException	用户名已存在 
+	 * 
 	 * @return			成功返回用户, 失败返回 null
 	 */
-	public User register(String username, String pwd, String name, Gender gender, LocalDate birthday, String phone, Role role);
+	public User register(String username, String pwd, String name, Gender gender, LocalDate birthday, String phone, Role role) throws UserNameAlreadyExistException, IllegalParameterException ;
 	/**
 	 * 删除用户
 	 * 
@@ -62,9 +68,13 @@ public interface UserService {
 	 * 修改用户
 	 * 
 	 * @param user	用户信息
+	 * 
+	 * @throws IllegalParameterException	参数错误
+	 * @throws NoSuchUserException			用户不存在
+	 * 
 	 * @return		成功返回用户信息, 失败返回 null
 	 */
-	public User modifyUser(User user);
+	public User modifyUser(User user) throws IllegalParameterException, NoSuchUserException;
 
 	/**
 	 *	获取用户列表

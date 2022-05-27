@@ -19,6 +19,7 @@ import com.github.permissiondog.community.view.AdminMainFrame;
 import com.github.permissiondog.community.view.HouseKeeperMainFrame;
 import com.github.permissiondog.community.view.LogisticsManagerMainFrame;
 import com.github.permissiondog.community.view.MainFrame;
+import com.github.permissiondog.community.view.ModifyUserFrame;
 import com.github.permissiondog.community.view.RegisterFrame;
 
 public class UserController {
@@ -40,7 +41,7 @@ public class UserController {
 	/**
 	 * 获取所有用户
 	 * 
-	 * @return	用户列表
+	 * @return 用户列表
 	 */
 	public List<User> getAllUsers() {
 		UserService userService = UserServiceImpl.getInstance();
@@ -50,16 +51,17 @@ public class UserController {
 	/**
 	 * 注册
 	 * 
-	 * @param username	用户名
-	 * @param pwd		明文密码
-	 * @param name		姓名
-	 * @param gender	性别
-	 * @param birthday	生日
-	 * @param phone		联系电话
-	 * @param role		权限
-	 * @return			成功返回用户
+	 * @param username 用户名
+	 * @param pwd      明文密码
+	 * @param name     姓名
+	 * @param gender   性别
+	 * @param birthday 生日
+	 * @param phone    联系电话
+	 * @param role     权限
+	 * @return 成功返回用户
 	 */
-	public User register(String username, String pwd, String name, Gender gender, LocalDate birthday, String phone, Role role) {
+	public User register(String username, String pwd, String name, Gender gender, LocalDate birthday, String phone,
+			Role role) {
 		UserService userService = UserServiceImpl.getInstance();
 		User u;
 		try {
@@ -78,9 +80,9 @@ public class UserController {
 	/**
 	 * 登录
 	 * 
-	 * @param username	用户名
-	 * @param password	密码
-	 * @param jf		登录窗口
+	 * @param username 用户名
+	 * @param password 密码
+	 * @param jf       登录窗口
 	 */
 	public void login(String username, String password, JFrame jf) {
 		UserService userService = UserServiceImpl.getInstance();
@@ -111,33 +113,66 @@ public class UserController {
 		});
 
 	}
-	
+
 	/**
 	 * 获取用户
 	 * 
-	 * @param username	用户名
-	 * @return			用户
+	 * @param username 用户名
+	 * @return 用户
 	 */
 	public User getUser(String username) {
 		UserService userService = UserServiceImpl.getInstance();
 		return userService.getUser(username);
 	}
-	
-	
+
+	/**
+	 * 获取用户
+	 * 
+	 * @param id 用户ID
+	 * @return 用户
+	 */
+	public User getUser(int id) {
+		UserService userService = UserServiceImpl.getInstance();
+		return userService.getUser(id);
+	}
+
 	/**
 	 * 删除用户
 	 * 
-	 * @param id	要删除的用户ID
-	 * @return		删除的用户, 失败返回 null
+	 * @param id 要删除的用户ID
+	 * @return 删除的用户, 失败返回 null
 	 */
 	public User deleteUser(int id) {
 		UserService userService = UserServiceImpl.getInstance();
 		return userService.deleteUser(id);
 	}
 
-	
+	/**
+	 * 修改用户
+	 * 
+	 * @param u	要修改的用户信息
+	 * @return	修改的用户, 失败返回null
+	 */
+	public User modifyUser(User u) {
+		UserService userService = UserServiceImpl.getInstance();
+		try {
+			u = userService.modifyUser(u);
+		} catch (NoSuchUserException e) {
+			JOptionPane.showMessageDialog(null, "用户不存在", "错误", JOptionPane.ERROR_MESSAGE);
+			return null;
+		} catch (IllegalParameterException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+		JOptionPane.showMessageDialog(null, "修改成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+		return u;
+		
+	}
+
 	/**
 	 * 显示注册窗口
+	 * 
+	 * @param cb 注册成功调用的回调函数
 	 */
 	public void showRegisterFrame(Callback cb) {
 		SwingUtilities.invokeLater(() -> {
@@ -145,4 +180,18 @@ public class UserController {
 			rf.setVisible(true);
 		});
 	}
+
+	/**
+	 * 显示修改用户窗口
+	 * 
+	 * @param id 要修改的用户
+	 * @param cb 修改成功调用的回调函数
+	 */
+	public void showModifyUserFrame(int id, Callback cb) {
+		SwingUtilities.invokeLater(() -> {
+			ModifyUserFrame muf = new ModifyUserFrame(id, cb);
+			muf.setVisible(true);
+		});
+	}
+
 }
