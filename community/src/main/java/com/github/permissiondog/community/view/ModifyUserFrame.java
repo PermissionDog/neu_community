@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
 import com.github.permissiondog.community.Callback;
 import com.github.permissiondog.community.Constants;
 import com.github.permissiondog.community.controller.UserController;
-import com.github.permissiondog.community.model.Gender;
-import com.github.permissiondog.community.model.Role;
 import com.github.permissiondog.community.model.User;
+import com.github.permissiondog.community.model.enumeration.Gender;
+import com.github.permissiondog.community.model.enumeration.Role;
 
 public class ModifyUserFrame extends UserInfoFrame {
 

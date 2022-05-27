@@ -1,7 +1,6 @@
 package com.github.permissiondog.community.model.dao.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.github.permissiondog.community.Constants;
@@ -12,7 +11,7 @@ import com.github.permissiondog.community.util.FileUtil;
 import com.github.permissiondog.community.util.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 
-public class MemberDaoImpl implements MemberDao {
+public class MemberDaoImpl extends BaseDaoImpl<Member> implements MemberDao {
 	private static MemberDao memberDao;
 	
 	public static MemberDao getInstance() {
@@ -23,64 +22,46 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	private MemberDaoImpl() {
-		loadMembers();
+		load();
 	}
 	
 	private Map<Integer, Member> members;
 	private int idCount;
 	
-	private void loadMembers() {
+	@Override
+	public int getIdCount() {
+		return idCount;
+	}
+
+	@Override
+	public int getAndIncreaseIdCount() {
+		return ++idCount;
+	}
+	
+	@Override
+	public Map<Integer, Member> getData() {
+		return members;
+	}
+	
+	@Override
+	public void load() {
 		members = new HashMap<>();
-		String memberJson = FileUtil.readFile(Constants.MEMBER_TABLE_NAME);
-		Table<Member> memberTable = GsonUtil.gson.fromJson(memberJson, new TypeToken<Table<Member>>() {
+		String json = FileUtil.readFile(Constants.MEMBER_TABLE_NAME);
+		Table<Member> table = GsonUtil.gson.fromJson(json, new TypeToken<Table<Member>>() {
 		}.getType());
-		idCount = memberTable.getIdCount();
-		for (Member m : memberTable.getData()) {
+		idCount = table.getIdCount();
+		for (Member m : table.getData()) {
 			members.put(m.getId(), m);
 		}
 	}
+
+	@Override
+	public void save() {
+		Table<Member> table = new Table<>();
+		table.setIdCount(idCount);
+		table.setData(members.values());
+		String json = GsonUtil.gson.toJson(table);
+		FileUtil.writeFile(Constants.MEMBER_TABLE_NAME, json);
+	}
 	
-	private void saveMembers() {
-		Table<Member> memberTable = new Table<>();
-		memberTable.setIdCount(idCount);
-		memberTable.setData(members.values());
-		String memberJson = GsonUtil.gson.toJson(memberTable);
-		FileUtil.writeFile(Constants.MEMBER_TABLE_NAME, memberJson);
-	}
-	
-
-	@Override
-	public Member insertMember(Member member) {
-		member.setId(++idCount);
-		members.put(member.getId(), member);
-		saveMembers();
-		
-		return member;
-	}
-
-	@Override
-	public Member deleteMember(int id) {
-		Member m = members.remove(id);
-		if (m != null)
-			saveMembers();
-		
-		return m;
-	}
-
-	@Override
-	public Member updateMember(Member member) {
-		if (!members.containsKey(member.getId())) {
-			return null;
-		}
-		members.put(member.getId(), member);
-		saveMembers();
-		return member;
-	}
-
-	@Override
-	public List<Member> getAllMembers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

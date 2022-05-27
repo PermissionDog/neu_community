@@ -7,9 +7,9 @@ import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.exception.UserNameAlreadyExistException;
 import com.github.permissiondog.community.exception.WrongPasswordException;
-import com.github.permissiondog.community.model.Gender;
-import com.github.permissiondog.community.model.Role;
 import com.github.permissiondog.community.model.User;
+import com.github.permissiondog.community.model.enumeration.Gender;
+import com.github.permissiondog.community.model.enumeration.Role;
 
 public interface UserService {
 	/**

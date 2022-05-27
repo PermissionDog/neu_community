@@ -4,6 +4,9 @@ package com.github.permissiondog.community.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.github.permissiondog.community.model.enumeration.Role;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -16,7 +19,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import com.github.permissiondog.community.model.Role;
+
 import java.awt.Color;
 
 public abstract class UserInfoFrame extends JFrame {

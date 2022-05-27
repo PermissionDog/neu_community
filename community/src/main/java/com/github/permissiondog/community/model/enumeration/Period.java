@@ -1,4 +1,4 @@
-package com.github.permissiondog.community.model;
+package com.github.permissiondog.community.model.enumeration;
 
 public enum Period {
 	MORNING {

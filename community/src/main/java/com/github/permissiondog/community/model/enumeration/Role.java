@@ -1,4 +1,4 @@
-package com.github.permissiondog.community.model;
+package com.github.permissiondog.community.model.enumeration;
 
 public enum Role {
 	//管理员

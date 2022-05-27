@@ -6,8 +6,8 @@ import java.util.List;
 import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchHouseKeeperException;
 import com.github.permissiondog.community.exception.NoSuchMemberException;
-import com.github.permissiondog.community.model.Gender;
 import com.github.permissiondog.community.model.Member;
+import com.github.permissiondog.community.model.enumeration.Gender;
 
 public interface MemberService {
 	/**

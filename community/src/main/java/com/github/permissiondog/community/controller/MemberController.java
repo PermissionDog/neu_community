@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 import com.github.permissiondog.community.exception.IllegalParameterException;
-import com.github.permissiondog.community.model.Gender;
 import com.github.permissiondog.community.model.Member;
+import com.github.permissiondog.community.model.enumeration.Gender;
 import com.github.permissiondog.community.service.MemberService;
 import com.github.permissiondog.community.service.impl.MemberServiceImpl;
 
