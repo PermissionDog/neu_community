@@ -66,7 +66,7 @@ public class AdminMainFrame extends MainFrame {
 		textFieldSearch.setColumns(10);
 		
 		JButton btnNewMember = new JButton("添加老人");
-		btnNewMember.setBounds(492, 10, 93, 23);
+		btnNewMember.setBounds(389, 10, 93, 23);
 		panel.add(btnNewMember);
 		
 		JButton btnSetService = new JButton("设置服务");
@@ -76,6 +76,10 @@ public class AdminMainFrame extends MainFrame {
 		JButton btnShowService = new JButton("查看服务");
 		btnShowService.setBounds(389, 42, 93, 23);
 		panel.add(btnShowService);
+		
+		JButton btnModifyMember = new JButton("修改老人");
+		btnModifyMember.setBounds(492, 10, 93, 23);
+		panel.add(btnModifyMember);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -106,7 +110,9 @@ public class AdminMainFrame extends MainFrame {
 		btnNewUser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				UserController.getInstance().showRegisterFrame();
+				UserController.getInstance().showRegisterFrame(() -> {
+					flushTable();
+				});
 			}
 		});
 		

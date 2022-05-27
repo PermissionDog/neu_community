@@ -17,6 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import com.github.permissiondog.community.model.Role;
+import java.awt.Color;
 
 public abstract class UserInfoFrame extends JFrame {
 
@@ -33,6 +34,7 @@ public abstract class UserInfoFrame extends JFrame {
 	
 	protected JButton btnConfirm;
 	protected JButton btnCancel;
+	protected JLabel lblUserNameWarn;
 
 	protected UserInfoFrame() {
 		setBounds(100, 100, 419, 449);
@@ -41,7 +43,7 @@ public abstract class UserInfoFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 320, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{0, 360, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 370, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
@@ -57,7 +59,7 @@ public abstract class UserInfoFrame extends JFrame {
 		contentPane.add(panel, gbc_panel);
 		
 		btnConfirm = new JButton("确定");
-		btnConfirm.setBounds(212, 313, 93, 23);
+		btnConfirm.setBounds(252, 313, 93, 23);
 		panel.add(btnConfirm);
 		
 		btnCancel = new JButton("取消");
@@ -65,45 +67,45 @@ public abstract class UserInfoFrame extends JFrame {
 		panel.add(btnCancel);
 		
 		JLabel lblNewLabel = new JLabel("账号");
-		lblNewLabel.setBounds(37, 31, 54, 15);
+		lblNewLabel.setBounds(57, 31, 54, 15);
 		panel.add(lblNewLabel);
 		
 		textFieldUserName = new JTextField();
 		textFieldUserName.setToolTipText("6-18位字母数字");
-		textFieldUserName.setBounds(143, 27, 139, 23);
+		textFieldUserName.setBounds(129, 27, 139, 23);
 		panel.add(textFieldUserName);
 		textFieldUserName.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("密码");
-		lblNewLabel_1.setBounds(37, 71, 54, 15);
+		lblNewLabel_1.setBounds(57, 71, 54, 15);
 		panel.add(lblNewLabel_1);
 		
 		passwordField = new JPasswordField();
 		passwordField.setToolTipText("8-18位字符，至少含有大写字母、小写字母、数字、特殊符号（~!@#$%^&*._）中的任意两种构成");
-		passwordField.setBounds(143, 67, 139, 23);
+		passwordField.setBounds(129, 67, 139, 23);
 		panel.add(passwordField);
 		
 		textFieldName = new JTextField();
 		textFieldName.setToolTipText("1-10位英文字母汉字数字");
 		textFieldName.setColumns(10);
-		textFieldName.setBounds(143, 106, 139, 23);
+		textFieldName.setBounds(129, 106, 139, 23);
 		panel.add(textFieldName);
 		
 		JLabel lblNewLabel_2 = new JLabel("姓名");
-		lblNewLabel_2.setBounds(37, 110, 54, 15);
+		lblNewLabel_2.setBounds(57, 110, 54, 15);
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("性别");
-		lblNewLabel_2_1.setBounds(37, 147, 54, 15);
+		lblNewLabel_2_1.setBounds(57, 147, 54, 15);
 		panel.add(lblNewLabel_2_1);
 		
 		rdbtnMale = new JRadioButton("男");
 		rdbtnMale.setSelected(true);
-		rdbtnMale.setBounds(143, 143, 37, 23);
+		rdbtnMale.setBounds(129, 143, 37, 23);
 		panel.add(rdbtnMale);
 		
 		rdbtnFemale = new JRadioButton("女");
-		rdbtnFemale.setBounds(212, 143, 37, 23);
+		rdbtnFemale.setBounds(195, 143, 37, 23);
 		panel.add(rdbtnFemale);
 		
 		ButtonGroup bg = new ButtonGroup();
@@ -111,32 +113,37 @@ public abstract class UserInfoFrame extends JFrame {
 		bg.add(rdbtnMale);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("出生日期");
-		lblNewLabel_2_2.setBounds(37, 182, 54, 15);
+		lblNewLabel_2_2.setBounds(57, 182, 54, 15);
 		panel.add(lblNewLabel_2_2);
 		
 		textFieldBirthday = new JTextField();
 		textFieldBirthday.setToolTipText("如 2022-5-26");
 		textFieldBirthday.setColumns(10);
-		textFieldBirthday.setBounds(143, 178, 139, 23);
+		textFieldBirthday.setBounds(129, 178, 139, 23);
 		panel.add(textFieldBirthday);
 		
 		JLabel lblNewLabel_2_2_1 = new JLabel("联系电话");
-		lblNewLabel_2_2_1.setBounds(37, 215, 54, 15);
+		lblNewLabel_2_2_1.setBounds(57, 215, 54, 15);
 		panel.add(lblNewLabel_2_2_1);
 		
 		textFieldPhone = new JTextField();
 		textFieldPhone.setToolTipText("5-20位数字或加号");
 		textFieldPhone.setColumns(10);
-		textFieldPhone.setBounds(143, 211, 139, 23);
+		textFieldPhone.setBounds(129, 211, 139, 23);
 		panel.add(textFieldPhone);
 		
 		JLabel lblNewLabel_2_2_1_1 = new JLabel("权限");
-		lblNewLabel_2_2_1_1.setBounds(37, 252, 54, 15);
+		lblNewLabel_2_2_1_1.setBounds(57, 252, 54, 15);
 		panel.add(lblNewLabel_2_2_1_1);
 		
 		comboBoxRole = new JComboBox<Role>();
 		comboBoxRole.setModel(new DefaultComboBoxModel<Role>(Role.values()));
-		comboBoxRole.setBounds(143, 248, 139, 23);
+		comboBoxRole.setBounds(129, 248, 139, 23);
 		panel.add(comboBoxRole);
+		
+		lblUserNameWarn = new JLabel("");
+		lblUserNameWarn.setForeground(Color.RED);
+		lblUserNameWarn.setBounds(278, 31, 93, 15);
+		panel.add(lblUserNameWarn);
 	}
 }

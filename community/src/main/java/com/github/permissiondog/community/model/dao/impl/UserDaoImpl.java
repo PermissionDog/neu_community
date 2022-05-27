@@ -62,6 +62,10 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
+	@Override
+	public User findUserByID(int id) {
+		return users.get(id);
+	}
 
 	@Override
 	public List<User> getAllUsers() {
@@ -70,7 +74,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User insertUser(User user) {
-		user.setId(idCount++);
+		user.setId(++idCount);
 		users.put(user.getId(), user);
 		saveUsers();
 
@@ -95,5 +99,6 @@ public class UserDaoImpl implements UserDao {
 		saveUsers();
 		return user;
 	}
+
 
 }

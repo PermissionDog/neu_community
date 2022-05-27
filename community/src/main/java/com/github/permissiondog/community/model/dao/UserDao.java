@@ -9,9 +9,16 @@ public interface UserDao {
 	 * 查找用户
 	 *
 	 * @param	username 用户名
-	 * @return	找到的用户, 如果未找到返回 null
+	 * @return	找到的用户, 未找到返回 null
 	 */
 	public User findUserByUserName(String username);
+	/**
+	 * 查找用户
+	 * 
+	 * @param id	用户ID
+	 * @return		找到的用户, 未找到返回 null
+	 */
+	public User findUserByID(int id);
 	/**
 	 * 获取所有用户
 	 *
