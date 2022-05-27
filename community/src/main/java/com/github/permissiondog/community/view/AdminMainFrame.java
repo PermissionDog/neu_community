@@ -1,6 +1,7 @@
 package com.github.permissiondog.community.view;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.github.permissiondog.community.controller.UserController;
 import com.github.permissiondog.community.model.User;
@@ -11,6 +12,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -107,12 +109,35 @@ public class AdminMainFrame extends MainFrame {
 						"\u7535\u8BDD", "\u6743\u9650" }));
 		scrollPane.setViewportView(table);
 		
+		//新增用户
 		btnNewUser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				UserController.getInstance().showRegisterFrame(() -> {
 					flushTable();
 				});
+			}
+		});
+		//删除用户
+		btnDeleteUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (table.getSelectedRowCount() < 1) {
+					JOptionPane.showMessageDialog(AdminMainFrame.this, "请先选择要删除的用户");
+					return;
+				}
+				int result = JOptionPane.showConfirmDialog(AdminMainFrame.this, "是否要删除", "", JOptionPane.YES_NO_OPTION);
+				if (result != JOptionPane.YES_OPTION) {
+					return;
+				}
+				Arrays.stream(table.getSelectedRows()).forEach((i) -> {
+					int id = users.get(i).getId();
+					if (UserController.getInstance().deleteUser(id) == null) {
+						JOptionPane.showMessageDialog(AdminMainFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
+					}
+				});
+				flushTable();
+				JOptionPane.showMessageDialog(AdminMainFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		

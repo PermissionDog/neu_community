@@ -92,8 +92,8 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public User deleteUser(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		UserDao userDao = UserDaoImpl.getInstance();
+		return userDao.deleteUser(id);
 	}
 	@Override
 	public User getUser(int id) {

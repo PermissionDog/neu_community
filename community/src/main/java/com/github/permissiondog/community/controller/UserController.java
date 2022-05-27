@@ -122,6 +122,18 @@ public class UserController {
 		UserService userService = UserServiceImpl.getInstance();
 		return userService.getUser(username);
 	}
+	
+	
+	/**
+	 * 删除用户
+	 * 
+	 * @param id	要删除的用户ID
+	 * @return		删除的用户, 失败返回 null
+	 */
+	public User deleteUser(int id) {
+		UserService userService = UserServiceImpl.getInstance();
+		return userService.deleteUser(id);
+	}
 
 	
 	/**
