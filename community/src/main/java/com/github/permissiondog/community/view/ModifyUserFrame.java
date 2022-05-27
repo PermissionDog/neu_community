@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
 
 import com.github.permissiondog.community.Callback;
+import com.github.permissiondog.community.Constants;
 import com.github.permissiondog.community.controller.UserController;
 import com.github.permissiondog.community.model.Gender;
 import com.github.permissiondog.community.model.Role;
@@ -34,7 +35,7 @@ public class ModifyUserFrame extends UserInfoFrame {
 		} else {
 			rdbtnFemale.setSelected(true);
 		}
-		textFieldBirthday.setText(user.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-M-dd")));
+		textFieldBirthday.setText(user.getBirthday().format(Constants.DATE_FORMATTER));
 		textFieldPhone.setText(user.getPhone());
 		comboBoxRole.setSelectedItem(user.getRole());
 		
@@ -43,7 +44,7 @@ public class ModifyUserFrame extends UserInfoFrame {
 			public void mouseClicked(MouseEvent e) {
 				LocalDate birthday;
 				try {
-					birthday = LocalDate.parse(textFieldBirthday.getText(), DateTimeFormatter.ofPattern("yyyy-M-dd"));
+					birthday = LocalDate.parse(textFieldBirthday.getText(), Constants.DATE_FORMATTER);
 				} catch (DateTimeParseException exception) {
 					JOptionPane.showMessageDialog(ModifyUserFrame.this, "出生日期格式错误", "错误", JOptionPane.ERROR_MESSAGE);
 					return;

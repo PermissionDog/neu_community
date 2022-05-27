@@ -3,8 +3,8 @@ package com.github.permissiondog.community.util;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
+import com.github.permissiondog.community.Constants;
 import com.github.permissiondog.community.model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,27 +16,25 @@ public class GsonUtil {
 	public static final Gson gson = new GsonBuilder().setPrettyPrinting()
 			.registerTypeHierarchyAdapter(LocalTime.class, new TypeAdapter<LocalTime>() {
 				
-				private DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
 				@Override
 				public void write(JsonWriter out, LocalTime value) throws IOException {
-					out.value(value.format(format));
+					out.value(value.format(Constants.TIME_FORMATTER));
 				}
 
 				@Override
 				public LocalTime read(JsonReader in) throws IOException {
-					return LocalTime.parse(in.nextString(), format);
+					return LocalTime.parse(in.nextString(), Constants.TIME_FORMATTER);
 				}
 			}).registerTypeHierarchyAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
 				
-				private DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				@Override
 				public void write(JsonWriter out, LocalDate value) throws IOException {
-					out.value(value.format(format));
+					out.value(value.format(Constants.DATE_FORMATTER));
 				}
 
 				@Override
 				public LocalDate read(JsonReader in) throws IOException {
-					return LocalDate.parse(in.nextString(), format);
+					return LocalDate.parse(in.nextString(), Constants.DATE_FORMATTER);
 				}
 
 			}).registerTypeHierarchyAdapter(Gender.class, new TypeAdapter<Gender>() {

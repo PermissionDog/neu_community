@@ -3,6 +3,7 @@ package com.github.permissiondog.community.view;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.github.permissiondog.community.Constants;
 import com.github.permissiondog.community.controller.UserController;
 import com.github.permissiondog.community.model.User;
 import javax.swing.JTable;
@@ -185,7 +186,7 @@ public class AdminMainFrame extends MainFrame {
 			obj[1] = user.getUsername();
 			obj[2] = user.getName();
 			obj[3] = user.getGender();
-			obj[4] = user.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			obj[4] = user.getBirthday().format(Constants.DATE_FORMATTER);
 			obj[5] = user.getPhone();
 			obj[6] = user.getRole();
 			data[i] = obj;
@@ -210,7 +211,7 @@ public class AdminMainFrame extends MainFrame {
 			obj[1] = user.getUsername();
 			obj[2] = user.getName();
 			obj[3] = user.getGender();
-			obj[4] = user.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			obj[4] = user.getBirthday().format(Constants.DATE_FORMATTER);
 			obj[5] = user.getPhone();
 			obj[6] = user.getRole();
 			for (int j = 0; j < 7; j++) {
