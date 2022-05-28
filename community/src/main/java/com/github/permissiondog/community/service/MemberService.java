@@ -1,26 +1,21 @@
 package com.github.permissiondog.community.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchHouseKeeperException;
 import com.github.permissiondog.community.exception.NoSuchMemberException;
 import com.github.permissiondog.community.model.Member;
-import com.github.permissiondog.community.model.enumeration.Gender;
 
 public interface MemberService {
 	/**
 	 * 创建新入住人
 	 * 
-	 * @param name		老人姓名
-	 * @param gender	性别
-	 * @param birthday	出生日期
-	 * @param phone		联系电话
+	 * @param member	老人信息
 	 * @return			成功返回老人
 	 * @throws IllegalParameterException 参数错误
 	 */
-	public Member newMember(String name, Gender gender, LocalDate birthday, String phone) throws IllegalParameterException;
+	public Member newMember(Member member) throws IllegalParameterException;
 	
 	/**
 	 * 删除入住人

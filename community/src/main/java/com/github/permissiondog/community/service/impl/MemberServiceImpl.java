@@ -27,8 +27,13 @@ public class MemberServiceImpl implements MemberService {
 
 
 	@Override
-	public Member newMember(String name, Gender gender, LocalDate birthday, String phone)
+	public Member newMember(Member m)
 			throws IllegalParameterException {
+		String name = m.getName();
+		Gender gender = m.getGender();
+		LocalDate birthday = m.getBirthday();
+		String phone = m.getPhone();
+		
 		ParameterChecker.ensureNotEmpty(name, "姓名");
 		ParameterChecker.ensureNotEmpty(gender, "性别");
 		ParameterChecker.ensureNotEmpty(birthday, "生日");
