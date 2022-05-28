@@ -71,10 +71,6 @@ public class AdminMainFrame extends MainFrame {
 		panel.add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 		
-		JButton btnNewMember = new JButton("添加老人");
-		btnNewMember.setBounds(389, 10, 93, 23);
-		panel.add(btnNewMember);
-		
 		JButton btnSetService = new JButton("设置服务");
 		btnSetService.setBounds(492, 42, 93, 23);
 		panel.add(btnSetService);
@@ -83,9 +79,9 @@ public class AdminMainFrame extends MainFrame {
 		btnShowService.setBounds(389, 42, 93, 23);
 		panel.add(btnShowService);
 		
-		JButton btnModifyMember = new JButton("修改老人");
-		btnModifyMember.setBounds(492, 10, 93, 23);
-		panel.add(btnModifyMember);
+		JButton btnShowMember = new JButton("查看老人");
+		btnShowMember.setBounds(492, 10, 93, 23);
+		panel.add(btnShowMember);
 		
 		JButton btnModifyUser = new JButton("修改用户");
 		btnModifyUser.setBounds(113, 42, 93, 23);
@@ -170,11 +166,11 @@ public class AdminMainFrame extends MainFrame {
 				UserController.getInstance().showModifyUserFrame(id);
 			}
 		});
-		//新增入住人
-		btnNewMember.addMouseListener(new MouseAdapter() {
+		
+		btnShowMember.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MemberController.getInstance().showNewMemberFrame();
+				MemberController.getInstance().showMemberListFrame();
 			}
 		});
 		
@@ -185,7 +181,7 @@ public class AdminMainFrame extends MainFrame {
 		flushTable();
 	}
 
-	public void flushTable() {
+	private void flushTable() {
 		users = UserController.getInstance().getAllUsers();
 		int size = users.size();
 		Object[][] data = new Object[size][];

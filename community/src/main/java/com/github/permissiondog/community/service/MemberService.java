@@ -49,7 +49,7 @@ public interface MemberService {
 	 * 获取被某个生活管家服务的入住人列表
 	 * 
 	 * @param houseKeeperID	生活管家ID
-	 * @return	入住人
+	 * @return	入住人, 若生活管家不存在返回空列表
 	 */
 	public List<Member> getAllMembers(int houseKeeperID);
 

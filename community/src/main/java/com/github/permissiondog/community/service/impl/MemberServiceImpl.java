@@ -1,16 +1,20 @@
 package com.github.permissiondog.community.service.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchHouseKeeperException;
 import com.github.permissiondog.community.exception.NoSuchMemberException;
 import com.github.permissiondog.community.model.Member;
+import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.dao.Dao;
 import com.github.permissiondog.community.model.dao.MemberDao;
 import com.github.permissiondog.community.model.dao.Observer;
+import com.github.permissiondog.community.model.dao.UserDao;
 import com.github.permissiondog.community.model.enumeration.Gender;
+import com.github.permissiondog.community.model.enumeration.Role;
 import com.github.permissiondog.community.service.MemberService;
 
 public class MemberServiceImpl implements MemberService {
@@ -67,14 +71,19 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<Member> getAllMembers() {
-		// TODO Auto-generated method stub
-		return null;
+		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+		return memberDao.getAll();
 	}
 
 	@Override
 	public List<Member> getAllMembers(int houseKeeperID) {
-		// TODO Auto-generated method stub
-		return null;
+		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+		UserDao	userDao = (UserDao) Dao.of(Dao.USER);
+		User houseKeeper = userDao.find(houseKeeperID);
+		if (houseKeeper == null || !houseKeeper.getRole().equals(Role.HOUSEKEEPER)) {
+			return new ArrayList<>();
+		}
+		return memberDao.getAll().stream().filter(member -> member.getHouseKeeperID() == houseKeeperID).toList();
 	}
 	
 	@Override
