@@ -51,8 +51,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User register(String username, String pwd, String name, Gender gender, LocalDate birthday, String phone,
-			Role role) throws UserNameAlreadyExistException, IllegalParameterException {
+	public User register(User u) throws UserNameAlreadyExistException, IllegalParameterException {
+		String username = u.getUsername();
+		String name = u.getName();
+		String pwd = u.getPassword();
+		Gender gender = u.getGender();
+		LocalDate birthday = u.getBirthday();
+		String phone = u.getPhone();
+		Role role = u.getRole();
+		
 		ParameterChecker.ensureNotEmpty(username, "用户名");
 		ParameterChecker.ensureNotEmpty(pwd, "密码");
 		ParameterChecker.ensureNotEmpty(name, "姓名");

@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import javax.swing.JOptionPane;
@@ -34,16 +33,16 @@ public class RegisterFrame extends UserInfoFrame {
 					JOptionPane.showMessageDialog(RegisterFrame.this, "出生日期格式错误", "错误", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
+				User u = new User();
+				u.setUsername(textFieldUserName.getText());
+				u.setPassword(new String(passwordField.getPassword()));
+				u.setName(textFieldName.getText());
+				u.setGender(rdbtnMale.isSelected() ? Gender.MALE : Gender.FEMALE);
+				u.setBirthday(birthday);
+				u.setPhone(textFieldPhone.getText());
+				u.setRole((Role) comboBoxRole.getSelectedItem());
 				
-				User u = UserController.getInstance().register(
-						textFieldUserName.getText(),
-						new String(passwordField.getPassword()),
-						textFieldName.getText(),
-						rdbtnMale.isSelected() ? Gender.MALE : Gender.FEMALE,
-						birthday,
-						textFieldPhone.getText(),
-						(Role) comboBoxRole.getSelectedItem()
-						);
+				u = UserController.getInstance().register(u);
 				if (u != null) {
 					RegisterFrame.this.dispose();
 					cb.callback();

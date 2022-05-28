@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.github.permissiondog.community.controller.UserController;
+import com.github.permissiondog.community.model.User;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -111,6 +112,9 @@ public class LoginFrame extends JFrame {
 	private void login() {
 		String username = userNameTextField.getText();
 		String password = new String(passwordField.getPassword());
-		UserController.getInstance().login(username, password, this);
+		User u = UserController.getInstance().login(username, password);
+		if (u != null) {
+			UserController.getInstance().showMainFrame(u);
+		}
 	}
 }
