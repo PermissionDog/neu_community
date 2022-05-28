@@ -19,12 +19,6 @@ public class NewMemberFrame extends MemberFrame {
 	public NewMemberFrame() {
 		super();
 		setTitle("新增入住人");
-		btnCancel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-			}
-		});
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

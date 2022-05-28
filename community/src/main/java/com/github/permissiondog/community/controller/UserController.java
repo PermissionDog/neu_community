@@ -178,8 +178,6 @@ public class UserController {
 
 	/**
 	 * 显示注册窗口
-	 * 
-	 * @param cb 注册成功时调用的回调函数
 	 */
 	public void showRegisterFrame() {
 		SwingUtilities.invokeLater(() -> {
@@ -192,7 +190,6 @@ public class UserController {
 	 * 显示修改用户窗口
 	 * 
 	 * @param id 要修改的用户
-	 * @param cb 修改成功调用的回调函数
 	 */
 	public void showModifyUserFrame(int id) {
 		SwingUtilities.invokeLater(() -> {

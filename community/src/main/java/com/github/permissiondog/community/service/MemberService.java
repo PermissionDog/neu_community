@@ -27,6 +27,22 @@ public interface MemberService {
 	public Member deleteMember(int id);
 	
 	/**
+	 * 获取入住人
+	 * 
+	 * @param id	入住人ID
+	 * @return		成功返回入住人, 未找到返回 null
+	 */
+	public Member getMember(int id);
+	
+	/**
+	 * 修改入住人
+	 * 
+	 * @param member 入住人
+	 * @return	成功返回入住人, 失败返回 null
+	 */
+	public Member modifyMember(Member member) throws IllegalParameterException, NoSuchMemberException;
+	
+	/**
 	 * 设置服务
 	 * 
 	 * @param houseKeeperID	生活管家ID

@@ -56,11 +56,36 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.insert(member);
 	}
+	
+	@Override
+	public Member getMember(int id) {
+		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+		return memberDao.find(id);
+	}
 
 	@Override
 	public Member deleteMember(int id) {
 		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
 		return memberDao.delete(id);
+	}
+	
+	@Override
+	public Member modifyMember(Member member) throws IllegalParameterException, NoSuchMemberException {
+		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+		Member oldMember = memberDao.find(member.getId());
+		if (oldMember == null) {
+			throw new NoSuchMemberException();
+		}
+		
+		ParameterChecker.ensureNotEmpty(member.getName(), "用户");ParameterChecker.ensureNotEmpty(member.getGender(), "性别");
+		ParameterChecker.ensureNotEmpty(member.getBirthday(), "生日");
+		ParameterChecker.ensureNotEmpty(member.getPhone(), "联系方式");
+		
+		ParameterChecker.ensure(ParameterChecker.checkName(member.getName()), "姓名由1-10位英文字母、汉字或数字组成");
+		ParameterChecker.ensure(ParameterChecker.checkPhone(member.getPhone()), "电话由5-20位数字或加号组成");
+		
+		
+		return memberDao.update(member);
 	}
 
 	@Override

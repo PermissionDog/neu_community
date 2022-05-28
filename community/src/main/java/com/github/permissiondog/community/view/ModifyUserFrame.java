@@ -37,6 +37,8 @@ public class ModifyUserFrame extends UserInfoFrame {
 		textFieldPhone.setText(user.getPhone());
 		comboBoxRole.setSelectedItem(user.getRole());
 		
+		setTitle("修改用户: " + user.getName());
+		
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

@@ -85,14 +85,14 @@ public class MemberListFrame extends JFrame {
 		btnModifyMember.setBounds(342, 10, 93, 23);
 		panel.add(btnModifyMember);
 
-		// 新增入住人
+		//新增入住人
 		btnNewMember.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				MemberController.getInstance().showNewMemberFrame();
 			}
 		});
-		// 删除入住人
+		//删除入住人
 		btnDeleteMember.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -111,6 +111,22 @@ public class MemberListFrame extends JFrame {
 					}
 				});
 				JOptionPane.showMessageDialog(MemberListFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		//修改入住人
+		btnModifyMember.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (table.getSelectedRowCount() < 1) {
+					JOptionPane.showMessageDialog(MemberListFrame.this, "请先选择要修改的用户");
+					return;
+				}
+				if (table.getSelectedRowCount() > 1) {
+					JOptionPane.showMessageDialog(MemberListFrame.this, "最多选择一个要修改的用户");
+					return;
+				}
+				int id = members.get(table.getSelectedRow()).getId();
+				MemberController.getInstance().showModifyMemberFrame(id);
 			}
 		});
 
