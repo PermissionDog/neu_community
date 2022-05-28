@@ -9,6 +9,7 @@ import com.github.permissiondog.community.Config;
 import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.exception.UserNameAlreadyExistException;
+import com.github.permissiondog.community.model.Member;
 import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.dao.*;
 import com.github.permissiondog.community.model.enumeration.Gender;
@@ -116,16 +117,39 @@ public class UserServiceImpl implements UserService {
 		ParameterChecker.ensure(ParameterChecker.checkName(user.getName()), "姓名由1-10位英文字母、汉字或数字组成");
 		ParameterChecker.ensure(ParameterChecker.checkPhone(user.getPhone()), "电话由5-20位数字或加号组成");
 		
+		//如果是生活管家, 去除关联的老人信息
+		if (oldUser.getRole().equals(Role.HOUSEKEEPER)) {
+			MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+			List<Member> members = memberDao.getAll();
+			members.stream().filter(member -> {
+				return member.getHouseKeeperID() == oldUser.getId();
+			}).forEach(member -> {
+				member.setHouseKeeperID(-1);
+				memberDao.update(member);
+			});
+		}
+		
 		return userDao.update(user);
 	}
 
 
 	@Override
 	public User deleteUser(int id) {
-		UserDao userDao = (UserDao) Dao.of(Dao.USER);
+		UserDao userDao = (UserDao) Dao.of(Dao.USER); 
+		User u = userDao.find(id);
+		//如果是生活管家, 去除关联的老人信息
+		if (u.getRole().equals(Role.HOUSEKEEPER)) {
+			MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+			List<Member> members = memberDao.getAll();
+			members.stream().filter(member -> {
+				return member.getHouseKeeperID() == u.getId();
+			}).forEach(member -> {
+				member.setHouseKeeperID(-1);
+				memberDao.update(member);
+			});
+		}
+		
 		return userDao.delete(id);
-		//TODO 如果是生活管家, 去除老人服务信息
-		//TODO 如果是后勤管理, 去除班车信息
 	}
 
 	@Override
