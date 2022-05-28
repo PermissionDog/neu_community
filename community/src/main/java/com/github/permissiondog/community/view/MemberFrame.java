@@ -3,8 +3,6 @@ package com.github.permissiondog.community.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -112,12 +110,7 @@ public abstract class MemberFrame extends JFrame {
 		panel.add(textFieldPhone);
 		
 
-		btnCancel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-			}
-		});
+		btnCancel.addActionListener(e -> dispose());
 	}
 
 }

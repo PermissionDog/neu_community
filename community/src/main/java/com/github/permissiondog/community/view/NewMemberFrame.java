@@ -1,7 +1,6 @@
 package com.github.permissiondog.community.view;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -19,9 +18,7 @@ public class NewMemberFrame extends MemberFrame {
 	public NewMemberFrame() {
 		super();
 		setTitle("新增入住人");
-		btnConfirm.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnConfirm.addActionListener(e -> {
 				LocalDate birthday;
 				try {
 					birthday = LocalDate.parse(textFieldBirthday.getText(), Constants.DATE_FORMATTER);
@@ -40,8 +37,7 @@ public class NewMemberFrame extends MemberFrame {
 				if (m != null) {
 					dispose();
 				}
-			}
-		});
+			});;
 	}
 
 }

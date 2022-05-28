@@ -7,8 +7,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -86,48 +85,37 @@ public class MemberListFrame extends JFrame {
 		panel.add(btnModifyMember);
 
 		//新增入住人
-		btnNewMember.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				MemberController.getInstance().showNewMemberFrame();
-			}
-		});
+		btnNewMember.addActionListener(e -> MemberController.getInstance().showNewMemberFrame());
 		//删除入住人
-		btnDeleteMember.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (table.getSelectedRowCount() < 1) {
-					JOptionPane.showMessageDialog(MemberListFrame.this, "请先选择要删除的入住人");
-					return;
-				}
-				int result = JOptionPane.showConfirmDialog(MemberListFrame.this, "是否要删除", "", JOptionPane.YES_NO_OPTION);
-				if (result != JOptionPane.YES_OPTION) {
-					return;
-				}
-				Arrays.stream(table.getSelectedRows()).forEach((i) -> {
-					int id = members.get(i).getId();
-					if (MemberController.getInstance().deleteMember(id) == null) {
-						JOptionPane.showMessageDialog(MemberListFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
-					}
-				});
-				JOptionPane.showMessageDialog(MemberListFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+		btnDeleteMember.addActionListener(e -> {
+			if (table.getSelectedRowCount() < 1) {
+				JOptionPane.showMessageDialog(MemberListFrame.this, "请先选择要删除的入住人");
+				return;
 			}
+			int result = JOptionPane.showConfirmDialog(MemberListFrame.this, "是否要删除", "", JOptionPane.YES_NO_OPTION);
+			if (result != JOptionPane.YES_OPTION) {
+				return;
+			}
+			Arrays.stream(table.getSelectedRows()).forEach((i) -> {
+				int id = members.get(i).getId();
+				if (MemberController.getInstance().deleteMember(id) == null) {
+					JOptionPane.showMessageDialog(MemberListFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
+				}
+			});
+			JOptionPane.showMessageDialog(MemberListFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 		});
 		//修改入住人
-		btnModifyMember.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (table.getSelectedRowCount() < 1) {
-					JOptionPane.showMessageDialog(MemberListFrame.this, "请先选择要修改的用户");
-					return;
-				}
-				if (table.getSelectedRowCount() > 1) {
-					JOptionPane.showMessageDialog(MemberListFrame.this, "最多选择一个要修改的用户");
-					return;
-				}
-				int id = members.get(table.getSelectedRow()).getId();
-				MemberController.getInstance().showModifyMemberFrame(id);
+		btnModifyMember.addActionListener(e -> {
+			if (table.getSelectedRowCount() < 1) {
+				JOptionPane.showMessageDialog(MemberListFrame.this, "请先选择要修改的用户");
+				return;
 			}
+			if (table.getSelectedRowCount() > 1) {
+				JOptionPane.showMessageDialog(MemberListFrame.this, "最多选择一个要修改的用户");
+				return;
+			}
+			int id = members.get(table.getSelectedRow()).getId();
+			MemberController.getInstance().showModifyMemberFrame(id);
 		});
 
 		MemberController.getInstance().registerObeserver(this::flushTable);

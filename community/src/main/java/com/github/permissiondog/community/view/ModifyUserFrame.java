@@ -1,7 +1,6 @@
 package com.github.permissiondog.community.view;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -39,9 +38,8 @@ public class ModifyUserFrame extends UserInfoFrame {
 		
 		setTitle("修改用户: " + user.getName());
 		
-		btnConfirm.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnConfirm.addActionListener(e -> {
+			{
 				LocalDate birthday;
 				try {
 					birthday = LocalDate.parse(textFieldBirthday.getText(), Constants.DATE_FORMATTER);

@@ -20,8 +20,6 @@ import javax.swing.JPasswordField;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class LoginFrame extends JFrame {
 
@@ -94,12 +92,7 @@ public class LoginFrame extends JFrame {
 		button.setBounds(41, 0, 203, 35);
 		panel_2.add(button);
 		
-		button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				login();
-			}
-		});
+		button.addActionListener(e -> login());
 		passwordField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
