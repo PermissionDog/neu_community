@@ -13,7 +13,7 @@ public class Constants {
 
 	public static final String BUS_TABLE_NAME = DATA_FOLDER + "/buses.json";
 	
-	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-dd");
+	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d");
 	
 	public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
