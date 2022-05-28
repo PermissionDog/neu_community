@@ -47,6 +47,20 @@ public class ParameterChecker {
 		return phone.matches("^[0-9\\+]{5,20}$");
 	}
 	
+	protected static boolean checkRouteCode(String code) {
+		if (code == null) {
+			return false;
+		}
+		return code.matches("^[a-zA-Z0-9]{1,10}$");
+	}
+
+	protected static boolean checkComment(String comment) {
+		if (comment == null) {
+			return false;
+		}
+		return comment.length() <= 200;
+	}
+	
 
 	protected static void ensureNotEmpty(Object obj, String paraName) throws IllegalParameterException {
 		if (obj == null || (obj instanceof String && "".equals((String) obj))) {

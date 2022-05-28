@@ -65,4 +65,31 @@ public class ParameterCheckerTest {
 		assertFalse(ParameterChecker.checkPhone("a1231564654"));
 		assertFalse(ParameterChecker.checkPhone(""));
 	}
+	@Test
+	@DisplayName("线路代码")
+	void testRouteCode() {
+		assertTrue(ParameterChecker.checkRouteCode("10086"));
+		assertTrue(ParameterChecker.checkRouteCode("1234567890"));
+		assertTrue(ParameterChecker.checkRouteCode("100a"));
+
+		assertFalse(ParameterChecker.checkRouteCode(null));
+		assertFalse(ParameterChecker.checkRouteCode(""));
+		assertFalse(ParameterChecker.checkRouteCode("12345678901"));
+		assertFalse(ParameterChecker.checkRouteCode("测试"));
+	}
+	@Test
+	@DisplayName("备注")
+	void testComment() {
+		StringBuilder t = new StringBuilder();
+		for (int i = 0; i < 200; i++) {
+			t.append('a');
+		}
+		String temp = t.toString();
+		assertTrue(ParameterChecker.checkComment(""));
+		assertTrue(ParameterChecker.checkComment(temp));
+		
+		
+		assertFalse(ParameterChecker.checkComment(null));
+		assertFalse(ParameterChecker.checkComment(temp + "a"));
+	}
 }
