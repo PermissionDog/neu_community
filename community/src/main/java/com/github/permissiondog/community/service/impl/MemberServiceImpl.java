@@ -7,8 +7,8 @@ import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchHouseKeeperException;
 import com.github.permissiondog.community.exception.NoSuchMemberException;
 import com.github.permissiondog.community.model.Member;
+import com.github.permissiondog.community.model.dao.Dao;
 import com.github.permissiondog.community.model.dao.MemberDao;
-import com.github.permissiondog.community.model.dao.impl.MemberDaoImpl;
 import com.github.permissiondog.community.model.enumeration.Gender;
 import com.github.permissiondog.community.service.MemberService;
 
@@ -37,7 +37,7 @@ public class MemberServiceImpl implements MemberService {
 		ParameterChecker.ensure(ParameterChecker.checkName(name), "姓名由1-10位英文字母、汉字或数字组成");
 		ParameterChecker.ensure(ParameterChecker.checkPhone(phone), "电话由5-20位数字或加号组成");
 
-		MemberDao memberDao = MemberDaoImpl.getInstance();
+		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
 		Member member = new Member();
 		member.setName(name);
 		member.setGender(gender);

@@ -11,7 +11,6 @@ import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.exception.UserNameAlreadyExistException;
 import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.dao.*;
-import com.github.permissiondog.community.model.dao.impl.UserDaoImpl;
 import com.github.permissiondog.community.model.enumeration.Gender;
 import com.github.permissiondog.community.model.enumeration.Role;
 import com.github.permissiondog.community.service.UserService;
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User login(String username, String password) throws WrongPasswordException, NoSuchUserException {
-		UserDao userDao = UserDaoImpl.getInstance();
+		UserDao userDao = (UserDao) Dao.of(Dao.USER);
 		User u = userDao.find(username);
 		// 判断是否找到该用户
 		if (u == null) {
@@ -47,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getAllUsers() {
-		UserDao userDao = UserDaoImpl.getInstance();
+		UserDao userDao = (UserDao) Dao.of(Dao.USER);
 		return userDao.getAll();
 	}
 
@@ -62,7 +61,7 @@ public class UserServiceImpl implements UserService {
 		ParameterChecker.ensureNotEmpty(phone, "联系方式");
 		ParameterChecker.ensureNotEmpty(role, "权限");
 
-		UserDao userDao = UserDaoImpl.getInstance();
+		UserDao userDao = (UserDao) Dao.of(Dao.USER);
 		if (userDao.find(username) != null) {
 			throw new UserNameAlreadyExistException();
 		}
@@ -87,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User modifyUser(User user) throws IllegalParameterException, NoSuchUserException {
-		UserDao userDao = UserDaoImpl.getInstance();
+		UserDao userDao = (UserDao) Dao.of(Dao.USER);
 		User oldUser = userDao.find(user.getId());
 		if (oldUser == null) {
 			throw new NoSuchUserException();
@@ -116,7 +115,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User deleteUser(int id) {
-		UserDao userDao = UserDaoImpl.getInstance();
+		UserDao userDao = (UserDao) Dao.of(Dao.USER);
 		return userDao.delete(id);
 		//TODO 如果是生活管家, 去除老人服务信息
 		//TODO 如果是后勤管理, 去除班车信息
@@ -124,13 +123,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUser(int id) {
-		UserDao userDao = UserDaoImpl.getInstance();
+		UserDao userDao = (UserDao) Dao.of(Dao.USER);
 		return userDao.find(id);
 	}
 
 	@Override
 	public User getUser(String username) {
-		UserDao userDao = UserDaoImpl.getInstance();
+		UserDao userDao = (UserDao) Dao.of(Dao.USER);
 		return userDao.find(username);
 	}
 
