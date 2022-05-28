@@ -21,7 +21,6 @@ public class ModifyUserFrame extends UserInfoFrame {
 	public ModifyUserFrame(int id) {
 		super();
 		textFieldUserName.setEditable(false);
-		btnCancel.setVisible(false);
 		comboBoxRole.setEditable(false);
 		
 		user = UserController.getInstance().getUser(id);

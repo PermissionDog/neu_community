@@ -45,8 +45,7 @@ public class RegisterFrame extends UserInfoFrame {
 			}
 			
 		});
-		super.btnCancel.addActionListener(e -> RegisterFrame.this.dispose());
-		super.textFieldUserName.addKeyListener(new KeyAdapter() {
+		textFieldUserName.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				User u = UserController.getInstance().getUser(textFieldUserName.getText());

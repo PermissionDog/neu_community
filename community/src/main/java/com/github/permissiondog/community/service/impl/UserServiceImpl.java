@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
 		ParameterChecker.ensure(ParameterChecker.checkPhone(user.getPhone()), "电话由5-20位数字或加号组成");
 		
 		//如果是生活管家, 去除关联的老人信息
-		if (oldUser.getRole().equals(Role.HOUSEKEEPER)) {
+		if (oldUser.getRole().equals(Role.HOUSEKEEPER) && !oldUser.getRole().equals(user.getRole())) {
 			MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
 			List<Member> members = memberDao.getAll();
 			members.stream().filter(member -> {

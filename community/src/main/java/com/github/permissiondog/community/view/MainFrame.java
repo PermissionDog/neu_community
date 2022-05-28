@@ -8,14 +8,11 @@ public abstract class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
-	private User user;
+	protected User user;
 	
 	public MainFrame(User user) {
 		this.user = user;
 	}
 
-	public User getUser() {
-		return user;
-	}
 
 }

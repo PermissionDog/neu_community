@@ -17,6 +17,7 @@ import com.github.permissiondog.community.view.AdminMainFrame;
 import com.github.permissiondog.community.view.HouseKeeperMainFrame;
 import com.github.permissiondog.community.view.LoginFrame;
 import com.github.permissiondog.community.view.LogisticsManagerMainFrame;
+import com.github.permissiondog.community.view.ModifySelfFrame;
 import com.github.permissiondog.community.view.ModifyUserFrame;
 import com.github.permissiondog.community.view.RegisterFrame;
 
@@ -170,6 +171,7 @@ public class UserController {
 				break;
 			case HOUSEKEEPER:
 				new HouseKeeperMainFrame(user).setVisible(true);
+				break;
 			case LOGISTICS_MANAGER:
 				new LogisticsManagerMainFrame(user).setVisible(true);
 			}
@@ -193,8 +195,18 @@ public class UserController {
 	 */
 	public void showModifyUserFrame(int id) {
 		SwingUtilities.invokeLater(() -> {
-			ModifyUserFrame muf = new ModifyUserFrame(id);
-			muf.setVisible(true);
+			new ModifyUserFrame(id).setVisible(true);
+		});
+	}
+	/**
+	 * 显示修改个人信息窗口
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public void showModifySelfFrame(int id) {
+		SwingUtilities.invokeLater(() -> {
+			new ModifySelfFrame(id).setVisible(true);
 		});
 	}
 	
@@ -207,5 +219,6 @@ public class UserController {
 		UserService userService = UserServiceImpl.getInstance();
 		userService.registerObserver(o);
 	}
+
 
 }

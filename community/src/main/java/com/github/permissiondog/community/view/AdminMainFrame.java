@@ -43,9 +43,9 @@ public class AdminMainFrame extends MainFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 600, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 40, 80, 220, 40, 0 };
-		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowHeights = new int[] { 40, 80, 220, 35, 40, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
 		
 		JPanel panel = new JPanel();
@@ -108,6 +108,19 @@ public class AdminMainFrame extends MainFrame {
 				new String[] { "ID", "\u7528\u6237", "\u59D3\u540D", "\u6027\u522B", "\u51FA\u751F\u65E5\u671F",
 						"\u7535\u8BDD", "\u6743\u9650" }));
 		scrollPane.setViewportView(table);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 1;
+		gbc_panel_1.gridy = 3;
+		getContentPane().add(panel_1, gbc_panel_1);
+		
+		JButton btnReturn = new JButton("返回");
+		btnReturn.setBounds(490, 0, 93, 23);
+		panel_1.add(btnReturn);
 		
 		//搜索框
 		textFieldSearch.addKeyListener(new KeyAdapter() {
@@ -174,8 +187,15 @@ public class AdminMainFrame extends MainFrame {
 			MemberController.getInstance().showServiceListFrame(u.getId());
 		});
 		
+		//返回
+		btnReturn.addActionListener(e -> {
+			UserController.getInstance().showLoginFrame();
+			dispose();
+		});
+		
 		//注册观察者
 		UserController.getInstance().registerObserver(this::flushTable);
+		UserController.getInstance().registerObserver(this::flushTitle);
 		
 		//刷新表格
 		flushTable();
@@ -242,5 +262,9 @@ public class AdminMainFrame extends MainFrame {
 				return false;
 			}
 		});
+	}
+	private void flushTitle() {
+		user = UserController.getInstance().getUser(user.getId());
+		setTitle("管理员: " + user.getName());
 	}
 }

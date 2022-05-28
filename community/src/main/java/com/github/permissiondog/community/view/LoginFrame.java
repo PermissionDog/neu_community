@@ -107,6 +107,7 @@ public class LoginFrame extends JFrame {
 		String password = new String(passwordField.getPassword());
 		User u = UserController.getInstance().login(username, password);
 		if (u != null) {
+			dispose();
 			UserController.getInstance().showMainFrame(u);
 		}
 	}

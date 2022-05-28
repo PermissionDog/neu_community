@@ -67,6 +67,7 @@ public abstract class UserInfoFrame extends JFrame {
 		
 		btnCancel = new JButton("取消");
 		btnCancel.setBounds(10, 313, 93, 23);
+		btnCancel.addActionListener(e -> dispose());
 		panel.add(btnCancel);
 		
 		JLabel lblNewLabel = new JLabel("账号");
