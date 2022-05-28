@@ -6,6 +6,7 @@ import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchHouseKeeperException;
 import com.github.permissiondog.community.exception.NoSuchMemberException;
 import com.github.permissiondog.community.model.Member;
+import com.github.permissiondog.community.model.dao.Observer;
 
 public interface MemberService {
 	/**
@@ -51,4 +52,11 @@ public interface MemberService {
 	 * @return	入住人
 	 */
 	public List<Member> getAllMembers(int houseKeeperID);
+
+	/**
+	 * 注册观察者
+	 * 
+	 * @param o	观察者
+	 */
+	public void registerObserver(Observer o);
 }

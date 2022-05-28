@@ -67,4 +67,12 @@ public interface BaseDao<T extends Identifiable> {
 	 * @return	返回全部对象
 	 */
 	public List<T> getAll();
+	
+	/**
+	 * 注册观察者
+	 * 
+	 * @param observer	观察者
+	 */
+	public void registerObserver(Observer observer);
+	
 }

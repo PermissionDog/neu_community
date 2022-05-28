@@ -9,6 +9,7 @@ import com.github.permissiondog.community.exception.NoSuchMemberException;
 import com.github.permissiondog.community.model.Member;
 import com.github.permissiondog.community.model.dao.Dao;
 import com.github.permissiondog.community.model.dao.MemberDao;
+import com.github.permissiondog.community.model.dao.Observer;
 import com.github.permissiondog.community.model.enumeration.Gender;
 import com.github.permissiondog.community.service.MemberService;
 
@@ -74,6 +75,12 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> getAllMembers(int houseKeeperID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public void registerObserver(Observer o) {
+		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+		memberDao.registerObserver(o);
 	}
 
 }

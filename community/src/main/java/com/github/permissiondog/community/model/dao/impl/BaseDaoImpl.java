@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.github.permissiondog.community.model.Identifiable;
 import com.github.permissiondog.community.model.dao.BaseDao;
+import com.github.permissiondog.community.model.dao.Observer;
 
 public abstract class BaseDaoImpl<T extends Identifiable> implements BaseDao<T> {
 
@@ -18,6 +19,7 @@ public abstract class BaseDaoImpl<T extends Identifiable> implements BaseDao<T> 
 		newValue.setId(getAndIncreaseIdCount());
 		getData().put(newValue.getId(), newValue);
 		save();
+		notifyObservers();
 		
 		return newValue;
 	}
@@ -27,6 +29,7 @@ public abstract class BaseDaoImpl<T extends Identifiable> implements BaseDao<T> 
 		T t = getData().remove(id);
 		if (t != null)
 			save();
+			notifyObservers();
 		
 		return t;
 	}
@@ -38,12 +41,25 @@ public abstract class BaseDaoImpl<T extends Identifiable> implements BaseDao<T> 
 		}
 		getData().put(newValue.getId(), newValue);
 		save();
+		notifyObservers();
 		return newValue;
 	}
 
 	@Override
 	public List<T> getAll() {
 		return new ArrayList<>(getData().values());
+	}
+	
+	private List<Observer> observers = new ArrayList<>();
+	
+	@Override
+	public void registerObserver(Observer observer) {
+		observers.add(observer);
+	}
+	private void notifyObservers() {
+		for (Observer o : observers) {
+			o.onChanged();
+		}
 	}
 
 }

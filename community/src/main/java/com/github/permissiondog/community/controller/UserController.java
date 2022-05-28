@@ -5,12 +5,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import com.github.permissiondog.community.Callback;
 import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.exception.UserNameAlreadyExistException;
 import com.github.permissiondog.community.exception.WrongPasswordException;
 import com.github.permissiondog.community.model.*;
+import com.github.permissiondog.community.model.dao.Observer;
 import com.github.permissiondog.community.service.UserService;
 import com.github.permissiondog.community.service.impl.UserServiceImpl;
 import com.github.permissiondog.community.view.AdminMainFrame;
@@ -181,9 +181,9 @@ public class UserController {
 	 * 
 	 * @param cb 注册成功时调用的回调函数
 	 */
-	public void showRegisterFrame(Callback cb) {
+	public void showRegisterFrame() {
 		SwingUtilities.invokeLater(() -> {
-			RegisterFrame rf = new RegisterFrame(cb);
+			RegisterFrame rf = new RegisterFrame();
 			rf.setVisible(true);
 		});
 	}
@@ -194,11 +194,21 @@ public class UserController {
 	 * @param id 要修改的用户
 	 * @param cb 修改成功调用的回调函数
 	 */
-	public void showModifyUserFrame(int id, Callback cb) {
+	public void showModifyUserFrame(int id) {
 		SwingUtilities.invokeLater(() -> {
-			ModifyUserFrame muf = new ModifyUserFrame(id, cb);
+			ModifyUserFrame muf = new ModifyUserFrame(id);
 			muf.setVisible(true);
 		});
+	}
+	
+	/**
+	 * 注册观察者
+	 * 
+	 * @param o	观察者
+	 */
+	public void registerObserver(Observer o) {
+		UserService userService = UserServiceImpl.getInstance();
+		userService.registerObserver(o);
 	}
 
 }

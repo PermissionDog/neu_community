@@ -129,7 +129,7 @@ public class AdminMainFrame extends MainFrame {
 		btnNewUser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				UserController.getInstance().showRegisterFrame(AdminMainFrame.this::flushTable);
+				UserController.getInstance().showRegisterFrame();
 			}
 		});
 		//删除用户
@@ -167,7 +167,7 @@ public class AdminMainFrame extends MainFrame {
 					return;
 				}
 				int id = users.get(table.getSelectedRow()).getId();
-				UserController.getInstance().showModifyUserFrame(id, AdminMainFrame.this::flushTable);
+				UserController.getInstance().showModifyUserFrame(id);
 			}
 		});
 		//新增入住人
@@ -177,6 +177,9 @@ public class AdminMainFrame extends MainFrame {
 				MemberController.getInstance().showNewMemberFrame();
 			}
 		});
+		
+		//注册观察者
+		UserController.getInstance().registerObserver(this::flushTable);
 		
 		//刷新表格
 		flushTable();

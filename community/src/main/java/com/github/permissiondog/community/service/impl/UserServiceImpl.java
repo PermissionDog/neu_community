@@ -169,5 +169,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public void registerObserver(Observer o) {
+		UserDao userDao = (UserDao) Dao.of(Dao.USER);
+		userDao.registerObserver(o);
+	}
 
 }

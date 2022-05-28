@@ -7,7 +7,6 @@ import java.time.format.DateTimeParseException;
 
 import javax.swing.JOptionPane;
 
-import com.github.permissiondog.community.Callback;
 import com.github.permissiondog.community.Constants;
 import com.github.permissiondog.community.controller.UserController;
 import com.github.permissiondog.community.model.User;
@@ -20,7 +19,7 @@ public class ModifyUserFrame extends UserInfoFrame {
 	
 	private User user;
 
-	public ModifyUserFrame(int id, Callback cb) {
+	public ModifyUserFrame(int id) {
 		super();
 		textFieldUserName.setEditable(false);
 		btnCancel.setVisible(false);
@@ -66,7 +65,6 @@ public class ModifyUserFrame extends UserInfoFrame {
 				u = UserController.getInstance().modifyUser(u);
 				if (u != null) {
 					ModifyUserFrame.this.dispose();
-					cb.callback();
 				}
 			}
 		});

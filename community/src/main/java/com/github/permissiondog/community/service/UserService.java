@@ -7,6 +7,7 @@ import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.exception.UserNameAlreadyExistException;
 import com.github.permissiondog.community.exception.WrongPasswordException;
 import com.github.permissiondog.community.model.User;
+import com.github.permissiondog.community.model.dao.Observer;
 import com.github.permissiondog.community.model.enumeration.Role;
 
 public interface UserService {
@@ -81,4 +82,11 @@ public interface UserService {
 	 * @return		指定权限的用户列表
 	 */
 	public List<User> getAllUsers(Role role);
+
+	/**
+	 * 注册观察者
+	 * 
+	 * @param o	观察者
+	 */
+	public void registerObserver(Observer o);
 }

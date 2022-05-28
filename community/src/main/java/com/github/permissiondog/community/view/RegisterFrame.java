@@ -9,7 +9,6 @@ import java.time.format.DateTimeParseException;
 
 import javax.swing.JOptionPane;
 
-import com.github.permissiondog.community.Callback;
 import com.github.permissiondog.community.Constants;
 import com.github.permissiondog.community.controller.UserController;
 import com.github.permissiondog.community.model.User;
@@ -23,9 +22,10 @@ public class RegisterFrame extends UserInfoFrame {
 	/**
 	 * @param cb	数据更新时调用的回调函数
 	 */
-	public RegisterFrame(Callback cb) {
+	public RegisterFrame() {
 		super();
 		setTitle("注册");
+		
 		super.btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -48,7 +48,6 @@ public class RegisterFrame extends UserInfoFrame {
 				u = UserController.getInstance().register(u);
 				if (u != null) {
 					RegisterFrame.this.dispose();
-					cb.callback();
 				}
 				
 			}
@@ -70,6 +69,7 @@ public class RegisterFrame extends UserInfoFrame {
 				}
 			}
 		});
+		
 	}
 
 }
