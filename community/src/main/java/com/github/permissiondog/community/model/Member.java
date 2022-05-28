@@ -12,6 +12,10 @@ public class Member implements Identifiable {
 	private String phone;
 	private int houseKeeperID;
 	
+	public Member() {
+		houseKeeperID = -1;
+	}
+	
 	public int getId() {
 		return id;
 	}

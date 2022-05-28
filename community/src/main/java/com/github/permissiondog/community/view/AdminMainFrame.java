@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.github.permissiondog.community.Constants;
+import com.github.permissiondog.community.controller.MemberController;
 import com.github.permissiondog.community.controller.UserController;
 import com.github.permissiondog.community.model.User;
 import javax.swing.JTable;
@@ -167,6 +168,13 @@ public class AdminMainFrame extends MainFrame {
 				}
 				int id = users.get(table.getSelectedRow()).getId();
 				UserController.getInstance().showModifyUserFrame(id, AdminMainFrame.this::flushTable);
+			}
+		});
+		//新增入住人
+		btnNewMember.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MemberController.getInstance().showNewMemberFrame();
 			}
 		});
 		

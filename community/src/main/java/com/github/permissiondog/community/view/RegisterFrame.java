@@ -20,6 +20,9 @@ public class RegisterFrame extends UserInfoFrame {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @param cb	数据更新时调用的回调函数
+	 */
 	public RegisterFrame(Callback cb) {
 		super();
 		setTitle("注册");

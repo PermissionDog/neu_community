@@ -179,7 +179,7 @@ public class UserController {
 	/**
 	 * 显示注册窗口
 	 * 
-	 * @param cb 注册成功调用的回调函数
+	 * @param cb 注册成功时调用的回调函数
 	 */
 	public void showRegisterFrame(Callback cb) {
 		SwingUtilities.invokeLater(() -> {

@@ -2,11 +2,13 @@ package com.github.permissiondog.community.controller;
 
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.model.Member;
 import com.github.permissiondog.community.service.MemberService;
 import com.github.permissiondog.community.service.impl.MemberServiceImpl;
+import com.github.permissiondog.community.view.NewMemberFrame;
 
 public class MemberController {
 	private static MemberController memberController;
@@ -38,6 +40,15 @@ public class MemberController {
 		}
 		JOptionPane.showMessageDialog(null, "创建成功", "提示", JOptionPane.INFORMATION_MESSAGE);
 		return m;
+	}
+	
+	/**
+	 * 显示新建入住人窗口
+	 */
+	public void showNewMemberFrame() {
+		SwingUtilities.invokeLater(() -> {
+			new NewMemberFrame().setVisible(true);
+		});
 	}
 	
 }
