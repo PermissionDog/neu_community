@@ -58,9 +58,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member deleteMember(int id) throws NoSuchMemberException {
-		// TODO Auto-generated method stub
-		return null;
+	public Member deleteMember(int id) {
+		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+		return memberDao.delete(id);
 	}
 
 	@Override

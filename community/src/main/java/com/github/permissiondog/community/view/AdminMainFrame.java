@@ -146,7 +146,6 @@ public class AdminMainFrame extends MainFrame {
 						JOptionPane.showMessageDialog(AdminMainFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
 					}
 				});
-				flushTable();
 				JOptionPane.showMessageDialog(AdminMainFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});

@@ -69,6 +69,16 @@ public class MemberController {
 	}
 	
 	/**
+	 * 删除入住人
+	 * @param id 入住人ID
+	 * @return	成功返回被删除的入住人, 失败返回 null
+	 */
+	public Member deleteMember(int id) {
+		MemberService memberService = MemberServiceImpl.getInstance();
+		return memberService.deleteMember(id);
+	}
+	
+	/**
 	 * 显示新建入住人窗口
 	 */
 	public void showNewMemberFrame() {
@@ -94,5 +104,6 @@ public class MemberController {
 		MemberService memberService = MemberServiceImpl.getInstance();
 		memberService.registerObserver(o);
 	}
+
 	
 }

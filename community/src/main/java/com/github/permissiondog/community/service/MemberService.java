@@ -22,10 +22,9 @@ public interface MemberService {
 	 * 删除入住人
 	 * 
 	 * @param id	入住人ID
-	 * @return		成功返回被删除的入住人, 失败返回 null
-	 * @throws NoSuchMemberException 未找到入住人
+	 * @return		成功返回被删除的入住人, 未找到返回 null
 	 */
-	public Member deleteMember(int id) throws NoSuchMemberException;
+	public Member deleteMember(int id);
 	
 	/**
 	 * 设置服务
