@@ -1,36 +1,42 @@
 package com.github.permissiondog.community.view;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.github.permissiondog.community.Constants;
 import com.github.permissiondog.community.controller.MemberController;
+import com.github.permissiondog.community.controller.UserController;
 import com.github.permissiondog.community.model.Member;
+import com.github.permissiondog.community.model.User;
+import javax.swing.JComboBox;
 
-import javax.swing.JButton;
-
-public class MemberListFrame extends JFrame {
+public class ServiceListFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
+	private JComboBox<Member> comboBox;
 
 	private List<Member> members;
+	private User houseKeeper;
 
-	public MemberListFrame() {
-		setTitle("老人管理");
+	public ServiceListFrame(int memberID) {
+		houseKeeper = UserController.getInstance().getUser(memberID);
+		
+		setTitle(houseKeeper.getName() + "(" + houseKeeper.getUsername() + ") 所管理的老人列表");
 		setBounds(100, 100, 568, 421);
 		setLocationRelativeTo(null);
 
@@ -57,6 +63,11 @@ public class MemberListFrame extends JFrame {
 		scrollPane.setBounds(10, 43, 425, 212);
 		panel.add(scrollPane);
 
+		JButton btnReturn = new JButton("返回");
+		btnReturn.addActionListener(e -> dispose());
+		btnReturn.setBounds(342, 265, 93, 23);
+		panel.add(btnReturn);
+
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 				new Object[][] { { null, null, null, null, null }, { null, null, null, null, null },
@@ -71,65 +82,65 @@ public class MemberListFrame extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
-
-		JButton btnNewMember = new JButton("添加老人");
-		btnNewMember.setBounds(10, 10, 93, 23);
-		panel.add(btnNewMember);
-
-		JButton btnDeleteMember = new JButton("删除老人");
-		btnDeleteMember.setBounds(174, 10, 93, 23);
-		panel.add(btnDeleteMember);
-
-		JButton btnModifyMember = new JButton("修改老人");
-		btnModifyMember.setBounds(342, 10, 93, 23);
-		panel.add(btnModifyMember);
 		
-		JButton btnReturn = new JButton("返回");
-		btnReturn.addActionListener(e -> dispose());
-		btnReturn.setBounds(342, 265, 93, 23);
-		panel.add(btnReturn);
+		JButton btnUnsetService = new JButton("取消服务");
+		btnUnsetService.setBounds(10, 10, 93, 23);
+		panel.add(btnUnsetService);
+		
+		JButton btnSetService = new JButton("设置服务");
+		btnSetService.setBounds(342, 10, 93, 23);
+		panel.add(btnSetService);
+		
+		comboBox = new JComboBox<Member>();
+		comboBox.setBounds(227, 10, 105, 23);
+		panel.add(comboBox);
 
-		//新增入住人
-		btnNewMember.addActionListener(e -> MemberController.getInstance().showNewMemberFrame());
-		//删除入住人
-		btnDeleteMember.addActionListener(e -> {
-			if (table.getSelectedRowCount() < 1) {
-				JOptionPane.showMessageDialog(MemberListFrame.this, "请先选择要删除的入住人");
+		//设置服务
+		btnSetService.addActionListener(e -> {
+			Member m = (Member) comboBox.getSelectedItem();
+			if (m == null) {
+				JOptionPane.showMessageDialog(this, "没有老人被选择", "错误", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			int result = JOptionPane.showConfirmDialog(MemberListFrame.this, "是否要删除", "", JOptionPane.YES_NO_OPTION);
+			m = MemberController.getInstance().setService(houseKeeper.getId(), m.getId());
+			if (m != null) {
+				JOptionPane.showMessageDialog(this, "设置成功", "信息", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		
+		//取消服务
+		btnUnsetService.addActionListener(e -> {
+
+			if (table.getSelectedRowCount() < 1) {
+				JOptionPane.showMessageDialog(ServiceListFrame.this, "请先选择要删除的入住人");
+				return;
+			}
+			int result = JOptionPane.showConfirmDialog(ServiceListFrame.this, "是否要取消服务", "", JOptionPane.YES_NO_OPTION);
 			if (result != JOptionPane.YES_OPTION) {
 				return;
 			}
 			int[] ids = Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).toArray();
 			Arrays.stream(ids).forEach(id -> {
-				if (MemberController.getInstance().deleteMember(id) == null) {
-					JOptionPane.showMessageDialog(MemberListFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
+				if (MemberController.getInstance().unsetService(id) == null) {
+					JOptionPane.showMessageDialog(ServiceListFrame.this, "取消失败", "错误", JOptionPane.ERROR_MESSAGE);
 				}
 			});
-			JOptionPane.showMessageDialog(MemberListFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(ServiceListFrame.this, "取消成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+		
 		});
-		//修改入住人
-		btnModifyMember.addActionListener(e -> {
-			if (table.getSelectedRowCount() < 1) {
-				JOptionPane.showMessageDialog(MemberListFrame.this, "请先选择要修改的用户");
-				return;
-			}
-			if (table.getSelectedRowCount() > 1) {
-				JOptionPane.showMessageDialog(MemberListFrame.this, "最多选择一个要修改的用户");
-				return;
-			}
-			int id = members.get(table.getSelectedRow()).getId();
-			MemberController.getInstance().showModifyMemberFrame(id);
-		});
-
+		
+		//表格刷新
 		MemberController.getInstance().registerObeserver(this::flushTable);
-
+		//下拉框刷新
+		MemberController.getInstance().registerObeserver(this::flushComboBox);
+		
+		flushComboBox();
 		flushTable();
 	}
 
 	private void flushTable() {
-		members = MemberController.getInstance().getAllMembers();
+		members = MemberController.getInstance().getAllMembers(houseKeeper.getId());
+		//TODO 不优雅
 		Object[][] data = new Object[members.size()][];
 		for (int i = 0; i < members.size(); i++) {
 			Member member = members.get(i);
@@ -151,5 +162,10 @@ public class MemberListFrame extends JFrame {
 				return false;
 			}
 		});
+	}
+	
+	private void flushComboBox() {
+		List<Member> members = MemberController.getInstance().getAllMembers(-1);
+		comboBox.setModel(new DefaultComboBoxModel<Member>(members.toArray(new Member[members.size()])));
 	}
 }

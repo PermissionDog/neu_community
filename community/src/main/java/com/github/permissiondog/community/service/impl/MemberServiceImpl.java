@@ -7,6 +7,7 @@ import java.util.List;
 import com.github.permissiondog.community.exception.IllegalParameterException;
 import com.github.permissiondog.community.exception.NoSuchHouseKeeperException;
 import com.github.permissiondog.community.exception.NoSuchMemberException;
+import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.model.Member;
 import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.dao.Dao;
@@ -89,9 +90,32 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member setService(int houseKeeperID, int memberID) throws NoSuchMemberException, NoSuchHouseKeeperException {
-		// TODO Auto-generated method stub
-		return null;
+	public Member setService(int houseKeeperID, int memberID) throws NoSuchMemberException, NoSuchHouseKeeperException, IllegalParameterException {
+		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+		UserDao	userDao = (UserDao) Dao.of(Dao.USER);
+		Member member = memberDao.find(memberID);
+		User user = userDao.find(houseKeeperID);
+		if (member == null) {
+			throw new NoSuchMemberException();
+		}
+		if (user == null) {
+			throw new NoSuchUserException();
+		}
+		if (!user.getRole().equals(Role.HOUSEKEEPER)) {
+			throw new IllegalParameterException("用户不是生活管家");
+		}
+		member.setHouseKeeperID(houseKeeperID);
+		return memberDao.update(member);
+	}
+	@Override
+	public Member unsetService(int id) {
+		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+		Member member = memberDao.find(id);
+		if (member == null) {
+			return null;
+		}
+		member.setHouseKeeperID(-1);
+		return memberDao.update(member);
 	}
 
 	@Override

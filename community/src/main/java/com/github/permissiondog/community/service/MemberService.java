@@ -50,8 +50,17 @@ public interface MemberService {
 	 * @return	成功返回入住人, 失败返回 null
 	 * @throws NoSuchMemberException		未找到入住人
 	 * @throws NoSuchHouseKeeperException	未找到生活管家
+	 * @throws IllegalParameterException	houseKeeperID 不是生活管家
 	 */
-	public Member setService(int houseKeeperID, int memberID) throws NoSuchMemberException, NoSuchHouseKeeperException;
+	public Member setService(int houseKeeperID, int memberID) throws NoSuchMemberException, NoSuchHouseKeeperException, IllegalParameterException;
+	
+	/**
+	 * 解除服务
+	 * 
+	 * @param id 入住人ID
+	 * @return	成功返回入住人, 失败返回 null
+	 */
+	public Member unsetService(int id);
 	
 	/**
 	 * 获取所有入住人信息

@@ -7,6 +7,8 @@ import com.github.permissiondog.community.Constants;
 import com.github.permissiondog.community.controller.MemberController;
 import com.github.permissiondog.community.controller.UserController;
 import com.github.permissiondog.community.model.User;
+import com.github.permissiondog.community.model.enumeration.Role;
+
 import javax.swing.JTable;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -65,16 +67,12 @@ public class AdminMainFrame extends MainFrame {
 		
 		textFieldSearch = new JTextField();
 		textFieldSearch.setToolTipText("输入关键词搜索");
-		textFieldSearch.setBounds(228, 42, 151, 23);
+		textFieldSearch.setBounds(250, 42, 206, 23);
 		panel.add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 		
-		JButton btnSetService = new JButton("设置服务");
-		btnSetService.setBounds(492, 42, 93, 23);
-		panel.add(btnSetService);
-		
 		JButton btnShowService = new JButton("查看服务");
-		btnShowService.setBounds(389, 42, 93, 23);
+		btnShowService.setBounds(492, 42, 93, 23);
 		panel.add(btnShowService);
 		
 		JButton btnShowMember = new JButton("查看老人");
@@ -131,12 +129,14 @@ public class AdminMainFrame extends MainFrame {
 			if (result != JOptionPane.YES_OPTION) {
 				return;
 			}
-			Arrays.stream(table.getSelectedRows()).forEach((i) -> {
-				int id = users.get(i).getId();
+
+			int[] ids = Arrays.stream(table.getSelectedRows()).map(i -> users.get(i).getId()).toArray();
+			Arrays.stream(ids).forEach(id -> {
 				if (UserController.getInstance().deleteUser(id) == null) {
 					JOptionPane.showMessageDialog(AdminMainFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
 				}
 			});
+			
 			JOptionPane.showMessageDialog(AdminMainFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 		});
 		//修改用户
@@ -153,7 +153,26 @@ public class AdminMainFrame extends MainFrame {
 			UserController.getInstance().showModifyUserFrame(id);
 		});
 		
+		//查看老人列表
 		btnShowMember.addActionListener(e -> MemberController.getInstance().showMemberListFrame());
+		
+		//查看服务
+		btnShowService.addActionListener(e -> {
+			if (table.getSelectedRowCount() < 1) {
+				JOptionPane.showMessageDialog(AdminMainFrame.this, "请先选择要查看服务的生活管家");
+				return;
+			}
+			if (table.getSelectedRowCount() > 1) {
+				JOptionPane.showMessageDialog(AdminMainFrame.this, "最多选择一个要查看的生活管家");
+				return;
+			}
+			User u = users.get(table.getSelectedRow());
+			if (!u.getRole().equals(Role.HOUSEKEEPER)) {
+				JOptionPane.showMessageDialog(AdminMainFrame.this, "请选择生活管家");
+				return;
+			}
+			MemberController.getInstance().showServiceListFrame(u.getId());
+		});
 		
 		//注册观察者
 		UserController.getInstance().registerObserver(this::flushTable);

@@ -52,4 +52,8 @@ public class Member implements Identifiable {
 	public void setHouseKeeperID(int houseKeeperID) {
 		this.houseKeeperID = houseKeeperID;
 	}
+	@Override
+	public String toString() {
+		return getName();
+	}
 }
