@@ -1,5 +1,6 @@
 package com.github.permissiondog.community.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -69,7 +70,7 @@ public class MemberController {
 	public List<Member> getAllMembers(int id) {
 		MemberService memberService = MemberServiceImpl.getInstance();
 		if (id == -1) {
-			return memberService.getAllMembers().stream().filter(member -> member.getHouseKeeperID() == -1).toList();
+			return Arrays.asList(memberService.getAllMembers().stream().filter(member -> member.getHouseKeeperID() == -1).toArray(Member[]::new));
 		}
 		return memberService.getAllMembers(id);
 	}
@@ -120,9 +121,9 @@ public class MemberController {
 	/**
 	 * 设置服务
 	 * 
-	 * @param houseKeeperID	生活管家ID
-	 * @param memberID		入住人ID
-	 * @return	设置成功返回入住人, 失败返回 null 
+	 * @param houseKeeperID 生活管家ID
+	 * @param memberID      入住人ID
+	 * @return 设置成功返回入住人, 失败返回 null
 	 */
 	public Member setService(int houseKeeperID, int memberID) {
 		MemberService memberService = MemberServiceImpl.getInstance();
@@ -146,7 +147,7 @@ public class MemberController {
 	 * 解除服务
 	 * 
 	 * @param id 入住人ID
-	 * @return	解除成功返回入住人, 失败返回 null
+	 * @return 解除成功返回入住人, 失败返回 null
 	 */
 	public Member unsetService(int id) {
 		MemberService memberService = MemberServiceImpl.getInstance();
@@ -215,6 +216,5 @@ public class MemberController {
 		MemberService memberService = MemberServiceImpl.getInstance();
 		memberService.registerObserver(o);
 	}
-
 
 }
