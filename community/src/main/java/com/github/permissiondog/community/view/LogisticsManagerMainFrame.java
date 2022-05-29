@@ -94,7 +94,7 @@ public class LogisticsManagerMainFrame extends MainFrame {
 		panel.add(btnSetExpireTime);
 		
 		JButton btnShowPassengers = new JButton("查看乘客");
-		btnShowPassengers.setBounds(490, 52, 105, 23);
+		btnShowPassengers.setBounds(485, 52, 110, 23);
 		panel.add(btnShowPassengers);
 		
 		JButton btnNewBus = new JButton("新建班车");
@@ -111,6 +111,13 @@ public class LogisticsManagerMainFrame extends MainFrame {
 			UserController.getInstance().showLoginFrame();
 			dispose();
 		});
+		
+
+		JButton btnModifySelf = new JButton("修改个人信息");
+		btnModifySelf.setBounds(485, 19, 110, 23);
+		panel.add(btnModifySelf);
+		//修改个人信息
+		btnModifySelf.addActionListener(e -> UserController.getInstance().showModifySelfFrame(user.getId()));
 		
 		//新增班车
 		btnNewBus.addActionListener(e -> BusController.getInstance().showNewBusFrame());
@@ -180,8 +187,14 @@ public class LogisticsManagerMainFrame extends MainFrame {
 		
 		//注册观察者
 		BusController.getInstance().registerObeserver(this::flushTable);
+		UserController.getInstance().registerObserver(() -> flushUser());
 		
 		flushTable();
+	}
+	
+	private void flushUser() {
+		user = UserController.getInstance().getUser(user.getId());
+		setTitle("后勤管理员: " + user.getName());
 	}
 	
 	private void flushTable() {
