@@ -41,6 +41,14 @@ public interface BusService {
 	public Bus getBus(int id);
 	
 	/**
+	 * 获取班车
+	 * 
+	 * @param code	班车代码
+	 * @return		成功返回班车, 未找到返回 null
+	 */
+	public Bus getBus(String code);
+	
+	/**
 	 * 修改班车
 	 * 
 	 * @param bus	班车信息

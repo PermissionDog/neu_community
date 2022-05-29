@@ -2,10 +2,16 @@ package com.github.permissiondog.community.controller;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
+import com.github.permissiondog.community.exception.IllegalParameterException;
+import com.github.permissiondog.community.exception.RouteCodeAlreadyExistException;
 import com.github.permissiondog.community.model.Bus;
 import com.github.permissiondog.community.model.dao.Observer;
 import com.github.permissiondog.community.service.BusService;
 import com.github.permissiondog.community.service.impl.BusServiceImpl;
+import com.github.permissiondog.community.view.NewBusFrame;
 
 public class BusController {
 	private static BusController busController;
@@ -20,6 +26,49 @@ public class BusController {
 	private BusController() {
 	}
 	
+
+	
+	/**
+	 * 创建新班车
+	 * 
+	 * @param bus	班车信息
+	 * @return		成功返回班车, 失败返回 null
+	 */
+	public Bus newBus(Bus bus) {
+		BusService busService = BusServiceImpl.getInstance();
+		try {
+			return busService.newBus(bus);
+		} catch (RouteCodeAlreadyExistException e) {
+			JOptionPane.showMessageDialog(null, "线路代码重复", "错误", JOptionPane.ERROR_MESSAGE);
+			return null;
+		} catch (IllegalParameterException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取班车
+	 * 
+	 * @param id	班车ID
+	 * @return		找到返回班车, 失败返回 null
+	 */
+	public Bus getBus(int id) {
+		BusService busService = BusServiceImpl.getInstance();
+		return busService.getBus(id);
+	}
+	
+	/**
+	 * 获取班车
+	 * 
+	 * @param code	路线代码
+	 * @return		找到返回班车, 失败返回 null
+	 */
+	public Bus getBus(String code) {
+		BusService busService = BusServiceImpl.getInstance();
+		return busService.getBus(code);
+	}
+	
 	/**
 	 * 获取所有班车
 	 * 
@@ -30,6 +79,12 @@ public class BusController {
 		return busService.getAllBuses();
 	}
 
+	public void showNewBusFrame() {
+		SwingUtilities.invokeLater(() -> {
+			new NewBusFrame().setVisible(true);
+		});
+	}
+	
 	/**
 	 * 注册观察者
 	 * 
@@ -39,4 +94,6 @@ public class BusController {
 		BusService busService = BusServiceImpl.getInstance();
 		busService.registerObserver(o);
 	}
+
+
 }

@@ -106,6 +106,9 @@ public class LogisticsManagerMainFrame extends MainFrame {
 			dispose();
 		});
 		
+		//新增班车
+		btnNewBus.addActionListener(e -> BusController.getInstance().showNewBusFrame());
+		
 		BusController.getInstance().registerObeserver(this::flushTable);
 		flushTable();
 	}

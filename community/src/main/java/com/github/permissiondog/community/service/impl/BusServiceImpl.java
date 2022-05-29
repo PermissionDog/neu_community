@@ -86,6 +86,11 @@ public class BusServiceImpl implements BusService {
 		BusDao busDao = (BusDao) Dao.of(Dao.BUS);
 		return busDao.find(id);
 	}
+	@Override
+	public Bus getBus(String code) {
+		BusDao busDao = (BusDao) Dao.of(Dao.BUS);
+		return busDao.find(code);
+	}
 
 	@Override
 	public Bus modifyBus(Bus bus) throws IllegalParameterException, NoSuchBusException {
