@@ -64,5 +64,15 @@ public class BusDaoImpl extends BaseDaoImpl<Bus> implements BusDao {
 		FileUtil.writeFile(Constants.BUS_TABLE_NAME, json);
 	}
 
+	@Override
+	public Bus find(String code) {
+		for (Bus b : buses.values()) {
+			if (b.getCode().equals(code)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 
 }

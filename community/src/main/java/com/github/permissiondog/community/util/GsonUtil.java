@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 public class GsonUtil {
@@ -23,12 +24,22 @@ public class GsonUtil {
 				
 				@Override
 				public void write(JsonWriter out, LocalTime value) throws IOException {
-					out.value(value.format(Constants.TIME_FORMATTER));
+					if (value == null) {
+						out.nullValue();
+					} else {
+						out.value(value.format(Constants.TIME_FORMATTER));
+					}
 				}
 
 				@Override
 				public LocalTime read(JsonReader in) throws IOException {
+
+					if (in.peek() == JsonToken.NULL) {
+						in.nextNull();
+						return null;
+					}
 					return LocalTime.parse(in.nextString(), Constants.TIME_FORMATTER);
+					
 				}
 			}).registerTypeHierarchyAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
 				

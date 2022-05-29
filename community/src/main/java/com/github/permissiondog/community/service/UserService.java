@@ -8,7 +8,6 @@ import com.github.permissiondog.community.exception.UserNameAlreadyExistExceptio
 import com.github.permissiondog.community.exception.WrongPasswordException;
 import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.dao.Observer;
-import com.github.permissiondog.community.model.enumeration.Role;
 
 public interface UserService {
 	/**

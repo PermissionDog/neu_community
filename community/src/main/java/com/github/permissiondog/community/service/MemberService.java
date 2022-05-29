@@ -39,6 +39,8 @@ public interface MemberService {
 	 * 
 	 * @param member 入住人
 	 * @return	成功返回入住人, 失败返回 null
+	 * @throws IllegalParameterException	参数错误
+	 * @throws NoSuchMemberException		未找到入住人
 	 */
 	public Member modifyMember(Member member) throws IllegalParameterException, NoSuchMemberException;
 	
