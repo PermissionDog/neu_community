@@ -100,6 +100,9 @@ public class UserServiceImpl implements UserService {
 			throw new NoSuchUserException();
 		}
 		
+		//用户名不可修改
+		user.setUsername(oldUser.getUsername());
+		
 		if (user.getPassword() == null || user.getPassword() == "") {
 			user.setPassword(oldUser.getPassword());
 		} else {
@@ -162,12 +165,6 @@ public class UserServiceImpl implements UserService {
 	public User getUser(String username) {
 		UserDao userDao = (UserDao) Dao.of(Dao.USER);
 		return userDao.find(username);
-	}
-
-	@Override
-	public List<User> getAllUsers(Role role) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Override

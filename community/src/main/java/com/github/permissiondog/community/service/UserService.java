@@ -75,13 +75,6 @@ public interface UserService {
 	 *	@return 返回所有用户
 	 */
 	public List<User> getAllUsers();
-	/**
-	 * 获取用户列表
-	 * 
-	 * @param role	权限
-	 * @return		指定权限的用户列表
-	 */
-	public List<User> getAllUsers(Role role);
 
 	/**
 	 * 注册观察者
