@@ -130,10 +130,15 @@ public class BusServiceImpl implements BusService {
 		if (member == null) {
 			throw new NoSuchMemberException();
 		}
-		if (bus.getExpireTime() != null && 
-				bus.getExpireTime().isBefore(LocalTime.now())) {
+		LocalTime expireTime = bus.getExpireTime();
+		if (expireTime == null) {
+			expireTime = bus.getDepartureTime();
+		}
+		
+		if (expireTime.isBefore(LocalTime.now())) {
 			throw new TimeExceededException();
 		}
+		
 		if (!bus.getCycle().equals(Cycle.EVERY_DAY) && 
 				!LocalDate.now().getDayOfWeek().equals(bus.getCycle().toDayOfWeek())) {
 			throw new OutOfServiceException();

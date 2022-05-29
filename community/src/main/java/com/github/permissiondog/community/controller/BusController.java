@@ -14,6 +14,7 @@ import com.github.permissiondog.community.service.BusService;
 import com.github.permissiondog.community.service.impl.BusServiceImpl;
 import com.github.permissiondog.community.view.ModifyBusFrame;
 import com.github.permissiondog.community.view.NewBusFrame;
+import com.github.permissiondog.community.view.SetExpireTimeFrame;
 
 public class BusController {
 	private static BusController busController;
@@ -133,6 +134,16 @@ public class BusController {
 	}
 	
 	/**
+	 * 显示设置班车截止时间界面
+	 * @param id	班车ID
+	 */
+	public void showSetExpireTimeFrame(int id) {
+		SwingUtilities.invokeLater(() -> {
+			new SetExpireTimeFrame(id).setVisible(true);
+		});
+	}
+	
+	/**
 	 * 注册观察者
 	 * 
 	 * @param o 观察者
@@ -141,6 +152,7 @@ public class BusController {
 		BusService busService = BusServiceImpl.getInstance();
 		busService.registerObserver(o);
 	}
+
 
 
 }

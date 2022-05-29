@@ -61,8 +61,8 @@ public class ModifyUserFrame extends UserInfoFrame {
 				u.setPhone(textFieldPhone.getText());
 				u.setRole((Role) comboBoxRole.getSelectedItem());
 				
-				u = UserController.getInstance().modifyUser(u);
-				if (u != null) {
+				User newUser = UserController.getInstance().modifyUser(u);
+				if (newUser != null) {
 					ModifyUserFrame.this.dispose();
 				}
 			}

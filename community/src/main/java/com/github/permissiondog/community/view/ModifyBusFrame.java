@@ -62,8 +62,8 @@ public class ModifyBusFrame extends BusFrame {
 			bus.setComment(textArea.getText());
 
 			
-			bus = BusController.getInstance().modifyBus(bus);
-			if (bus != null) {
+			Bus newBus = BusController.getInstance().modifyBus(bus);
+			if (newBus != null) {
 				JOptionPane.showMessageDialog(this, "修改成功", "信息", JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 			}

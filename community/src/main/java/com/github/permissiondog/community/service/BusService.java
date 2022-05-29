@@ -66,7 +66,7 @@ public interface BusService {
 	 * @return			成功返回班车, 失败返回 null
 	 * @throws NoSuchBusException		班车未找到
 	 * @throws NoSuchMemberException	入住人未找到
-	 * @throws TimeExceededException	超过当天截止时间
+	 * @throws TimeExceededException	超过当天截止时间, 如果未设置截止时间, 则按照发车时间
 	 * @throws OutOfServiceException	当天不在运营日期
 	 * @throws AlreadyReservedException	乘客已经在当前车辆预定过了
 	 */

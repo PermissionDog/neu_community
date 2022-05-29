@@ -139,15 +139,29 @@ public class LogisticsManagerMainFrame extends MainFrame {
 		//修改班车
 		btnModifyBus.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
-				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "请先选择要修改的用户");
+				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "请先选择要修改的班车");
 				return;
 			}
 			if (table.getSelectedRowCount() > 1) {
-				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "最多选择一个要修改的用户");
+				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "最多选择一个要修改的班车");
 				return;
 			}
 			int id = buses.get(table.getSelectedRow()).getId();
 			BusController.getInstance().showModifyBusFrame(id);
+		});
+		
+		//设置截止时间
+		btnSetExpireTime.addActionListener(e -> {
+			if (table.getSelectedRowCount() < 1) {
+				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "请先选择要设置时间的班车");
+				return;
+			}
+			if (table.getSelectedRowCount() > 1) {
+				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "最多选择一个要设置的班车");
+				return;
+			}
+			int id = buses.get(table.getSelectedRow()).getId();
+			BusController.getInstance().showSetExpireTimeFrame(id);
 		});
 		
 		//注册观察者
