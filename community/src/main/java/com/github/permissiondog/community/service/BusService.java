@@ -11,9 +11,8 @@ import com.github.permissiondog.community.exception.OutOfServiceException;
 import com.github.permissiondog.community.exception.RouteCodeAlreadyExistException;
 import com.github.permissiondog.community.exception.TimeExceededException;
 import com.github.permissiondog.community.model.Bus;
-import com.github.permissiondog.community.model.dao.Observer;
 
-public interface BusService {
+public interface BusService extends BaseService {
 
 	/**
 	 * 创建
@@ -91,10 +90,5 @@ public interface BusService {
 	 */
 	public List<Bus> getAllBuses();
 	
-	/**
-	 * 注册观察者
-	 * 
-	 * @param o	观察者
-	 */
-	public void registerObserver(Observer o);
+	
 }
