@@ -4,10 +4,12 @@ package com.github.permissiondog.community.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -88,7 +90,7 @@ public class LogisticsManagerMainFrame extends MainFrame {
 		panel.add(btnDeleteBus);
 		
 		JButton btnSetExpireTime = new JButton("设置截止时间");
-		btnSetExpireTime.setBounds(125, 52, 131, 23);
+		btnSetExpireTime.setBounds(240, 52, 131, 23);
 		panel.add(btnSetExpireTime);
 		
 		JButton btnShowPassengers = new JButton("查看乘客");
@@ -98,6 +100,10 @@ public class LogisticsManagerMainFrame extends MainFrame {
 		JButton btnNewBus = new JButton("新建班车");
 		btnNewBus.setBounds(10, 19, 105, 23);
 		panel.add(btnNewBus);
+		
+		JButton btnModifyBus = new JButton("修改班车");
+		btnModifyBus.setBounds(125, 52, 105, 23);
+		panel.add(btnModifyBus);
 		
 
 		//返回
@@ -109,7 +115,44 @@ public class LogisticsManagerMainFrame extends MainFrame {
 		//新增班车
 		btnNewBus.addActionListener(e -> BusController.getInstance().showNewBusFrame());
 		
+		//删除班车
+		btnDeleteBus.addActionListener(e -> {
+			if (table.getSelectedRowCount() < 1) {
+				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "请先选择要删除的用户");
+				return;
+			}
+			int result = JOptionPane.showConfirmDialog(LogisticsManagerMainFrame.this, "是否要删除", "", JOptionPane.YES_NO_OPTION);
+			if (result != JOptionPane.YES_OPTION) {
+				return;
+			}
+
+			int[] ids = Arrays.stream(table.getSelectedRows()).map(i -> buses.get(i).getId()).toArray();
+			Arrays.stream(ids).forEach(id -> {
+				if (BusController.getInstance().deleteBus(id) == null) {
+					JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
+				}
+			});
+			
+			JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+		});
+		
+		//修改班车
+		btnModifyBus.addActionListener(e -> {
+			if (table.getSelectedRowCount() < 1) {
+				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "请先选择要修改的用户");
+				return;
+			}
+			if (table.getSelectedRowCount() > 1) {
+				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "最多选择一个要修改的用户");
+				return;
+			}
+			int id = buses.get(table.getSelectedRow()).getId();
+			BusController.getInstance().showModifyBusFrame(id);
+		});
+		
+		//注册观察者
 		BusController.getInstance().registerObeserver(this::flushTable);
+		
 		flushTable();
 	}
 	
