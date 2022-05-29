@@ -31,7 +31,7 @@ public class FileUtil {
 	 */
 	public static void writeFile(String fileName, String fileData) {
 		try {
-			Files.writeString(Paths.get(fileName), fileData);
+			Files.write(Paths.get(fileName), fileData.getBytes(Charset.forName("UTF-8")));
 		} catch (IOException e) {
 			System.out.println("写到 " + fileName + " 时出错, 数据");
 			System.out.println(fileData);
