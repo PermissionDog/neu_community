@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import com.github.permissiondog.community.model.enumeration.Gender;
 
-public class Member implements Identifiable {
+public class Member extends Entity {
 	private int id;
 	private String name;
 	private Gender gender;

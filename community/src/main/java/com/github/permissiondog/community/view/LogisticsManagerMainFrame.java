@@ -164,6 +164,20 @@ public class LogisticsManagerMainFrame extends MainFrame {
 			BusController.getInstance().showSetExpireTimeFrame(id);
 		});
 		
+		//查看乘客
+		btnShowPassengers.addActionListener(e -> {
+			if (table.getSelectedRowCount() < 1) {
+				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "请先选择要查看乘客的班车");
+				return;
+			}
+			if (table.getSelectedRowCount() > 1) {
+				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "最多选择一个要查看的班车");
+				return;
+			}
+			int id = buses.get(table.getSelectedRow()).getId();
+			BusController.getInstance().showPassengerListFrame(id);
+		});
+		
 		//注册观察者
 		BusController.getInstance().registerObeserver(this::flushTable);
 		

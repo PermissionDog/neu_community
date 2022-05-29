@@ -8,7 +8,7 @@ import com.github.permissiondog.community.model.enumeration.Direction;
 import com.github.permissiondog.community.model.enumeration.Period;
 import com.github.permissiondog.community.model.enumeration.RouteType;
 
-public class Bus implements Identifiable {
+public class Bus extends Entity {
 	private int id;
 	private String code;
 	private String name;

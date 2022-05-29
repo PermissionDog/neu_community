@@ -11,6 +11,7 @@ import com.github.permissiondog.community.exception.NoSuchMemberException;
 import com.github.permissiondog.community.exception.NoSuchUserException;
 import com.github.permissiondog.community.model.Member;
 import com.github.permissiondog.community.model.User;
+import com.github.permissiondog.community.model.dao.BusDao;
 import com.github.permissiondog.community.model.dao.Dao;
 import com.github.permissiondog.community.model.dao.MemberDao;
 import com.github.permissiondog.community.model.dao.Observer;
@@ -66,6 +67,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member deleteMember(int id) {
 		MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
+		BusDao busDao = (BusDao) Dao.of(Dao.BUS);
+		
+		//把包含该老人的班车预约取消
+		busDao.getAll().forEach(bus -> {
+			Integer memberID = id;
+			if (bus.getPassengers().contains(memberID)) {
+				bus.getPassengers().remove(memberID);
+			}
+		});
 		return memberDao.delete(id);
 	}
 
