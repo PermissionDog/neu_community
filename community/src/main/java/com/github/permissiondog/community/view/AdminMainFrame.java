@@ -17,6 +17,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
@@ -142,12 +143,12 @@ public class AdminMainFrame extends MainFrame {
 				return;
 			}
 
-			int[] ids = Arrays.stream(table.getSelectedRows()).map(i -> users.get(i).getId()).toArray();
-			Arrays.stream(ids).forEach(id -> {
-				if (UserController.getInstance().deleteUser(id) == null) {
-					JOptionPane.showMessageDialog(AdminMainFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
-				}
-			});
+			Arrays.stream(table.getSelectedRows()).map(i -> users.get(i).getId()).mapToObj(Integer::valueOf)
+					.collect(Collectors.toList()).forEach(id -> {
+						if (UserController.getInstance().deleteUser(id) == null) {
+							JOptionPane.showMessageDialog(AdminMainFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
+						}
+					});
 
 			JOptionPane.showMessageDialog(AdminMainFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 		});

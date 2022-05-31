@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -96,7 +97,7 @@ public class PassengerListFrame extends JFrame {
 		comboBox = new JComboBox<Member>();
 		comboBox.setBounds(227, 10, 105, 23);
 		panel.add(comboBox);
-		
+
 		// 登记
 		btnReserve.addActionListener(e -> {
 
@@ -110,7 +111,7 @@ public class PassengerListFrame extends JFrame {
 				JOptionPane.showMessageDialog(this, "设置成功", "信息", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		
+
 		// 预约确认
 		btnRemoveReservation.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
@@ -121,13 +122,13 @@ public class PassengerListFrame extends JFrame {
 			if (result != JOptionPane.YES_OPTION) {
 				return;
 			}
-			int[] ids = Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).toArray();
-			Arrays.stream(ids).forEach(memberID -> {
-				if (BusController.getInstance().removeReservation(bus.getId(), memberID) == null) {
-					JOptionPane.showMessageDialog(this, "取消失败", "错误", JOptionPane.ERROR_MESSAGE);
-				}
-			});
-			JOptionPane.showMessageDialog(this, "取消成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+			Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).mapToObj(Integer::valueOf)
+					.collect(Collectors.toList()).forEach(memberID -> {
+						if (BusController.getInstance().removeReservation(bus.getId(), memberID) == null) {
+							JOptionPane.showMessageDialog(this, "确认失败", "错误", JOptionPane.ERROR_MESSAGE);
+						}
+					});
+			JOptionPane.showMessageDialog(this, "确认成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 
 		});
 
@@ -137,11 +138,11 @@ public class PassengerListFrame extends JFrame {
 		// 下拉框刷新
 		MemberController.getInstance().registerObeserver(this::flushComboBox);
 		BusController.getInstance().registerObeserver(this::flushComboBox);
-		
+
 		BusController.getInstance().registerObeserver(() -> {
 			bus = BusController.getInstance().getBus(bus.getId());
 		});
-		
+
 		flushComboBox();
 		flushTable();
 	}
@@ -168,10 +169,10 @@ public class PassengerListFrame extends JFrame {
 			}
 		});
 	}
-	
+
 	private void flushComboBox() {
-		Member[] members = MemberController.getInstance().getAllMembers()
-				.stream().filter(member -> !bus.getPassengers().contains(member.getId())).toArray(Member[]::new);
+		Member[] members = MemberController.getInstance().getAllMembers().stream()
+				.filter(member -> !bus.getPassengers().contains(member.getId())).toArray(Member[]::new);
 		comboBox.setModel(new DefaultComboBoxModel<Member>(members));
 	}
 

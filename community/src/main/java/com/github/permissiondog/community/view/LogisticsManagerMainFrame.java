@@ -1,11 +1,11 @@
 package com.github.permissiondog.community.view;
 
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,14 +25,14 @@ public class LogisticsManagerMainFrame extends MainFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTable table;
-	
+
 	private List<Bus> buses;
 
 	public LogisticsManagerMainFrame(User user) {
 		super(user);
-		
+
 		setTitle("后勤管理员: " + user.getName());
-		
+
 		setBounds(100, 100, 450, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -45,7 +45,7 @@ public class LogisticsManagerMainFrame extends MainFrame {
 		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
-		
+
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -54,24 +54,21 @@ public class LogisticsManagerMainFrame extends MainFrame {
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 1;
 		getContentPane().add(panel, gbc_panel);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 85, 585, 182);
 		panel.add(scrollPane);
-		
+
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"ID", "\u7EBF\u8DEF\u4EE3\u7801", "\u7EBF\u8DEF\u540D\u79F0", "\u65B9\u5411", "\u8FD0\u8425\u65E5\u671F", "\u8FD0\u8425\u65F6\u6BB5", "\u53D1\u8F66\u65F6\u95F4", "\u622A\u6B62\u65F6\u95F4", "\u9884\u7EA6\u4EBA\u6570"
-			}
-		) {
+				new Object[][] { { null, null, null, null, null, null, null, null, null },
+						{ null, null, null, null, null, null, null, null, null },
+						{ null, null, null, null, null, null, null, null, null },
+						{ null, null, null, null, null, null, null, null, null },
+						{ null, null, null, null, null, null, null, null, null }, },
+				new String[] { "ID", "\u7EBF\u8DEF\u4EE3\u7801", "\u7EBF\u8DEF\u540D\u79F0", "\u65B9\u5411",
+						"\u8FD0\u8425\u65E5\u671F", "\u8FD0\u8425\u65F6\u6BB5", "\u53D1\u8F66\u65F6\u95F4",
+						"\u622A\u6B62\u65F6\u95F4", "\u9884\u7EA6\u4EBA\u6570" }) {
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int row, int column) {
@@ -79,71 +76,71 @@ public class LogisticsManagerMainFrame extends MainFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
-		
 
 		JButton btnReturn = new JButton("返回");
 		btnReturn.setBounds(467, 277, 93, 23);
 		panel.add(btnReturn);
-		
+
 		JButton btnDeleteBus = new JButton("删除班车");
 		btnDeleteBus.setBounds(10, 52, 105, 23);
 		panel.add(btnDeleteBus);
-		
+
 		JButton btnSetExpireTime = new JButton("设置截止时间");
 		btnSetExpireTime.setBounds(240, 52, 131, 23);
 		panel.add(btnSetExpireTime);
-		
+
 		JButton btnShowPassengers = new JButton("查看乘客");
 		btnShowPassengers.setBounds(485, 52, 110, 23);
 		panel.add(btnShowPassengers);
-		
+
 		JButton btnNewBus = new JButton("新建班车");
 		btnNewBus.setBounds(10, 19, 105, 23);
 		panel.add(btnNewBus);
-		
+
 		JButton btnModifyBus = new JButton("修改班车");
 		btnModifyBus.setBounds(125, 52, 105, 23);
 		panel.add(btnModifyBus);
-		
 
-		//返回
+		// 返回
 		btnReturn.addActionListener(e -> {
 			UserController.getInstance().showLoginFrame();
 			dispose();
 		});
-		
 
 		JButton btnModifySelf = new JButton("修改个人信息");
 		btnModifySelf.setBounds(485, 19, 110, 23);
 		panel.add(btnModifySelf);
-		//修改个人信息
+		// 修改个人信息
 		btnModifySelf.addActionListener(e -> UserController.getInstance().showModifySelfFrame(user.getId()));
-		
-		//新增班车
+
+		// 新增班车
 		btnNewBus.addActionListener(e -> BusController.getInstance().showNewBusFrame());
-		
-		//删除班车
+
+		// 删除班车
 		btnDeleteBus.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
 				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "请先选择要删除的用户");
 				return;
 			}
-			int result = JOptionPane.showConfirmDialog(LogisticsManagerMainFrame.this, "是否要删除", "", JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog(LogisticsManagerMainFrame.this, "是否要删除", "",
+					JOptionPane.YES_NO_OPTION);
 			if (result != JOptionPane.YES_OPTION) {
 				return;
 			}
 
-			int[] ids = Arrays.stream(table.getSelectedRows()).map(i -> buses.get(i).getId()).toArray();
-			Arrays.stream(ids).forEach(id -> {
-				if (BusController.getInstance().deleteBus(id) == null) {
-					JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
-				}
-			});
-			
-			JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+			Arrays.stream(table.getSelectedRows()).map(i -> buses.get(i).getId()).mapToObj(Integer::valueOf)
+					.collect(Collectors.toList()).forEach(id -> {
+						if (BusController.getInstance().deleteBus(id) == null) {
+							JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "删除失败", "错误",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					});
+
+			JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "删除成功", "成功",
+					JOptionPane.INFORMATION_MESSAGE);
 		});
-		
-		//修改班车
+
+		// 修改班车
 		btnModifyBus.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
 				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "请先选择要修改的班车");
@@ -156,8 +153,8 @@ public class LogisticsManagerMainFrame extends MainFrame {
 			int id = buses.get(table.getSelectedRow()).getId();
 			BusController.getInstance().showModifyBusFrame(id);
 		});
-		
-		//设置截止时间
+
+		// 设置截止时间
 		btnSetExpireTime.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
 				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "请先选择要设置时间的班车");
@@ -170,8 +167,8 @@ public class LogisticsManagerMainFrame extends MainFrame {
 			int id = buses.get(table.getSelectedRow()).getId();
 			BusController.getInstance().showSetExpireTimeFrame(id);
 		});
-		
-		//查看乘客
+
+		// 查看乘客
 		btnShowPassengers.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
 				JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "请先选择要查看乘客的班车");
@@ -184,19 +181,19 @@ public class LogisticsManagerMainFrame extends MainFrame {
 			int id = buses.get(table.getSelectedRow()).getId();
 			BusController.getInstance().showPassengerListFrame(id);
 		});
-		
-		//注册观察者
+
+		// 注册观察者
 		BusController.getInstance().registerObeserver(this::flushTable);
 		UserController.getInstance().registerObserver(() -> flushUser());
-		
+
 		flushTable();
 	}
-	
+
 	private void flushUser() {
 		user = UserController.getInstance().getUser(user.getId());
 		setTitle("后勤管理员: " + user.getName());
 	}
-	
+
 	private void flushTable() {
 		buses = BusController.getInstance().getAllBuses();
 		Object[][] data = buses.stream().map(bus -> {
@@ -216,18 +213,16 @@ public class LogisticsManagerMainFrame extends MainFrame {
 			obj[8] = bus.getPassengers().size();
 			return obj;
 		}).toArray(Object[][]::new);
-		
-		table.setModel(new DefaultTableModel(
-				data,
-				new String[] {
-					"ID", "\u7EBF\u8DEF\u4EE3\u7801", "\u7EBF\u8DEF\u540D\u79F0", "\u65B9\u5411", "\u8FD0\u8425\u65E5\u671F", "\u8FD0\u8425\u65F6\u6BB5", "\u53D1\u8F66\u65F6\u95F4", "\u622A\u6B62\u65F6\u95F4", "\u9884\u7EA6\u4EBA\u6570"
-				}
-			) {
-				private static final long serialVersionUID = 1L;
 
-				public boolean isCellEditable(int row, int column) {
-					return false;
-				}
-			});
+		table.setModel(new DefaultTableModel(data,
+				new String[] { "ID", "\u7EBF\u8DEF\u4EE3\u7801", "\u7EBF\u8DEF\u540D\u79F0", "\u65B9\u5411",
+						"\u8FD0\u8425\u65E5\u671F", "\u8FD0\u8425\u65F6\u6BB5", "\u53D1\u8F66\u65F6\u95F4",
+						"\u622A\u6B62\u65F6\u95F4", "\u9884\u7EA6\u4EBA\u6570" }) {
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		});
 	}
 }

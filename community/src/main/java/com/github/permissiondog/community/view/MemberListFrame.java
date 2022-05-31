@@ -10,6 +10,7 @@ import java.awt.Insets;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -83,15 +84,15 @@ public class MemberListFrame extends JFrame {
 		JButton btnModifyMember = new JButton("修改老人");
 		btnModifyMember.setBounds(342, 10, 93, 23);
 		panel.add(btnModifyMember);
-		
+
 		JButton btnReturn = new JButton("返回");
 		btnReturn.addActionListener(e -> dispose());
 		btnReturn.setBounds(342, 265, 93, 23);
 		panel.add(btnReturn);
 
-		//新增入住人
+		// 新增入住人
 		btnNewMember.addActionListener(e -> MemberController.getInstance().showNewMemberFrame());
-		//删除入住人
+		// 删除入住人
 		btnDeleteMember.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
 				JOptionPane.showMessageDialog(MemberListFrame.this, "请先选择要删除的入住人");
@@ -101,15 +102,16 @@ public class MemberListFrame extends JFrame {
 			if (result != JOptionPane.YES_OPTION) {
 				return;
 			}
-			int[] ids = Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).toArray();
-			Arrays.stream(ids).forEach(id -> {
-				if (MemberController.getInstance().deleteMember(id) == null) {
-					JOptionPane.showMessageDialog(MemberListFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
-				}
-			});
+			Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).mapToObj(Integer::valueOf)
+					.collect(Collectors.toList()).forEach(id -> {
+						if (MemberController.getInstance().deleteMember(id) == null) {
+							JOptionPane.showMessageDialog(MemberListFrame.this, "删除失败", "错误",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					});
 			JOptionPane.showMessageDialog(MemberListFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 		});
-		//修改入住人
+		// 修改入住人
 		btnModifyMember.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
 				JOptionPane.showMessageDialog(MemberListFrame.this, "请先选择要修改的用户");
@@ -139,7 +141,6 @@ public class MemberListFrame extends JFrame {
 			obj[4] = member.getPhone();
 			return obj;
 		}).toArray(Object[][]::new);
-		
 
 		table.setModel(new DefaultTableModel(data,
 				new String[] { "ID", "\u59D3\u540D", "\u6027\u522B", "\u51FA\u751F\u65E5\u671F", "\u7535\u8BDD" }) {

@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -119,12 +120,13 @@ public class ServiceListFrame extends JFrame {
 			if (result != JOptionPane.YES_OPTION) {
 				return;
 			}
-			int[] ids = Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).toArray();
-			Arrays.stream(ids).forEach(id -> {
-				if (MemberController.getInstance().unsetService(id) == null) {
-					JOptionPane.showMessageDialog(ServiceListFrame.this, "取消失败", "错误", JOptionPane.ERROR_MESSAGE);
-				}
-			});
+			Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).mapToObj(Integer::valueOf)
+					.collect(Collectors.toList()).forEach(id -> {
+						if (MemberController.getInstance().unsetService(id) == null) {
+							JOptionPane.showMessageDialog(ServiceListFrame.this, "取消失败", "错误",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					});
 			JOptionPane.showMessageDialog(ServiceListFrame.this, "取消成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 
 		});
