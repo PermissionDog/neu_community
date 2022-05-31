@@ -203,7 +203,7 @@ public class AdminMainFrame extends MainFrame {
 
 	private void flushTable() {
 		users = UserController.getInstance().getAllUsers();
-		Object[][] data = users.stream().map(user -> {
+		Object[][] data = users.stream().parallel().map(user -> {
 			Object[] obj = new Object[7];
 			obj[0] = user.getId();
 			obj[1] = user.getUsername();
@@ -227,7 +227,7 @@ public class AdminMainFrame extends MainFrame {
 
 	public void flushTable(String keyword) {
 		users = UserController.getInstance().getAllUsers();
-		Object[][] data = users.stream().map(user -> {
+		Object[][] data = users.stream().parallel().map(user -> {
 			Object[] obj = new Object[7];
 			obj[0] = user.getId();
 			obj[1] = user.getUsername();

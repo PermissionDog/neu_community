@@ -132,7 +132,7 @@ public class MemberListFrame extends JFrame {
 
 	private void flushTable() {
 		members = MemberController.getInstance().getAllMembers();
-		Object[][] data = members.stream().map(member -> {
+		Object[][] data = members.stream().parallel().map(member -> {
 			Object[] obj = new Object[5];
 			obj[0] = member.getId();
 			obj[1] = member.getName();

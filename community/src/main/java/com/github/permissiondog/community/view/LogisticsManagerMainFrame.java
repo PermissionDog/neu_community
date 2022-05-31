@@ -196,7 +196,7 @@ public class LogisticsManagerMainFrame extends MainFrame {
 
 	private void flushTable() {
 		buses = BusController.getInstance().getAllBuses();
-		Object[][] data = buses.stream().map(bus -> {
+		Object[][] data = buses.stream().parallel().map(bus -> {
 			Object[] obj = new Object[9];
 			obj[0] = bus.getId();
 			obj[1] = bus.getCode();

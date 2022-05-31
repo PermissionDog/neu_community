@@ -103,7 +103,7 @@ public class HouseKeeperMainFrame extends MainFrame {
 
 	private void flushTable() {
 		members = MemberController.getInstance().getAllMembers(user.getId());
-		Object[][] data = members.stream().map(member -> {
+		Object[][] data = members.stream().parallel().map(member -> {
 			Object[] obj = new Object[5];
 			obj[0] = member.getId();
 			obj[1] = member.getName();
