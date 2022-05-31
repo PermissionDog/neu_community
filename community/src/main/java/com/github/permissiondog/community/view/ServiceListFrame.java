@@ -120,7 +120,7 @@ public class ServiceListFrame extends JFrame {
 			if (result != JOptionPane.YES_OPTION) {
 				return;
 			}
-			Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).mapToObj(Integer::valueOf)
+			Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).boxed()
 					.collect(Collectors.toList()).forEach(id -> {
 						if (MemberController.getInstance().unsetService(id) == null) {
 							JOptionPane.showMessageDialog(ServiceListFrame.this, "取消失败", "错误",

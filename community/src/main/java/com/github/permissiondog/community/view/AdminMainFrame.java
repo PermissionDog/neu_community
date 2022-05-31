@@ -143,7 +143,7 @@ public class AdminMainFrame extends MainFrame {
 				return;
 			}
 
-			Arrays.stream(table.getSelectedRows()).map(i -> users.get(i).getId()).mapToObj(Integer::valueOf)
+			Arrays.stream(table.getSelectedRows()).map(i -> users.get(i).getId()).boxed()
 					.collect(Collectors.toList()).forEach(id -> {
 						if (UserController.getInstance().deleteUser(id) == null) {
 							JOptionPane.showMessageDialog(AdminMainFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);

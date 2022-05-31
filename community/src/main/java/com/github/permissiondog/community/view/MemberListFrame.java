@@ -102,7 +102,7 @@ public class MemberListFrame extends JFrame {
 			if (result != JOptionPane.YES_OPTION) {
 				return;
 			}
-			Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).mapToObj(Integer::valueOf)
+			Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).boxed()
 					.collect(Collectors.toList()).forEach(id -> {
 						if (MemberController.getInstance().deleteMember(id) == null) {
 							JOptionPane.showMessageDialog(MemberListFrame.this, "删除失败", "错误",

@@ -122,7 +122,7 @@ public class PassengerListFrame extends JFrame {
 			if (result != JOptionPane.YES_OPTION) {
 				return;
 			}
-			Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).mapToObj(Integer::valueOf)
+			Arrays.stream(table.getSelectedRows()).map(i -> members.get(i).getId()).boxed()
 					.collect(Collectors.toList()).forEach(memberID -> {
 						if (BusController.getInstance().removeReservation(bus.getId(), memberID) == null) {
 							JOptionPane.showMessageDialog(this, "确认失败", "错误", JOptionPane.ERROR_MESSAGE);

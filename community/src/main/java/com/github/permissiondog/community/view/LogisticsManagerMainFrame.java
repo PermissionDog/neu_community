@@ -128,7 +128,7 @@ public class LogisticsManagerMainFrame extends MainFrame {
 				return;
 			}
 
-			Arrays.stream(table.getSelectedRows()).map(i -> buses.get(i).getId()).mapToObj(Integer::valueOf)
+			Arrays.stream(table.getSelectedRows()).map(i -> buses.get(i).getId()).boxed()
 					.collect(Collectors.toList()).forEach(id -> {
 						if (BusController.getInstance().deleteBus(id) == null) {
 							JOptionPane.showMessageDialog(LogisticsManagerMainFrame.this, "删除失败", "错误",
