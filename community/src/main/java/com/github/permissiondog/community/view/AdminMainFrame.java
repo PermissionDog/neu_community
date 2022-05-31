@@ -15,7 +15,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class AdminMainFrame extends MainFrame {
 		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
-		
+
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -56,29 +55,29 @@ public class AdminMainFrame extends MainFrame {
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 1;
 		getContentPane().add(panel, gbc_panel);
-		
+
 		JButton btnNewUser = new JButton("新增用户");
 		btnNewUser.setBounds(10, 10, 93, 23);
 		panel.add(btnNewUser);
-		
+
 		JButton btnDeleteUser = new JButton("删除用户");
 		btnDeleteUser.setBounds(10, 42, 93, 23);
 		panel.add(btnDeleteUser);
-		
+
 		textFieldSearch = new JTextField();
 		textFieldSearch.setToolTipText("输入关键词搜索");
 		textFieldSearch.setBounds(250, 42, 206, 23);
 		panel.add(textFieldSearch);
 		textFieldSearch.setColumns(10);
-		
+
 		JButton btnShowService = new JButton("查看服务");
 		btnShowService.setBounds(492, 42, 93, 23);
 		panel.add(btnShowService);
-		
+
 		JButton btnShowMember = new JButton("查看老人");
 		btnShowMember.setBounds(492, 10, 93, 23);
 		panel.add(btnShowMember);
-		
+
 		JButton btnModifyUser = new JButton("修改用户");
 		btnModifyUser.setBounds(113, 42, 93, 23);
 		panel.add(btnModifyUser);
@@ -108,7 +107,7 @@ public class AdminMainFrame extends MainFrame {
 				new String[] { "ID", "\u7528\u6237", "\u59D3\u540D", "\u6027\u522B", "\u51FA\u751F\u65E5\u671F",
 						"\u7535\u8BDD", "\u6743\u9650" }));
 		scrollPane.setViewportView(table);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -117,22 +116,22 @@ public class AdminMainFrame extends MainFrame {
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 3;
 		getContentPane().add(panel_1, gbc_panel_1);
-		
+
 		JButton btnReturn = new JButton("返回");
 		btnReturn.setBounds(490, 0, 93, 23);
 		panel_1.add(btnReturn);
-		
-		//搜索框
+
+		// 搜索框
 		textFieldSearch.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				flushTable(textFieldSearch.getText());
 			}
 		});
-		
-		//新增用户
+
+		// 新增用户
 		btnNewUser.addActionListener(e -> UserController.getInstance().showRegisterFrame());
-		//删除用户
+		// 删除用户
 		btnDeleteUser.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
 				JOptionPane.showMessageDialog(AdminMainFrame.this, "请先选择要删除的用户");
@@ -149,10 +148,10 @@ public class AdminMainFrame extends MainFrame {
 					JOptionPane.showMessageDialog(AdminMainFrame.this, "删除失败", "错误", JOptionPane.ERROR_MESSAGE);
 				}
 			});
-			
+
 			JOptionPane.showMessageDialog(AdminMainFrame.this, "删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 		});
-		//修改用户
+		// 修改用户
 		btnModifyUser.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
 				JOptionPane.showMessageDialog(AdminMainFrame.this, "请先选择要修改的用户");
@@ -165,11 +164,11 @@ public class AdminMainFrame extends MainFrame {
 			int id = users.get(table.getSelectedRow()).getId();
 			UserController.getInstance().showModifyUserFrame(id);
 		});
-		
-		//查看老人列表
+
+		// 查看老人列表
 		btnShowMember.addActionListener(e -> MemberController.getInstance().showMemberListFrame());
-		
-		//查看服务
+
+		// 查看服务
 		btnShowService.addActionListener(e -> {
 			if (table.getSelectedRowCount() < 1) {
 				JOptionPane.showMessageDialog(AdminMainFrame.this, "请先选择要查看服务的生活管家");
@@ -186,27 +185,24 @@ public class AdminMainFrame extends MainFrame {
 			}
 			MemberController.getInstance().showServiceListFrame(u.getId());
 		});
-		
-		//返回
+
+		// 返回
 		btnReturn.addActionListener(e -> {
 			UserController.getInstance().showLoginFrame();
 			dispose();
 		});
-		
-		//注册观察者
+
+		// 注册观察者
 		UserController.getInstance().registerObserver(this::flushTable);
 		UserController.getInstance().registerObserver(this::flushTitle);
-		
-		//刷新表格
+
+		// 刷新表格
 		flushTable();
 	}
 
 	private void flushTable() {
 		users = UserController.getInstance().getAllUsers();
-		int size = users.size();
-		Object[][] data = new Object[size][];
-		for (int i = 0; i < size; i++) {
-			User user = users.get(i);
+		Object[][] data = users.stream().map(user -> {
 			Object[] obj = new Object[7];
 			obj[0] = user.getId();
 			obj[1] = user.getUsername();
@@ -215,23 +211,22 @@ public class AdminMainFrame extends MainFrame {
 			obj[4] = user.getBirthday().format(Constants.DATE_FORMATTER);
 			obj[5] = user.getPhone();
 			obj[6] = user.getRole();
-			data[i] = obj;
-		}
+			return obj;
+		}).toArray(Object[][]::new);
 
 		table.setModel(new DefaultTableModel(data, new String[] { "ID", "\u7528\u6237", "\u59D3\u540D", "\u6027\u522B",
 				"\u51FA\u751F\u65E5\u671F", "\u7535\u8BDD", "\u6743\u9650" }) {
 			private static final long serialVersionUID = 1L;
+
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		});
 	}
+
 	public void flushTable(String keyword) {
 		users = UserController.getInstance().getAllUsers();
-		int size = users.size();
-		ArrayList<Object[]> list = new ArrayList<Object[]>();
-		for (int i = 0; i < size; i++) {
-			User user = users.get(i);
+		Object[][] data = users.stream().map(user -> {
 			Object[] obj = new Object[7];
 			obj[0] = user.getId();
 			obj[1] = user.getUsername();
@@ -240,29 +235,20 @@ public class AdminMainFrame extends MainFrame {
 			obj[4] = user.getBirthday().format(Constants.DATE_FORMATTER);
 			obj[5] = user.getPhone();
 			obj[6] = user.getRole();
-			for (int j = 0; j < 7; j++) {
-				if (obj[j].toString().contains(keyword)) {
-					list.add(obj);
-					break;
-				}
-			}
-
-		}
-		Object[][] data = new Object[list.size()][];
-		Object[] temp = list.toArray();
-		for (int i = 0; i < temp.length; i++) {
-			data[i] = (Object[]) temp[i];
-		}
-		
+			return obj;
+		}).filter(user -> Arrays.stream(user).map(Object::toString).anyMatch(t -> t.contains(keyword)))
+				.toArray(Object[][]::new);
 
 		table.setModel(new DefaultTableModel(data, new String[] { "ID", "\u7528\u6237", "\u59D3\u540D", "\u6027\u522B",
 				"\u51FA\u751F\u65E5\u671F", "\u7535\u8BDD", "\u6743\u9650" }) {
 			private static final long serialVersionUID = 1L;
+
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		});
 	}
+
 	private void flushTitle() {
 		user = UserController.getInstance().getUser(user.getId());
 		setTitle("管理员: " + user.getName());
