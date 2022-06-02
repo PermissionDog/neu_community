@@ -22,6 +22,12 @@ import com.github.permissiondog.community.model.Member;
 
 import javax.swing.JButton;
 
+/**
+ * 入住人列表界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class MemberListFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

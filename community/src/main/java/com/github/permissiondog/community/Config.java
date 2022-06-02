@@ -1,5 +1,11 @@
 package com.github.permissiondog.community;
 
+/**
+ * 配置文件
+ * 
+ * @author PermissionDog
+ *
+ */
 public class Config {
 	
 	protected static Config config;

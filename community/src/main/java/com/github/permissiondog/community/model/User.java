@@ -5,6 +5,12 @@ import java.time.LocalDate;
 import com.github.permissiondog.community.model.enumeration.Gender;
 import com.github.permissiondog.community.model.enumeration.Role;
 
+/**
+ * 用户实体类
+ * 
+ * @author PermissionDog
+ *
+ */
 public class User extends Entity {
 	private int id;					//ID
 	private String username;		//用户名

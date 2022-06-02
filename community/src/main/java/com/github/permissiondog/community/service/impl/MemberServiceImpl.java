@@ -20,6 +20,12 @@ import com.github.permissiondog.community.model.enumeration.Gender;
 import com.github.permissiondog.community.model.enumeration.Role;
 import com.github.permissiondog.community.service.MemberService;
 
+/**
+ * 入住人 Service 实现
+ * 
+ * @author PermissionDog
+ *
+ */
 public class MemberServiceImpl implements MemberService {
 	private static MemberService memberService;
 

@@ -26,6 +26,12 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+/**
+ * 管理员主窗口
+ * 
+ * @author PermissionDog
+ *
+ */
 public class AdminMainFrame extends MainFrame {
 	private static final long serialVersionUID = 1L;
 	private JTable table;

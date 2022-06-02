@@ -2,6 +2,12 @@ package com.github.permissiondog.community.service.impl;
 
 import com.github.permissiondog.community.exception.IllegalParameterException;
 
+/**
+ * 参数检查器
+ * 
+ * @author PermissionDog
+ *
+ */
 public class ParameterChecker {
 	protected static boolean checkUserName(String username) {
 		if (username == null) {

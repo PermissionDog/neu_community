@@ -12,6 +12,12 @@ import com.github.permissiondog.community.exception.RouteCodeAlreadyExistExcepti
 import com.github.permissiondog.community.exception.TimeExceededException;
 import com.github.permissiondog.community.model.Bus;
 
+/**
+ * 班车 Service
+ * 
+ * @author PermissionDog
+ *
+ */
 public interface BusService extends BaseService {
 
 	/**

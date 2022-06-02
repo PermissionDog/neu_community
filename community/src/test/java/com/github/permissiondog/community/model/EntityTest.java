@@ -5,6 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * 实体类测试
+ * 
+ * @author PermissionDog
+ *
+ */
 public class EntityTest {
 	@Test
 	void testEntity() {

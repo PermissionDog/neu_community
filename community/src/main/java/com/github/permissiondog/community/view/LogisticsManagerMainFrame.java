@@ -21,6 +21,12 @@ import com.github.permissiondog.community.model.User;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+/**
+ * 后勤管家主界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class LogisticsManagerMainFrame extends MainFrame {
 
 	private static final long serialVersionUID = 1L;

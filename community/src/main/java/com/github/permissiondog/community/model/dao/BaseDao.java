@@ -5,6 +5,13 @@ import java.util.Map;
 
 import com.github.permissiondog.community.model.Identifiable;
 
+/**
+ * Dao 的接口
+ * 
+ * @author PermissionDog
+ *
+ * @param <T> 实体类
+ */
 public interface BaseDao<T extends Identifiable> {
 	/**
 	 * 加载文件数据到内存

@@ -7,6 +7,12 @@ import com.github.permissiondog.community.exception.NoSuchHouseKeeperException;
 import com.github.permissiondog.community.exception.NoSuchMemberException;
 import com.github.permissiondog.community.model.Member;
 
+/**
+ * 入住人 Service
+ * 
+ * @author PermissionDog
+ *
+ */
 public interface MemberService extends BaseService {
 	/**
 	 * 创建新入住人

@@ -21,6 +21,12 @@ import javax.swing.JPasswordField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * 登录界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class LoginFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

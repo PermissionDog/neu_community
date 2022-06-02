@@ -1,5 +1,11 @@
 package com.github.permissiondog.community.util;
 
+/**
+ * 未找到加密方法异常
+ * 
+ * @author PermissionDog
+ *
+ */
 class NoSuchAlgorithmException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

@@ -16,6 +16,14 @@ import javax.swing.border.EmptyBorder;
 
 import com.github.permissiondog.community.model.enumeration.Role;
 
+/**
+ * 入住人信息界面
+ * 
+ * @author PermissionDog
+ * @see NewMemberFrame
+ * @see ModifyMemberFrame
+ *
+ */
 public abstract class MemberFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

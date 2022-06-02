@@ -16,6 +16,12 @@ import com.github.permissiondog.community.model.enumeration.Role;
 import com.github.permissiondog.community.model.enumeration.RouteType;
 import com.google.gson.Gson;
 
+/**
+ * Gson 测试
+ * 
+ * @author PermissionDog
+ *
+ */
 public class GsonUtilTest {
 	@Test
 	@DisplayName("测试时间")

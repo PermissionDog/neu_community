@@ -7,6 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * 密码加密相关测试
+ * 
+ * @author PermissionDog
+ *
+ */
 public class EncryptTest {
 	@Test
 	@DisplayName("测试加密")

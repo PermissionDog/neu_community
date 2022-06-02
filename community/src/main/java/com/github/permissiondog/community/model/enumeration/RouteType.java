@@ -1,5 +1,11 @@
 package com.github.permissiondog.community.model.enumeration;
 
+/**
+ * 线路类型
+ * 
+ * @author PermissionDog
+ *
+ */
 public enum RouteType {
 	IN {
 		@Override

@@ -7,6 +7,12 @@ import java.nio.charset.Charset;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * 十六进制转换测试
+ * 
+ * @author PermissionDog
+ *
+ */
 public class HexTest {
 
 	@Test

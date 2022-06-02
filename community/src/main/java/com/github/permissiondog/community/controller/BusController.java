@@ -27,6 +27,12 @@ import com.github.permissiondog.community.view.NewBusFrame;
 import com.github.permissiondog.community.view.PassengerListFrame;
 import com.github.permissiondog.community.view.SetExpireTimeFrame;
 
+/**
+ * 班车 Controller
+ * 
+ * @author PermissionDog
+ *
+ */
 public class BusController {
 	private static BusController busController;
 

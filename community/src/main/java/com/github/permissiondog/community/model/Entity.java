@@ -1,5 +1,11 @@
 package com.github.permissiondog.community.model;
 
+/**
+ * 实体类基类
+ * 
+ * @author PermissionDog
+ *
+ */
 public abstract class Entity implements Identifiable {
 
 	@Override

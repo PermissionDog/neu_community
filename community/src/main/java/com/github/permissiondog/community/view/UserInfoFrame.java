@@ -22,6 +22,15 @@ import javax.swing.DefaultComboBoxModel;
 
 import java.awt.Color;
 
+/**
+ * 用户信息界面
+ * 
+ * @author PermissionDog
+ * @see ModifySelfFrame
+ * @see ModifyUserFrame
+ * @see RegisterFrame
+ *
+ */
 public abstract class UserInfoFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

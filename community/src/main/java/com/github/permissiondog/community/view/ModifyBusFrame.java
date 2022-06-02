@@ -13,6 +13,12 @@ import com.github.permissiondog.community.model.enumeration.Direction;
 import com.github.permissiondog.community.model.enumeration.Period;
 import com.github.permissiondog.community.model.enumeration.RouteType;
 
+/**
+ * 修改班车界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class ModifyBusFrame extends BusFrame {
 
 	private static final long serialVersionUID = 1L;

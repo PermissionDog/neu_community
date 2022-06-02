@@ -21,6 +21,12 @@ import com.github.permissiondog.community.view.ModifySelfFrame;
 import com.github.permissiondog.community.view.ModifyUserFrame;
 import com.github.permissiondog.community.view.RegisterFrame;
 
+/**
+ * 用户 Controller
+ * 
+ * @author PermissionDog
+ *
+ */
 public class UserController {
 
 	private static UserController userController;

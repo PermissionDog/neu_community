@@ -12,6 +12,12 @@ import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.enumeration.Gender;
 import com.github.permissiondog.community.model.enumeration.Role;
 
+/**
+ * 修改用户信息界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class ModifyUserFrame extends UserInfoFrame {
 
 	private static final long serialVersionUID = 1L;

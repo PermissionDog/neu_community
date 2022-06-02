@@ -4,6 +4,13 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 
+/**
+ * 文件工具类
+ * 提供了文件读写, jar包内资源写出操作
+ * 
+ * @author PermissionDog
+ *
+ */
 public class FileUtil {
 	/**
 	 * 读取文件

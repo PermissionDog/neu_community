@@ -1,5 +1,11 @@
 package com.github.permissiondog.community.model.enumeration;
 
+/**
+ * 运营时段
+ * 
+ * @author PermissionDog
+ *
+ */
 public enum Period {
 	MORNING {
 		@Override

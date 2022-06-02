@@ -11,6 +11,12 @@ import com.github.permissiondog.community.controller.MemberController;
 import com.github.permissiondog.community.model.Member;
 import com.github.permissiondog.community.model.enumeration.Gender;
 
+/**
+ * 创建新入住人界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class NewMemberFrame extends MemberFrame {
 
 	private static final long serialVersionUID = 1L;

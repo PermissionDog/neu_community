@@ -18,6 +18,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+/**
+ * 设置截止时间界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class SetExpireTimeFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

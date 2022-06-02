@@ -15,6 +15,12 @@ import com.github.permissiondog.community.model.dao.Observer;
 import com.github.permissiondog.community.model.enumeration.*;
 import com.github.permissiondog.community.service.BusService;
 
+/**
+ * 班车 Service 实现
+ * 
+ * @author PermissionDog
+ *
+ */
 public class BusServiceImpl implements BusService {
 	private static BusService busService;
 	

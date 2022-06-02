@@ -2,6 +2,12 @@ package com.github.permissiondog.community.model.dao;
 
 import com.github.permissiondog.community.model.Bus;
 
+/**
+ * 班车 Dao
+ * 
+ * @author PermissionDog
+ *
+ */
 public interface BusDao extends BaseDao<Bus> {
 	/**
 	 * 查找班车

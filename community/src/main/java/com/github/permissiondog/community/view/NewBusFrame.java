@@ -12,6 +12,12 @@ import com.github.permissiondog.community.controller.BusController;
 import com.github.permissiondog.community.model.Bus;
 import com.github.permissiondog.community.model.enumeration.*;
 
+/**
+ * 创建新班车界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class NewBusFrame extends BusFrame {
 
 	private static final long serialVersionUID = 1L;

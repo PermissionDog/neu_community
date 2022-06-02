@@ -7,6 +7,12 @@ import com.github.permissiondog.community.model.Identifiable;
 import com.github.permissiondog.community.model.dao.BaseDao;
 import com.github.permissiondog.community.model.dao.Observer;
 
+/**
+ * 部分 Dao 方法的默认实现
+ * 
+ * @author PermissionDog
+ * @param <T> 实体类类型
+ */
 public abstract class BaseDaoImpl<T extends Identifiable> implements BaseDao<T> {
 
 	@Override

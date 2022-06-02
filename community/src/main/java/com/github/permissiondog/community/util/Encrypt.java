@@ -2,9 +2,20 @@ package com.github.permissiondog.community.util;
 
 import java.security.MessageDigest;
 
+/**
+ * 加密工具类
+ * 
+ * 主要进行密码加密, 密码验证
+ * 
+ * @author PermissionDog
+ *
+ */
 public class Encrypt {
 	
 	
+	/**
+	 * 用于生成盐的字符
+	 */
 	private static final String SALT_CHARS = "0123456789abcdefghijklmnopqrstuvwxyz";
 	
 	/**
@@ -56,6 +67,13 @@ public class Encrypt {
 		return algorithm + ":" + salt + ":" + Hex.toHexString(data);
 	}
 
+	/**
+	 * 检查密码是否正确
+	 * 
+	 * @param password		要检测的密码
+	 * @param cypheredPwd	加密过的密码
+	 * @return				正确返回 true
+	 */
 	public static boolean check(String password, String cypheredPwd) {
 		String[] temp = cypheredPwd.split(":");
 		if (temp.length < 3) {

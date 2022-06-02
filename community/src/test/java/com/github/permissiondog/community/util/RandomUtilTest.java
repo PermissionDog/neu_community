@@ -5,6 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * 随机字符串生成测试
+ * 
+ * @author PermissionDog
+ *
+ */
 public class RandomUtilTest {
 	@Test
 	@DisplayName("测试随机字符生成")

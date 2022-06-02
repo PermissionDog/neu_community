@@ -14,6 +14,12 @@ import com.github.permissiondog.community.model.User;
 import com.github.permissiondog.community.model.enumeration.Gender;
 import com.github.permissiondog.community.model.enumeration.Role;
 
+/**
+ * 注册界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class RegisterFrame extends UserInfoFrame {
 
 	private static final long serialVersionUID = 1L;

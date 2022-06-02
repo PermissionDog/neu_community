@@ -11,6 +11,12 @@ import com.github.permissiondog.community.util.FileUtil;
 import com.github.permissiondog.community.util.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * 班车 Dao 实现
+ * 
+ * @author PermissionDog
+ *
+ */
 public class BusDaoImpl extends BaseDaoImpl<Bus> implements BusDao {
 	private static BusDao busDao;
 	

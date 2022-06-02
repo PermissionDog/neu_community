@@ -4,6 +4,12 @@ import java.time.LocalDate;
 
 import com.github.permissiondog.community.model.enumeration.Gender;
 
+/**
+ * 入住人实体类
+ * 
+ * @author PermissionDog
+ *
+ */
 public class Member extends Entity {
 	private int id;
 	private String name;

@@ -2,6 +2,12 @@ package com.github.permissiondog.community.model.enumeration;
 
 import java.time.DayOfWeek;
 
+/**
+ * 运营日期
+ * 
+ * @author PermissionDog
+ *
+ */
 public enum Cycle {
 	EVERY_DAY {
 		@Override

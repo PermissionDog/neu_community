@@ -11,6 +11,12 @@ import com.github.permissiondog.community.util.FileUtil;
 import com.github.permissiondog.community.util.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * 入住人 Dao 实现
+ * 
+ * @author PermissionDog
+ *
+ */
 public class MemberDaoImpl extends BaseDaoImpl<Member> implements MemberDao {
 	private static MemberDao memberDao;
 	

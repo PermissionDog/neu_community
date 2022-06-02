@@ -19,6 +19,12 @@ import com.github.permissiondog.community.view.ModifyMemberFrame;
 import com.github.permissiondog.community.view.NewMemberFrame;
 import com.github.permissiondog.community.view.ServiceListFrame;
 
+/**
+ * 入住人 Controller
+ * 
+ * @author PermissionDog
+ *
+ */
 public class MemberController {
 	private static MemberController memberController;
 

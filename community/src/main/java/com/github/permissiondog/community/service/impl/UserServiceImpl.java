@@ -17,6 +17,12 @@ import com.github.permissiondog.community.model.enumeration.Role;
 import com.github.permissiondog.community.service.UserService;
 import com.github.permissiondog.community.util.Encrypt;
 
+/**
+ * 用户 Service 实现
+ * 
+ * @author PermissionDog
+ *
+ */
 public class UserServiceImpl implements UserService {
 	private static UserService userService;
 

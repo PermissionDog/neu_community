@@ -9,6 +9,12 @@ import com.github.permissiondog.community.model.dao.UserDao;
 import com.github.permissiondog.community.util.*;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * 用户 Dao 实现
+ * 
+ * @author PermissionDog
+ *
+ */
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	private static UserDao userDao;
 

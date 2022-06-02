@@ -1,5 +1,11 @@
 package com.github.permissiondog.community.model.enumeration;
 
+/**
+ * 用户权限
+ * 
+ * @author PermissionDog
+ *
+ */
 public enum Role {
 	//管理员
 	ADMINISTRATOR {

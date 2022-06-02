@@ -7,7 +7,7 @@ import java.util.*;
  * 
  * @author PermissionDog
  *
- * @param <T extends Identifiable> 表格类型
+ * @param <T> 表格数据类型
  */
 public class Table<T extends Identifiable> {
 	private int idCount;	//ID自增值计数

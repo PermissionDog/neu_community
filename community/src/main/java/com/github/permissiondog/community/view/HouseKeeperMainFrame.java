@@ -20,6 +20,12 @@ import com.github.permissiondog.community.controller.UserController;
 import com.github.permissiondog.community.model.Member;
 import com.github.permissiondog.community.model.User;
 
+/**
+ * 生活管家主界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class HouseKeeperMainFrame extends MainFrame {
 
 	private static final long serialVersionUID = 1L;

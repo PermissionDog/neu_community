@@ -19,7 +19,15 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.Color;
 
-public class BusFrame extends JFrame {
+/**
+ * 班车信息
+ * 
+ * @author PermissionDog
+ * @see NewBusFrame
+ * @see ModifyBusFrame
+ *
+ */
+public abstract class BusFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

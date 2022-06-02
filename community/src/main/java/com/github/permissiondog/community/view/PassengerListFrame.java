@@ -24,6 +24,12 @@ import com.github.permissiondog.community.controller.MemberController;
 import com.github.permissiondog.community.model.Bus;
 import com.github.permissiondog.community.model.Member;
 
+/**
+ * 乘客列表界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class PassengerListFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

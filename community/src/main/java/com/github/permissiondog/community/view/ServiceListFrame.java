@@ -24,6 +24,12 @@ import com.github.permissiondog.community.model.Member;
 import com.github.permissiondog.community.model.User;
 import javax.swing.JComboBox;
 
+/**
+ * 服务列表界面
+ * 
+ * @author PermissionDog
+ *
+ */
 public class ServiceListFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

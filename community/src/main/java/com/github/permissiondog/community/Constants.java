@@ -2,6 +2,12 @@ package com.github.permissiondog.community;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * 常量
+ * 
+ * @author PermissionDog
+ *
+ */
 public class Constants {
 	public static final String CONFIG_FILE = "config.json";
 	

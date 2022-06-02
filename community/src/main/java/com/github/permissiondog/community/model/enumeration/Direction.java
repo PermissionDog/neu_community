@@ -1,5 +1,11 @@
 package com.github.permissiondog.community.model.enumeration;
 
+/**
+ * 运行方向
+ * 
+ * @author PermissionDog
+ *
+ */
 public enum Direction {
 	UP {
 		@Override

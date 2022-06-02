@@ -8,6 +8,12 @@ import com.github.permissiondog.community.util.FileUtil;
 import com.github.permissiondog.community.util.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * 主类
+ * 
+ * @author PermissionDog
+ *
+ */
 public class Main {
 	public static void main(String[] args) {
 		initFile();

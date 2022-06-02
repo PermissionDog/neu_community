@@ -18,6 +18,13 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
+/**
+ * Gson 工具类
+ * 主要对注册自定义类型进行了注册
+ * 
+ * @author PermissionDog
+ *
+ */
 public class GsonUtil {
 	public static final Gson gson = new GsonBuilder().setPrettyPrinting()
 			.registerTypeHierarchyAdapter(LocalTime.class, new TypeAdapter<LocalTime>() {
@@ -104,7 +111,6 @@ public class GsonUtil {
 
 				@Override
 				public void write(JsonWriter out, Cycle value) throws IOException {
-//					System.out.println("cao");
 					switch (value) {
 					case EVERY_DAY:
 						out.value("every_day");

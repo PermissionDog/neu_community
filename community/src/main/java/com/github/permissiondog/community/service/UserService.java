@@ -8,6 +8,12 @@ import com.github.permissiondog.community.exception.UserNameAlreadyExistExceptio
 import com.github.permissiondog.community.exception.WrongPasswordException;
 import com.github.permissiondog.community.model.User;
 
+/**
+ * 用户 Service
+ * 
+ * @author PermissionDog
+ *
+ */
 public interface UserService extends BaseService {
 	/**
 	 *	登录
