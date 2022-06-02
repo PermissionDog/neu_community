@@ -1,7 +1,7 @@
 package com.github.permissiondog.community.exception;
 
 /**
- * 没有改入住人异常
+ * 没有该入住人异常
  * 
  * @author PermissionDog
  *
