@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
 		LocalDate birthday = u.getBirthday();
 		String phone = u.getPhone();
 		Role role = u.getRole();
-		
+
 		ParameterChecker.ensureNotEmpty(username, "用户名");
 		ParameterChecker.ensureNotEmpty(pwd, "密码");
 		ParameterChecker.ensureNotEmpty(name, "姓名");
@@ -82,7 +82,8 @@ public class UserServiceImpl implements UserService {
 
 		// 参数校验
 		ParameterChecker.ensure(ParameterChecker.checkUserName(username), "用户名由4-18位英文字母、数字或下划线组成");
-		ParameterChecker.ensure(ParameterChecker.checkPassword(pwd), "密码由8-18位字符组成，至少含有大写字母、小写字母、数字、特殊符号（~!@#$%^&*._）中的任意两种");
+		ParameterChecker.ensure(ParameterChecker.checkPassword(pwd),
+				"密码由8-18位字符组成，至少含有大写字母、小写字母、数字、特殊符号（~!@#$%^&*._）中的任意两种");
 		ParameterChecker.ensure(ParameterChecker.checkName(name), "姓名由1-10位英文字母、汉字或数字组成");
 		ParameterChecker.ensure(ParameterChecker.checkPhone(phone), "电话由5-20位数字或加号组成");
 
@@ -105,14 +106,15 @@ public class UserServiceImpl implements UserService {
 		if (oldUser == null) {
 			throw new NoSuchUserException();
 		}
-		
-		//用户名不可修改
+
+		// 用户名不可修改
 		user.setUsername(oldUser.getUsername());
-		
+
 		if (user.getPassword() == null || user.getPassword() == "") {
 			user.setPassword(oldUser.getPassword());
 		} else {
-			ParameterChecker.ensure(ParameterChecker.checkPassword(user.getPassword()), "密码由8-18位字符组成，至少含有大写字母、小写字母、数字、特殊符号（~!@#$%^&*._）中的任意两种");
+			ParameterChecker.ensure(ParameterChecker.checkPassword(user.getPassword()),
+					"密码由8-18位字符组成，至少含有大写字母、小写字母、数字、特殊符号（~!@#$%^&*._）中的任意两种");
 			user.setPassword(Encrypt.encryptPassword(Config.getConfig().getPasswordAlgorithm(), user.getPassword()));
 		}
 		ParameterChecker.ensureNotEmpty(user.getUsername(), "用户名");
@@ -121,32 +123,29 @@ public class UserServiceImpl implements UserService {
 		ParameterChecker.ensureNotEmpty(user.getBirthday(), "生日");
 		ParameterChecker.ensureNotEmpty(user.getPhone(), "联系方式");
 		ParameterChecker.ensureNotEmpty(user.getRole(), "权限");
-		
+
 		ParameterChecker.ensure(ParameterChecker.checkUserName(user.getUsername()), "用户名由4-18位英文字母、数字或下划线组成");
 		ParameterChecker.ensure(ParameterChecker.checkName(user.getName()), "姓名由1-10位英文字母、汉字或数字组成");
 		ParameterChecker.ensure(ParameterChecker.checkPhone(user.getPhone()), "电话由5-20位数字或加号组成");
-		
-		//如果是生活管家, 去除关联的老人信息
+
+		// 如果是生活管家, 去除关联的老人信息
 		if (oldUser.getRole().equals(Role.HOUSEKEEPER) && !oldUser.getRole().equals(user.getRole())) {
 			MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
 			List<Member> members = memberDao.getAll();
-			members.stream().filter(member -> {
-				return member.getHouseKeeperID() == oldUser.getId();
-			}).forEach(member -> {
+			members.stream().filter(member -> member.getHouseKeeperID() == oldUser.getId()).forEach(member -> {
 				member.setHouseKeeperID(-1);
 				memberDao.update(member);
 			});
 		}
-		
+
 		return userDao.update(user);
 	}
 
-
 	@Override
 	public User deleteUser(int id) {
-		UserDao userDao = (UserDao) Dao.of(Dao.USER); 
+		UserDao userDao = (UserDao) Dao.of(Dao.USER);
 		User u = userDao.find(id);
-		//如果是生活管家, 去除关联的老人信息
+		// 如果是生活管家, 去除关联的老人信息
 		if (u.getRole().equals(Role.HOUSEKEEPER)) {
 			MemberDao memberDao = (MemberDao) Dao.of(Dao.MEMBER);
 			List<Member> members = memberDao.getAll();
@@ -157,7 +156,7 @@ public class UserServiceImpl implements UserService {
 				memberDao.update(member);
 			});
 		}
-		
+
 		return userDao.delete(id);
 	}
 
@@ -172,7 +171,7 @@ public class UserServiceImpl implements UserService {
 		UserDao userDao = (UserDao) Dao.of(Dao.USER);
 		return userDao.find(username);
 	}
-	
+
 	@Override
 	public void registerObserver(Observer o) {
 		UserDao userDao = (UserDao) Dao.of(Dao.USER);
